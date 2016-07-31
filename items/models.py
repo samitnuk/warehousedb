@@ -34,6 +34,13 @@ class Item(models.Model):
         verbose_name="Зображення",
     )
 
+    category = models.ForeignKey(
+        'Category',
+        blank=True,
+        null=True,
+        verbose_name="Категорія",
+    )
+
     notes = models.TextField(
         blank=True,
         verbose_name="Примітка",
@@ -79,3 +86,23 @@ class ItemChange(models.Model):
         return '%s / (%s) - %d' % (self.item,
                                    self.changed_at.strftime('%Y-%m-%d'),
                                    self.additional_quantity)
+
+
+class Category(models.Model):
+
+    class Meta(object):
+        verbose_name = "Категорія"
+        verbose_name_plural = "Категорії"
+
+    name = models.CharField(
+        max_length=256,
+        verbose_name="Назва",
+    )
+
+    notes = models.TextField(
+        blank=True,
+        verbose_name="Примітка",
+    )
+
+    def __str__(self):
+        return self.name
