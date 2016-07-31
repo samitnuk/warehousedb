@@ -45,6 +45,8 @@ class Item(models.Model):
 
     def __str__(self):
         total = self.current_total['additional_quantity__sum']
+        if total is None:
+            total = 0
         if self.part_number:
             return '%s (%s) - %s шт.' % (self.title,
                                          self.part_number,
