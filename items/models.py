@@ -48,17 +48,17 @@ class Item(models.Model):
 
     @property
     def current_total(self):
-        return self.quantity.aggregate(models.Sum('additional_quantity'))
+        total = self.quantity.aggregate(models.Sum('additional_quantity'))
+        if total['additional_quantity__sum'] is not None:
+            return total['additional_quantity__sum']
+        return 0
 
     def __str__(self):
-        total = self.current_total['additional_quantity__sum']
-        if total is None:
-            total = 0
         if self.part_number:
             return '%s (%s) - %s шт.' % (self.title,
                                          self.part_number,
-                                         total)
-        return '%s - %s шт.' % (self.title, total)
+                                         self.current_total)
+        return '%s - %s шт.' % (self.title, self.current_total)
 
 
 class ItemChange(models.Model):
