@@ -1,0 +1,57 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <title>Склад - {% block meta_title %}{% endblock meta_title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- TODO: Favicon -->
+
+    <!-- fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
+    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
+    {% block extra_css %}{% endblock extra_css %}
+
+</head>
+<body>
+
+    <!-- start container -->
+    <div class="container">
+
+        <!-- header -->
+        <div class="row" id="header">
+            <div class="u-full-width">
+                <h3>{% block header %}{% endblock header %}</h3>
+            </div>
+        </div>
+
+        <!-- status message-->
+        {% block status_message %}
+        <div class="row" id="status_message">
+            <div class="u-full-width">
+                {% if request.GET.status_message %}
+                <div class="alert">{{ request.GET.status_message }}</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock status_message %}
+
+        <!-- main content -->
+        <div class="row" id="content">
+            <div class="u-full-width">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+
+    </div><!-- end container -->
+
+    <!-- javascript -->
+</body>
+</html>
