@@ -2,3 +2,12 @@
 body {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
+
+/* tables styles */
+table {
+    font-size: 18px;
+}
+
+tbody tr:hover {
+    background-color: #eee;
+}
