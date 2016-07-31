@@ -7,5 +7,26 @@
 {% block header %}Загально по складу{% endblock header %}
 
 {% block content %}
-    Тут буде основна таблиця
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Категорія</th>
+                <th>Найменування</th>
+                <th>Індекс</th>
+                <th>Наш індекс</th>
+                <th>Кількість</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+              <td>{{ item.category }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.part_number }}</td>
+              <td>{{ item.part_number2 }}</td>
+              <td>{{ item.current_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}
