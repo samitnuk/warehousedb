@@ -41,14 +41,15 @@ class Item(models.Model):
 
     @property
     def current_total(self):
-        return self.quantity.aggregate(models.Sum("current_quantity"))
+        return self.quantity.aggregate(models.Sum('additional_quantity'))
 
     def __str__(self):
+        total = self.current_total['additional_quantity__sum']
         if self.part_number:
-            return '%s (%s) - %s' % (self.title,
-                                     self.part_number,
-                                     self.current_total)
-        return '%s - %s' % (self.title, self.current_total)
+            return '%s (%s) - %s шт.' % (self.title,
+                                         self.part_number,
+                                         total)
+        return '%s - %s шт.' % (self.title, total)
 
 
 class ItemChange(models.Model):
@@ -57,7 +58,7 @@ class ItemChange(models.Model):
         verbose_name = "Зміна кількості"
         verbose_name_plural = "Зміни кількості"
 
-    current_quantity = models.IntegerField(
+    additional_quantity = models.IntegerField(
         blank=False,
     )
 
@@ -73,6 +74,6 @@ class ItemChange(models.Model):
     )
 
     def __str__(self):
-        return '%s (%s) - %d' % (self.item,
-                                 self.changed_at.strftime('%Y-%m-%d'),
-                                 self.current_quantity)
+        return '%s / (%s) - %d' % (self.item,
+                                   self.changed_at.strftime('%Y-%m-%d'),
+                                   self.additional_quantity)
