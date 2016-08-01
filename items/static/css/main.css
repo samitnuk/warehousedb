@@ -8,6 +8,15 @@ table {
     font-size: 18px;
 }
 
+th:first-child, td:first-child {
+    padding-left: 15px;
+}
+
+thead {
+    background-color: #444;
+    color: #fff;
+}
+
 tbody tr:hover {
     background-color: #eee;
 }
