@@ -33,7 +33,8 @@ def items_by_dates(request):
 
 @login_required(login_url='/login/')
 def item_details(request, pk):
-    return HttpResponse('<h1>Details of Item {0:s}</h1>'.format(pk))
+    item = Item.objects.filter(pk=pk).first()
+    return render(request, 'items/item_details.html', {'item': item})
 
 
 def login(request):
