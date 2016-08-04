@@ -4,6 +4,8 @@ from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.decorators import login_required
 
+from django.http import HttpResponse
+
 from .models import Item, Category
 
 
@@ -16,25 +18,25 @@ def main(request):
 
 
 @login_required(login_url='/login/')
-def category(request):
-    pass
+def category(request, pk):
+    return HttpResponse('<h1>Category {0:s}</h1>'.format(pk))
 
 
 @login_required(login_url='/login/')
 def items_by_dates(request):
-    pass
+    return HttpResponse('<h1>Items by dates page</h1>')
 
 
 @login_required(login_url='/login/')
-def item_details(request):
-    pass
+def item_details(request, pk):
+    return HttpResponse('<h1>Details of Item {0:s}</h1>'.format(pk))
 
 
 def login(request):
-    pass
+    return HttpResponse('<h1>LOGIN page</h1>')
 
 
 @login_required(login_url='/login/')
-def login(request):
+def logout(request):
     logout_user(request)
     return redirect('main')
