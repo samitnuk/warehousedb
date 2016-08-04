@@ -16,11 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from items.views import main
+from items import views
 
 urlpatterns = [
 
-    url(r'^$', main, name='main'),
+    url(r'^$', views.main, name='main'),
+    url(r'^category/(?P<pk>\d+)/', views.category, name='category'),
+    url(r'^items_by_dates/', views.items_by_dates, name='items_by_dates'),
+    url(r'^item_details/(?P<pk>\d+)/', views.item_details, name='item_details'),
+
+    url(r'^login/', views.login, name='login'),
+    url(r'^logout/', views.logout, name='logout'),
 
     url(r'^admin/', admin.site.urls),
 ]
