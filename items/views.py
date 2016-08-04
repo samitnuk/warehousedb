@@ -19,7 +19,11 @@ def main(request):
 
 @login_required(login_url='/login/')
 def category(request, pk):
-    return HttpResponse('<h1>Category {0:s}</h1>'.format(pk))
+    category = Category.objects.filter(pk=pk).first()
+    items = Item.objects.filter(category=category)
+    print(category.name)
+    return render(request, 'items/category.html', {'items': items,
+                                                   'category': category})
 
 
 @login_required(login_url='/login/')
