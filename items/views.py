@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
@@ -7,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 from .models import Item, Category
+from .forms import DateRangeForm
 
 
 @login_required(login_url='/login/')
@@ -28,7 +31,36 @@ def category(request, pk):
 
 @login_required(login_url='/login/')
 def items_by_dates(request):
-    return HttpResponse('<h1>Items by dates page</h1>')
+    if request.method == 'POST':
+        
+        errors = {}
+        
+        range_start = request.POST.get("range_start", "").strip()
+        if not range_start:
+            errors["range_start"] = "Дата є обов'язковою"
+        else:
+            try:
+                datetime.strptime(range_start, "%Y-%m-%d")
+            except Exception:
+                errors["range_start"] = \
+                    "Введіть коректний формат дати (напр. 2016-08-01)"
+
+        range_stop = request.POST.get("range_stop", "").strip()
+        if not range_stop:
+            errors["range_stop"] = "Дата є обов'язковою"
+        else:
+            try:
+                datetime.strptime(range_stop, "%Y-%m-%d")
+            except Exception:
+                errors["range_stop"] = \
+                    "Введіть коректний формат дати (напр. 2016-08-01)"
+
+        if errors:
+            return render(request, 'items/items_by_dates.html', {'errors': errors})
+        return render(request, 'items/items_by_dates.html', {})
+
+    else:
+        return render(request, 'items/items_by_dates.html', {})
 
 
 @login_required(login_url='/login/')
