@@ -8,6 +8,10 @@ a.item_details {
     font-weight: bold;
 }
 
+.error {
+    color: red;
+}
+
 /* tables styles */
 table {
     font-size: 16px;
