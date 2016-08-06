@@ -1,0 +1,41 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Склад по датах{% endblock meta_title %}
+
+{% block header %}Склад по датах{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'items_by_dates' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        
+        <div class="one column">
+            <label for="range_start" class="u-pull-right">від:</label>
+        </div>
+        <div class="three columns">
+            <input class="u-full-width" type="text"
+                   id="range_start" name="range_start"
+                   value="{{ request.POST.range_start }}" >
+            <span class="error">{{ errors.range_start }}</span>
+        </div>
+        
+        <div class="one column">
+            <label for="range_stop" class="u-pull-right">до:</label>
+        </div>
+        <div class="three columns">
+            <input class="u-full-width" type="text"
+                   id="range_stop" name="range_stop"
+                   value="{{ request.POST.range_stop }}" >
+            <span class="error">{{ errors.range_stop }}</span>
+        </div>
+        
+        <div class="four columns">
+            <input class="button-primary" type="submit" value="Показати">
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
