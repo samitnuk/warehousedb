@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
 
-from .models import Item, Category
-from .forms import DateRangeForm
+from .models import Item, ItemChange, Category
 
 
 @login_required(login_url='/login/')
@@ -40,7 +39,7 @@ def items_by_dates(request):
             errors["range_start"] = "Дата є обов'язковою"
         else:
             try:
-                datetime.strptime(range_start, "%Y-%m-%d")
+                range_start = datetime.strptime(range_start, "%Y-%m-%d")
             except Exception:
                 errors["range_start"] = \
                     "Введіть коректний формат дати (напр. 2016-08-01)"
@@ -50,14 +49,29 @@ def items_by_dates(request):
             errors["range_stop"] = "Дата є обов'язковою"
         else:
             try:
-                datetime.strptime(range_stop, "%Y-%m-%d")
+                range_stop = datetime.strptime(range_stop, "%Y-%m-%d")
             except Exception:
                 errors["range_stop"] = \
                     "Введіть коректний формат дати (напр. 2016-08-01)"
 
         if errors:
             return render(request, 'items/items_by_dates.html', {'errors': errors})
-        return render(request, 'items/items_by_dates.html', {})
+
+        total_changes = ItemChange.objects.filter(changed_at__gte=range_start, changed_at__lte=range_stop)
+        if range_start > range_stop:
+            range_start, range_stop = range_stop, range_start
+        date_range = []
+        step = timedelta(days=1)
+        while range_start <= range_stop:
+            date_range.append(range_start)
+            range_start += timedelta(days=1)
+
+        items = Item.objects.order_by('category')
+
+        return render(request, 'items/items_by_dates.html',
+                      {'date_range':date_range,
+                       'items':items,
+                       'total_changes':total_changes})
 
     else:
         return render(request, 'items/items_by_dates.html', {})

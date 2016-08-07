@@ -37,5 +37,41 @@
         </div>
     </div>
 </form>
+{% if date_range %}
+<div class="row">
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Найменування</th>
+                {% for date in date_range %}
+                <th>{{ date|date:'d m' }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>
+                        <a class="item_details"
+                           href="{% url 'item_details' item.id %}">
+                            {{ item.title }} {{ item.part_number }}
+                        </a>
+                    </td>
+                    {% for date in date_range %}
+                    <td>
+                        {% for change in total_changes %}
+                            {% if change.changed_at|date == date|date and item == change.item %}
+                                {{ change.additional_quantity }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endif %}
 
 {% endblock content %}
