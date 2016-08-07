@@ -4,6 +4,10 @@
 
 {% block meta_title %}Склад по датах{% endblock meta_title %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/pikaday.css' %}" />
+{% endblock extra_css %}
+
 {% block header %}Склад по датах{% endblock header %}
 
 {% block content %}
@@ -75,3 +79,30 @@
 {% endif %}
 
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src="{{ PORTAL_URL }}{% static 'js/pikaday.js' %}"></script>
+    <script>
+        var rangeStart = new Pikaday({
+            field: document.getElementById('range_start'),
+            firstDay: 1,
+            fomat: 'YYYY-MM-DD',
+            minDate: new Date(2016, 0, 1),
+            maxDate: new Date(2018, 12, 31),
+        });
+    {% if initial_range_start %}
+        rangeStart.setDate('{{ initial_range_start }}');
+    {% endif %}
+        var rangeStop = new Pikaday({
+            field: document.getElementById('range_stop'),
+            firstDay: 1,
+            fomat: 'YYYY-MM-DD',
+            minDate: new Date(2016, 0, 1),
+            maxDate: new Date(2018, 12, 31),
+        });
+    {% if initial_range_stop %}
+        rangeStart.setDate('{{ initial_range_stop }}');
+    {% endif %}
+    </script>
+{% endblock extra_js %}
