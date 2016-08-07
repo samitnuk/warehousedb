@@ -8,6 +8,10 @@ a.item_details {
     font-weight: bold;
 }
 
+.container {
+    max-width: 1200px;
+}
+
 .error {
     color: red;
 }

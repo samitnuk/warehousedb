@@ -44,7 +44,7 @@
             <tr>
                 <th>Найменування</th>
                 {% for date in date_range %}
-                <th>{{ date|date:'d m' }}</th>
+                <th><div class="vertical_text">{{ date|date:'d . m' }}</div></th>
                 {% endfor %}
             </tr>
         </thead>
