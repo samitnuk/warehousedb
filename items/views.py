@@ -31,9 +31,9 @@ def category(request, pk):
 @login_required(login_url='/login/')
 def items_by_dates(request):
     if request.method == 'POST':
-        
+
         errors = {}
-        
+
         range_start = request.POST.get("range_start", "").strip()
         if not range_start:
             errors["range_start"] = "Дата є обов'язковою"
@@ -55,13 +55,14 @@ def items_by_dates(request):
                     "Введіть коректний формат дати (напр. 2016-08-01)"
 
         if errors:
-            return render(request, 'items/items_by_dates.html', {'errors': errors})
+            return render(request, 'items/items_by_dates.html',
+                          {'errors': errors})
 
-        total_changes = ItemChange.objects.filter(changed_at__gte=range_start, changed_at__lte=range_stop)
+        total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
+                                                  changed_at__lte=range_stop)
         if range_start > range_stop:
             range_start, range_stop = range_stop, range_start
         date_range = []
-        step = timedelta(days=1)
         while range_start <= range_stop:
             date_range.append(range_start)
             range_start += timedelta(days=1)
@@ -69,9 +70,9 @@ def items_by_dates(request):
         items = Item.objects.order_by('category')
 
         return render(request, 'items/items_by_dates.html',
-                      {'date_range':date_range,
-                       'items':items,
-                       'total_changes':total_changes})
+                      {'date_range': date_range,
+                       'items': items,
+                       'total_changes': total_changes})
 
     else:
         return render(request, 'items/items_by_dates.html', {})

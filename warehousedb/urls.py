@@ -22,13 +22,19 @@ from items import views
 
 urlpatterns = [
 
-    url(r'^$', views.main, name='main'),
-    url(r'^category/(?P<pk>\d+)/', views.category, name='category'),
-    url(r'^items_by_dates/', views.items_by_dates, name='items_by_dates'),
-    url(r'^item_details/(?P<pk>\d+)/', views.item_details, name='item_details'),
+    url(r'^$', views.main,
+        name='main'),
+    url(r'^category/(?P<pk>\d+)/', views.category,
+        name='category'),
+    url(r'^items_by_dates/', views.items_by_dates,
+        name='items_by_dates'),
+    url(r'^item_details/(?P<pk>\d+)/', views.item_details,
+        name='item_details'),
 
-    url(r'^login/', views.login, name='login'),
-    url(r'^logout/', views.logout, name='logout'),
+    url(r'^login/', views.login,
+        name='login'),
+    url(r'^logout/', views.logout,
+        name='logout'),
 
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
