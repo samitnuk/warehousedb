@@ -26,6 +26,22 @@
     <!-- start container -->
     <div class="container">
 
+        <!-- navigation -->
+        <div class="row" id="navigation">
+            <div class="u-full-width">
+                <ul class="nav-menu">
+                    {% url 'main' as main_path %}
+                    <li role="presentation" {% if request.path == main_path %}class="nav-active"{% endif %}>
+                        <a href="{% url 'main' %}">Загально по складу</a>
+                    </li>
+                    {% url 'items_by_dates' as items_by_dates_path %}
+                    <li role="presentation" {% if items_by_dates_path in request.path %}class="nav-active"{% endif%}>
+                        <a href="{% url 'items_by_dates' %}">Склад по датах</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <!-- header -->
         <div class="row" id="header">
             <div class="u-full-width">
