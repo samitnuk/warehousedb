@@ -102,7 +102,7 @@
             maxDate: new Date(2018, 12, 31),
         });
     {% if initial_range_stop %}
-        rangeStart.setDate('{{ initial_range_stop }}');
+        rangeStop.setDate('{{ initial_range_stop }}');
     {% endif %}
     </script>
 {% endblock extra_js %}

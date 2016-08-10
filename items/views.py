@@ -75,7 +75,27 @@ def items_by_dates(request):
                        'total_changes': total_changes})
 
     else:
-        return render(request, 'items/items_by_dates.html', {})
+        range_stop = datetime.today()
+        range_start = range_stop - timedelta(days=7)  # 7 days before today
+        date_range = []
+        i = range_start
+        while i <= range_stop:
+            date_range.append(range_start)
+            i += timedelta(days=1)
+
+        total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
+                                                  changed_at__lte=range_stop)
+
+        items = Item.objects.order_by('category')
+
+        return render(request, 'items/items_by_dates.html',
+                      {'initial_range_start':
+                       datetime.strftime(range_start, "%Y-%m-%d"),
+                       'initial_range_stop':
+                       datetime.strftime(range_stop, "%Y-%m-%d"),
+                       'date_range': date_range,
+                       'items': items,
+                       'total_changes': total_changes})
 
 
 @login_required(login_url='/login/')
