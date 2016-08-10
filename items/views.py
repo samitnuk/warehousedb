@@ -80,7 +80,7 @@ def items_by_dates(request):
         date_range = []
         i = range_start
         while i <= range_stop:
-            date_range.append(range_start)
+            date_range.append(i)
             i += timedelta(days=1)
 
         total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
