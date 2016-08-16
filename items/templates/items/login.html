@@ -1,0 +1,43 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Логін{% endblock meta_title %}
+
+{% block navigation %} {% endblock navigation %}
+
+{% block content %}
+
+<form  action="{% url 'login' %}" method="post">
+
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="three columns">
+            <label for="username">Логін</label>
+            <input class="u-full-width" type="text"
+                   id="username" name="username"
+                   value="{{ request.POST.username }}" >
+        </div>
+        <div class="three columns">
+            <span class="error">{{ errors.username }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="three columns">
+            <label for="username">Пароль</label>
+            <input class="u-full-width" type="password"
+                   id="password" name="password" >
+        </div>
+        <div class="three columns">
+            <span class="error">{{ errors.password }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Логін">
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
