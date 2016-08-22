@@ -30,6 +30,8 @@ urlpatterns = [
         name='items_by_dates'),
     url(r'^item_details/(?P<pk>\d+)/', views.item_details,
         name='item_details'),
+    url(r'^item_change_details/(?P<pk>\d+)/', views.item_change_details,
+        name='item_change_details'),
 
     url(r'^login/', views.login,
         name='login'),

@@ -1,0 +1,38 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Загальна інформація - {{ category.name }}{% endblock meta_title %}
+
+{% block header %}{{ item.title }}{% endblock header %}
+
+{% block content %}
+
+<div class="row">
+    <div class="two columns">
+        <h6>Зміна кількості</h6>
+    </div>
+    <div class="ten columns">
+        <h5>{{ item_change.additional_quantity }}</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="two columns">
+        <h6>Компонент</h6>
+    </div>
+    <div class="ten columns">
+        <h5>{{ item_change.item.title }} {{ item_change.item.part_number }}</h5>
+    </div>
+</div>    
+
+<div class="row">
+    <div class="two columns">
+        <h6>Дата</h6>
+    </div>
+    <div class="ten columns">
+        <h5>{{ item_change.changed_at |date:'Y-m-d' }}</h5>
+    </div>
+</div> 
+
+{% endblock content %}

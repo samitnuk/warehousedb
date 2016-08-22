@@ -106,6 +106,13 @@ def item_details(request, pk):
     return render(request, 'items/item_details.html', {'item': item})
 
 
+@login_required(login_url='/login/')
+def item_change_details(request, pk):
+    item_change = ItemChange.objects.filter(pk=pk).first()
+    return render(request, 'items/item_change_details.html',
+                  {'item_change': item_change})
+
+
 def login(request):
     if request.method == 'POST':
 

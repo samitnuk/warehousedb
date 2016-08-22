@@ -65,7 +65,9 @@
                     <td>
                         {% for change in total_changes %}
                             {% if change.changed_at|date == date|date and item == change.item %}
-                                {{ change.additional_quantity }}
+                                <a href="{% url 'item_change_details' change.id %}">
+                                    {{ change.additional_quantity }}
+                                </a>
                             {% endif %}
                         {% endfor %}
                     </td>
