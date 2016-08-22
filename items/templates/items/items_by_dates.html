@@ -48,7 +48,7 @@
             <tr>
                 <th>Найменування</th>
                 {% for date in date_range %}
-                <th><div class="vertical_text">{{ date|date:'d . m' }}</div></th>
+                <th>{{ date|date:'d . m' }}</th>
                 {% endfor %}
             </tr>
         </thead>
@@ -65,7 +65,8 @@
                     <td>
                         {% for change in total_changes %}
                             {% if change.changed_at|date == date|date and item == change.item %}
-                                <a href="{% url 'item_change_details' change.id %}">
+                                <a class="item_details"
+                                   href="{% url 'item_change_details' change.id %}">
                                     {{ change.additional_quantity }}
                                 </a>&nbsp;
                             {% endif %}
