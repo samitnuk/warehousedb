@@ -33,6 +33,15 @@
     <div class="ten columns">
         <h5>{{ item_change.changed_at |date:'Y-m-d' }}</h5>
     </div>
-</div> 
+</div>
+
+<div class="row">
+    <div class="two columns">
+        <h6>Коментар</h6>
+    </div>
+    <div class="ten columns">
+        <h5>{{ item_change.notes }}</h5>
+    </div>
+</div>
 
 {% endblock content %}

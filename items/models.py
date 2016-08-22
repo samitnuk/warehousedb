@@ -82,6 +82,11 @@ class ItemChange(models.Model):
         verbose_name="Дата зміни",
     )
 
+    notes = models.TextField(
+        blank=True,
+        verbose_name="Примітка",
+    )
+
     def __str__(self):
         return '%s / (%s) - %d' % (self.item,
                                    self.changed_at.strftime('%Y-%m-%d'),
