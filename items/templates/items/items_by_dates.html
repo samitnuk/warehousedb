@@ -67,7 +67,7 @@
                             {% if change.changed_at|date == date|date and item == change.item %}
                                 <a href="{% url 'item_change_details' change.id %}">
                                     {{ change.additional_quantity }}
-                                </a>
+                                </a>&nbsp;
                             {% endif %}
                         {% endfor %}
                     </td>
