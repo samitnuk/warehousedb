@@ -17,6 +17,7 @@
         <table class="u-full-width">
             <thead>
                 <tr>
+                    <th>-</th>
                     <th>Найменування</th>
                     <th>Індекс</th>
                     <th>Наш індекс</th>
@@ -27,7 +28,13 @@
                 {% for item in items %}
                     <tr>
                         <td>
-                            <a class="item_details"
+                            <a class="item_link"
+                               href="{% url 'add_item_change' item.id %}">
+                                &plusmn;
+                            </a>
+                        </td>
+                        <td>
+                            <a class="item_link"
                                href="{% url 'item_details' item.id %}">
                                 {{ item.title }}
                             </a>
