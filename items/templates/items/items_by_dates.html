@@ -46,6 +46,7 @@
     <table class="u-full-width">
         <thead>
             <tr>
+                <th>-</th>
                 <th>Найменування</th>
                 {% for date in date_range %}
                 <th>{{ date|date:'d . m' }}</th>
@@ -56,7 +57,13 @@
             {% for item in items %}
                 <tr>
                     <td>
-                        <a class="item_details"
+                        <a class="item_link"
+                           href="{% url 'add_item_change' item.id %}">
+                            &plusmn;
+                        </a>
+                    </td>
+                    <td>
+                        <a class="item_link"
                            href="{% url 'item_details' item.id %}">
                             {{ item.title }} {{ item.part_number }}
                         </a>
@@ -65,7 +72,7 @@
                     <td>
                         {% for change in total_changes %}
                             {% if change.changed_at|date == date|date and item == change.item %}
-                                <a class="item_details"
+                                <a class="item_link"
                                    href="{% url 'item_change_details' change.id %}">
                                     {{ change.additional_quantity }}
                                 </a>&nbsp;
