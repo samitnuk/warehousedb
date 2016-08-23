@@ -54,11 +54,14 @@ class Item(models.Model):
         return 0
 
     def __str__(self):
+        c_t = self.current_total
+        if c_t == int(c_t):
+            c_t = int(c_t)
         if self.part_number:
             return '%s (%s) - %s шт.' % (self.title,
                                          self.part_number,
-                                         self.current_total)
-        return '%s - %s шт.' % (self.title, self.current_total)
+                                         c_t)
+        return '%s - %s шт.' % (self.title, c_t)
 
 
 class ItemChange(models.Model):
@@ -88,9 +91,12 @@ class ItemChange(models.Model):
     )
 
     def __str__(self):
-        return '%s / (%s) - %d' % (self.item,
-                                   self.changed_at.strftime('%Y-%m-%d'),
-                                   self.additional_quantity)
+        a_q = self.additional_quantity
+        if a_q == int(a_q):
+            a_q = int(a_q)
+        return '%s / %s / %s' % (self.item,
+                                 self.changed_at.strftime('%Y-%m-%d'),
+                                 a_q)
 
 
 class Category(models.Model):
