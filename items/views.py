@@ -113,6 +113,35 @@ def item_change_details(request, pk):
                   {'item_change': item_change})
 
 
+@login_required(login_url='/login/')
+def add_item_change(request, pk):
+    item = Item.objects.filter(pk=pk).first()
+    if request.method == 'POST':
+        additional_quantity = request.POST.get("additional_quantity", "") \
+                                          .strip()
+        error = ""
+        if not additional_quantity:
+            error = "Введіть кількість"
+        else:
+            try:
+                additional_quantity = float(additional_quantity)
+            except Exception:
+                error = "Введіть число"
+
+        if error:
+            return render(request, 'items/add_item_change.html',
+                          {'error': error, 'item': item})
+        else:
+            item_change = ItemChange(additional_quantity=additional_quantity,
+                                     item=item,
+                                     changed_at=datetime.today(),
+                                     notes=request.POST.get("notes", ""))
+            item_change.save()
+            return redirect('main')
+
+    return render(request, 'items/add_item_change.html', {'item': item})
+
+
 def login(request):
     if request.method == 'POST':
 

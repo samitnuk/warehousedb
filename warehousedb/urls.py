@@ -32,6 +32,8 @@ urlpatterns = [
         name='item_details'),
     url(r'^item_change_details/(?P<pk>\d+)/', views.item_change_details,
         name='item_change_details'),
+    url(r'^add_item_change/(?P<pk>\d+)/', views.add_item_change,
+        name='add_item_change'),
 
     url(r'^login/', views.login,
         name='login'),
