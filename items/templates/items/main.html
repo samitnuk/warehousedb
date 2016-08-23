@@ -42,7 +42,7 @@
                         </td>
                         <td>{{ item.part_number }}</td>
                         <td>{{ item.part_number2 }}</td>
-                        <td>{{ item.current_total }}</td>
+                        <td>{{ item.current_total|floatformat }}</td>
                     </tr>
                     {% endif %}
                 {% endfor %}

@@ -67,7 +67,7 @@ class ItemChange(models.Model):
         verbose_name = "Зміна кількості"
         verbose_name_plural = "Зміни кількості"
 
-    additional_quantity = models.IntegerField(
+    additional_quantity = models.FloatField(
         blank=False,
     )
 
