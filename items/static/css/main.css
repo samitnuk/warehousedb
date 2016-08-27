@@ -15,6 +15,10 @@ a {
     color: red;
 }
 
+.button {
+    padding: 0;
+}
+
 /* navigation styles */
 ul.nav-menu {
     padding: 15px 0 15px 0;
@@ -43,6 +47,10 @@ li.nav-active a {
 /* tables styles */
 table {
     font-size: 16px;
+}
+
+th, td {
+    padding: 5px 10px;
 }
 
 th:first-child, td:first-child {
