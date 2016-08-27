@@ -117,3 +117,57 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Product (models.Model):
+    """Product Model
+       
+       product = set of components
+
+       Instance of Product model is
+       set of instances of Component model
+
+    """
+
+    title = models.CharField(
+        max_length=256,
+        blank=False,
+        verbose_name="Найменування",
+    )
+
+    part_number = models.CharField(
+        max_length=256,
+        blank=True,
+        verbose_name="Індекс",
+    )
+
+    created_at = models.DateField(
+        blank=False,
+        default=date.today,
+        verbose_name="Дата створення",
+    )
+
+    notes = models.TextField(
+        blank=True,
+        verbose_name="Примітка",
+    )
+
+    @property
+    def components(self):
+        return self.component.all()
+
+
+class Component(models.Model):
+
+    product = models.ForeignKey(
+        Product,
+        related_name='component',
+    )
+
+    item = models.ForeignKey(
+        'Item',
+    )
+
+    quantity = models.FloatField(
+        blank=False,
+    )
