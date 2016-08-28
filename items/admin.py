@@ -1,7 +1,11 @@
 from django.contrib import admin
 
-from .models import Item, ItemChange, Category
+import items.models as models
 
-admin.site.register(Item)
-admin.site.register(ItemChange)
-admin.site.register(Category)
+admin.site.register(models.Item)
+admin.site.register(models.ItemChange)
+admin.site.register(models.Category)
+admin.site.register(models.Order)
+admin.site.register(models.Product)
+admin.site.register(models.OrderLine)
+admin.site.register(models.Component)

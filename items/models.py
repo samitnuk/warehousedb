@@ -14,8 +14,8 @@ class Item(models.Model):
     """
 
     class Meta(object):
-        verbose_name = "Компонент"
-        verbose_name_plural = "Компоненти"
+        verbose_name = "Позиція на складі"
+        verbose_name_plural = "Позиції на складі"
 
     title = models.CharField(
         max_length=256,
@@ -136,6 +136,40 @@ class Category(models.Model):
         return self.name
 
 
+class Order(models.Model):
+    """Order Model
+
+       order = set of order_lines
+
+       Instance of Order model is
+       set of instances of OrderLine model
+
+    """
+
+    class Meta(object):
+        verbose_name = "Замовлення"
+        verbose_name_plural = "Замовлення"
+
+    customer = models.CharField(
+        max_length=256,
+        blank=False,
+        verbose_name="Замовник",
+    )
+
+    order_date = models.DateField(
+        blank=False,
+        default=date.today,
+        verbose_name="Дата зміни",
+    )
+
+    @property
+    def order_lines(self):
+        return self.order_line.all()
+
+    def __str__(self):
+        return '%s / %s' % (self.customer, self.order_date)
+
+
 class Product(models.Model):
     """Product Model
        
@@ -145,6 +179,10 @@ class Product(models.Model):
        set of instances of Component model
 
     """
+
+    class Meta(object):
+        verbose_name = "Виріб"
+        verbose_name_plural = "Вироби"
 
     title = models.CharField(
         max_length=256,
@@ -180,6 +218,32 @@ class Product(models.Model):
         return self.title
 
 
+class OrderLine(models.Model):
+    """OrderLine Model
+    
+       Describes product and it quantity. 
+
+    """
+    class Meta(object):
+        verbose_name = "Поле замовлення"
+        verbose_name_plural = "Поля замовлення"
+
+    order = models.ForeignKey(
+        Order,
+        related_name='order_line',
+    )
+
+    product = models.ForeignKey(
+        Product,
+    )
+
+    quantity = models.FloatField(
+        blank=False,
+    )
+
+    def __str__(self):
+        return '%s - %s' % (self.product, self.quantity)
+
 class Component(models.Model):
     """Component Model
 
@@ -191,6 +255,10 @@ class Component(models.Model):
        using post_save signal.
 
     """
+
+    class Meta(object):
+        verbose_name = "Компонент"
+        verbose_name_plural = "Компоненти"
 
     product = models.ForeignKey(
         Product,
@@ -206,13 +274,17 @@ class Component(models.Model):
     )
 
     def __str__(self):
-        return '%s '
+        if self.item.part_number:
+            return '%s (%s)' % (self.item.title, self.item.part_number)
+        return '%s' % self.item.title
 
 
 @receiver(post_save, sender=Component)
 def auto_create_item_change(instance, **kwargs):
+
+    order_line = OrderLine.objects.filter(product=instance.product).first()
+
     ItemChange.objects.create(
-        additional_quantity=instance.quantity,
+        additional_quantity=-instance.quantity * order_line.quantity,
         item=instance.item,
-        changed_at=date.today,
     )
