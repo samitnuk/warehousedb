@@ -2,6 +2,9 @@ from datetime import date
 
 from django.db import models
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Item(models.Model):
     """Item Model"""
@@ -119,7 +122,7 @@ class Category(models.Model):
         return self.name
 
 
-class Product (models.Model):
+class Product(models.Model):
     """Product Model
        
        product = set of components
@@ -156,8 +159,21 @@ class Product (models.Model):
     def components(self):
         return self.component.all()
 
+    def __str__(self):
+        if self.part_number:
+            return '%s - %s' % (self.part_number,
+                                self.title)
+        return self.title
+
 
 class Component(models.Model):
+    """Component Model
+       
+       When instance of Component Model created,
+       will be created instace of ItemChange Model
+       using post_save signal.
+
+    """
 
     product = models.ForeignKey(
         Product,
@@ -170,4 +186,16 @@ class Component(models.Model):
 
     quantity = models.FloatField(
         blank=False,
+    )
+
+    def __str__(self):
+        return '%s '
+
+
+@receiver(post_save, sender=Component)
+def auto_create_item_change(instance, **kwargs):
+    ItemChange.objects.create(
+        additional_quantity=instance.quantity,
+        item=instance.item,
+        changed_at=date.today,
     )
