@@ -7,7 +7,11 @@ from django.dispatch import receiver
 
 
 class Item(models.Model):
-    """Item Model"""
+    """Item Model
+
+       Describes separate item in warehouse.
+
+    """
 
     class Meta(object):
         verbose_name = "Компонент"
@@ -68,6 +72,11 @@ class Item(models.Model):
 
 
 class ItemChange(models.Model):
+    """ItemChange Model
+
+       Describes each change in quantity of concrete item.
+
+    """
 
     class Meta(object):
         verbose_name = "Зміна кількості"
@@ -103,6 +112,11 @@ class ItemChange(models.Model):
 
 
 class Category(models.Model):
+    """Category Model
+
+       Describes category for items.
+
+    """
 
     class Meta(object):
         verbose_name = "Категорія"
@@ -168,6 +182,9 @@ class Product(models.Model):
 
 class Component(models.Model):
     """Component Model
+
+       Describes component and quantity of this component
+       in separate product.
        
        When instance of Component Model created,
        will be created instace of ItemChange Model
