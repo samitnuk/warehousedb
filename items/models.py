@@ -61,14 +61,9 @@ class Item(models.Model):
         return 0
 
     def __str__(self):
-        c_t = self.current_total
-        if c_t == int(c_t):
-            c_t = int(c_t)
         if self.part_number:
-            return '%s (%s) - %s шт.' % (self.title,
-                                         self.part_number,
-                                         c_t)
-        return '%s - %s шт.' % (self.title, c_t)
+            return '%s - %s' % (self.part_number, self.title,)
+        return self.title
 
 
 class ItemChange(models.Model):
@@ -167,7 +162,7 @@ class Order(models.Model):
         return self.order_line.all()
 
     def __str__(self):
-        return '%s / %s' % (self.customer, self.order_date)
+        return '%s / %s' % (self.order_date, self.customer)
 
 
 class Product(models.Model):
@@ -213,8 +208,7 @@ class Product(models.Model):
 
     def __str__(self):
         if self.part_number:
-            return '%s - %s' % (self.part_number,
-                                self.title)
+            return '%s - %s' % (self.part_number, self.title)
         return self.title
 
 
@@ -228,21 +222,14 @@ class OrderLine(models.Model):
         verbose_name = "Поле замовлення"
         verbose_name_plural = "Поля замовлення"
 
-    order = models.ForeignKey(
-        Order,
-        related_name='order_line',
-    )
+    order = models.ForeignKey(Order, related_name='order_line')
 
-    product = models.ForeignKey(
-        Product,
-    )
+    product = models.ForeignKey(Product)
 
-    quantity = models.FloatField(
-        blank=False,
-    )
+    quantity = models.FloatField(blank=False)
 
     def __str__(self):
-        return '%s - %s' % (self.product, self.quantity)
+        return '%s - %s шт.' % (self.product, self.quantity)
 
 class Component(models.Model):
     """Component Model
@@ -260,23 +247,14 @@ class Component(models.Model):
         verbose_name = "Компонент"
         verbose_name_plural = "Компоненти"
 
-    product = models.ForeignKey(
-        Product,
-        related_name='component',
-    )
+    product = models.ForeignKey(Product, related_name='component')
 
-    item = models.ForeignKey(
-        'Item',
-    )
+    item = models.ForeignKey('Item')
 
-    quantity = models.FloatField(
-        blank=False,
-    )
+    quantity = models.FloatField(blank=False)
 
     def __str__(self):
-        if self.item.part_number:
-            return '%s (%s)' % (self.item.title, self.item.part_number)
-        return '%s' % self.item.title
+        return self.item
 
 
 @receiver(post_save, sender=Component)
