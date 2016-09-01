@@ -1,0 +1,44 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додати новій виріб{% endblock meta_title %}
+
+{% block header %}Додати новій виріб{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'create_new_product' %}" method="post">
+
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="u-full-width">
+            <label for="product_title">Найменування</label>
+                <input class="u-full-width" type="text"
+                       id="product_title" name="product_title"
+                       value="{{ request.POST.product_title }}" >
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="u-full-width">
+            <label for="product_part_number">Індекс</label>
+                <input class="u-full-width" type="text"
+                       id="product_part_number" name="product_part_number"
+                       value="{{ request.POST.product_part_number }}" >
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="u-full-width">
+            <label for="product_notes">Примітка</label>
+                <textarea class="u-full-width" type="text"
+                          id="product_notes" name="product_notes">
+                </textarea>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}
