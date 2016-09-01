@@ -146,7 +146,7 @@ class Component(models.Model):
     quantity = models.FloatField(blank=False)
 
     def __str__(self):
-        return self.item
+        return '%s' % self.item
 
 
 class Order(models.Model):
@@ -181,7 +181,7 @@ def auto_create_item_change(instance, **kwargs):
 
     order = instance
 
-    if order.products.part_number:
+    if order.product.part_number:
         product_title = '%s - %s' % (order.product.part_number,
                                      order.product.title)
     else:
