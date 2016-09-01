@@ -16,12 +16,13 @@ def create_new_product(request):
             return render(request, 'items/create_new_product.html',
                           {'errors': errors})
 
-        product_part_number = request.POST.get("product_part_number", "").strip()
+        product_part_number = request.POST.get("product_part_number", "") \
+                                          .strip()
         product_notes = request.POST.get("product_notes", "")
 
         product = Product.objects.create(title=product_title,
                                          part_number=product_part_number,
-                                        notes=product_notes)
+                                         notes=product_notes)
 
         items = Item.objects.all()
 
