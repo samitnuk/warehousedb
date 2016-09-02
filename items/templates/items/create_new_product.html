@@ -18,6 +18,7 @@
                 <input class="u-full-width" type="text"
                        id="product_title" name="product_title"
                        value="{{ request.POST.product_title }}" >
+                <span class="error">{{ errors.product_title }}</span>
         </div>
     </div>
 
@@ -36,6 +37,14 @@
                 <textarea class="u-full-width" type="text"
                           id="product_notes" name="product_notes">
                 </textarea>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Внести зміну">
         </div>
     </div>
 
