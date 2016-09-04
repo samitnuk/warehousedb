@@ -40,7 +40,32 @@
         </div>
     </div>
 
-
+    <div class="row">
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>Найменування</th>
+                    <th>Індекс</th>
+                    <th>Кількість</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>
+                        <a href="{% url 'item_details' item.id %}">{{ item.title }}</a>
+                    </td>
+                    <td>
+                        {{ item.part_number }}
+                    </td>
+                    <td>
+                        <input type="text", name="{{ item.id }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <div class="row">
         <div class="three columns">

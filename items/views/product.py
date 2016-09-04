@@ -6,6 +6,9 @@ from ..models import Item, Product, Component
 
 @login_required(login_url='/login/')
 def create_new_product(request):
+
+    items = Item.objects.all()
+    
     if request.method == 'POST':
 
         errors = {}
@@ -14,7 +17,8 @@ def create_new_product(request):
         if not product_title:
             errors["product_title"] = "Найменування обов'язкове"
             return render(request, 'items/create_new_product.html',
-                          {'errors': errors})
+                          {'items': items,
+                           'errors': errors})
 
         product_part_number = request.POST.get("product_part_number", "") \
                                           .strip()
@@ -24,10 +28,8 @@ def create_new_product(request):
                                          part_number=product_part_number,
                                          notes=product_notes)
 
-        items = Item.objects.all()
-
         for item in items:
-            quantity_str = request.POST.get('item_%s' % item.id, "").strip()
+            quantity_str = request.POST.get("%s" % item.id, "").strip()
             if quantity_str:
                 try:
                     quantity = float(quantity_str)
@@ -36,6 +38,15 @@ def create_new_product(request):
                                           quantity=quantity)
                     component.save()
                 except ValueError:
-                    errors['item_%s' % item.id] = "ВВодити тільки числа"
+                    errors[item.id] = "Вводити тільки числа"
 
-    return render(request, 'items/create_new_product.html', {})
+        if errors:
+            render(request, 'items/create_new_product.html',
+                   {'items': items,
+                    'errors': errors})
+
+        return render(request, 'items/create_new_product.html',
+                   {'items': items})
+
+    return render(request, 'items/create_new_product.html',
+                  {'items': items})
