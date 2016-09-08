@@ -15,28 +15,21 @@
     <div class="row">
         <div class="u-full-width">
             <label for="product_title">Найменування</label>
-                <input class="u-full-width" type="text"
-                       id="product_title" name="product_title"
-                       value="{{ request.POST.product_title }}" >
-                <span class="error">{{ errors.product_title }}</span>
+                {{ form.title}}
         </div>
     </div>
 
     <div class="row">
         <div class="u-full-width">
             <label for="product_part_number">Індекс</label>
-                <input class="u-full-width" type="text"
-                       id="product_part_number" name="product_part_number"
-                       value="{{ request.POST.product_part_number }}" >
+                {{ form.part_number }}
         </div>
     </div>
 
     <div class="row">
         <div class="u-full-width">
-            <label for="product_notes">Примітка</label>
-                <textarea class="u-full-width" type="text"
-                          id="product_notes" name="product_notes">
-                </textarea>
+            <label for="notes">Примітка</label>
+                {{ form.notes }}
         </div>
     </div>
 
@@ -50,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in items %}
+                {% for item, field in form.fields_items %}
                 <tr>
                     <td>
                         <a href="{% url 'item_details' item.id %}">{{ item.title }}</a>
@@ -59,7 +52,7 @@
                         {{ item.part_number }}
                     </td>
                     <td>
-                        <input type="text", name="{{ item.id }}">
+                        {{ field.name }}
                     </td>
                 </tr>
                 {% endfor %}
