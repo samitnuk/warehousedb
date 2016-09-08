@@ -19,6 +19,8 @@ urlpatterns = [
 
     url(r'^create_new_product/', views.create_new_product,
         name='create_new_product'),
+    url(r'^products/', views.products,
+        name='products'),
 
     url(r'^login/', views.login,
         name='login'),

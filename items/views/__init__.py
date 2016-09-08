@@ -5,7 +5,7 @@ from .item import (main,
                    item_change_details,
                    add_item_change)
 
-from .product import create_new_product
+from .product import create_new_product, products
 
 from .login import login, logout
 
