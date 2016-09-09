@@ -43,43 +43,18 @@ def create_new_product(request):
             {'items': items, 'form': form}
         )
 
-        # errors = {}
-
-        # product_title = request.POST.get("product_title", "").strip()
-        # if not product_title:
-        #     errors["product_title"] = "Найменування обов'язкове"
-
-        # quantity = {}
-        # for item in items:
-        #     quantity_str = request.POST.get("%s" % item.id, "").strip()
-        #     if quantity_str:
-        #         try:
-        #             quantity["%s" % item.id] = float(quantity_str)
-        #         except ValueError:
-        #             errors[item.id] = "Вводити тільки числа"
-
-        # if errors:
-        #     return render(request, 'items/create_new_product.html',
-        #                   {'items': items,
-        #                    'errors': errors})
-        # else:
-        #     product_part_number = request.POST \
-        #                                  .get("product_part_number", "") \
-        #                                  .strip()
-        #     product_notes = request.POST.get("product_notes", "").strip()
-        #     product = Product.objects.create(title=product_title,
-        #                                      part_number=product_part_number,
-        #                                      notes=product_notes)
-        #     for item in items:
-        #         if quantity["%s" % item.id] > 0:
-        #             component = Component(product=product,
-        #                                   item=item,
-        #                                   quantity=quantity[item.id])
-        #             component.save()
-
-    # return render(request, 'items/create_new_product.html',
-    #               {'items': items})
 
 @login_required(login_url='/login/')
 def products(request):
-    pass
+    products = Product.objects.all()
+    return render(request, 'items/products.html',
+        {'products': products}
+    )
+
+
+@login_required(login_url='/login/')
+def product_details(request, pk):
+    product = Product.objects.filter(pk=pk).first()
+    return render(request, 'items/product_details.html',
+        {'product': product}
+    )
