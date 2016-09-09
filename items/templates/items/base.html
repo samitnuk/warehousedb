@@ -39,6 +39,9 @@
                     <li role="presentation" {% if items_by_dates_path in request.path %}class="nav-active"{% endif%}>
                         <a href="{% url 'items_by_dates' %}">Склад по датах</a>
                     </li>
+                    {% url 'items_by_categories' 1 as items_by_categories_path %}
+                    <li role="presentation" {% if items_by_categories_path in request.path %}class="nav-active"{% endif%}>
+                        <a href="{% url 'items_by_categories' 1 %}">Склад по категоріях</a>
                 </ul>
             </div>
         </div>
