@@ -1,0 +1,37 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Перелік виробів{% endblock meta_title %}
+
+{% block header %}Перелік виробів{% endblock header %}
+
+{% block content %}
+<div class="row">
+    <div class="u-full-width">
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>Найменування</th>
+                    <th>Індекс</th>
+                    <th>Примітка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>
+                            <a class="item_link"
+                               href="{% url 'product_details' product.id %}">
+                                {{ product.title }}
+                            </a>
+                        </td>
+                        <td>{{ product.part_number }}</td>
+                        <td>{{ product.notes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
