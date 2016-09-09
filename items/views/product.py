@@ -9,7 +9,7 @@ from ..forms import AddProductForm
 def create_new_product(request):
 
     items = Item.objects.all()
-    
+
     if request.method == 'POST':
         form = AddProductForm(request.POST)
         if form.is_valid():
@@ -23,23 +23,23 @@ def create_new_product(request):
                 quantity = form.cleaned_data['item_%s' % item.id]
                 print(quantity)
                 if quantity is not None and float(quantity) > 0:
-                    component = Component.objects.create(
-                        product=product,
-                        item=item,
-                        quantity=quantity,
-                    )
+                    Component.objects.create(product=product,
+                                             item=item,
+                                             quantity=quantity,)
 
             return redirect('main')
 
         else:
-            return render(request, 'items/create_new_product.html', 
-                {'items': items, 'form': form}
-            )
+            return render(
+                request,
+                'items/create_new_product.html',
+                {'items': items, 'form': form})
 
     # if GET or any other method
     else:
         form = AddProductForm(auto_id=False)
-        return render(request, 'items/create_new_product.html', 
+        return render(
+            request, 'items/create_new_product.html',
             {'items': items, 'form': form}
         )
 
@@ -47,14 +47,14 @@ def create_new_product(request):
 @login_required(login_url='/login/')
 def products(request):
     products = Product.objects.all()
-    return render(request, 'items/products.html',
-        {'products': products}
-    )
+    return render(
+        request, 'items/products.html',
+        {'products': products})
 
 
 @login_required(login_url='/login/')
 def product_details(request, pk):
     product = Product.objects.filter(pk=pk).first()
-    return render(request, 'items/product_details.html',
-        {'product': product}
-    )
+    return render(
+        request, 'items/product_details.html',
+        {'product': product})

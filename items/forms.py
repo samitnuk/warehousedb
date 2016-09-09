@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ValidationError
 
 from .models import Item
 
@@ -15,11 +14,9 @@ class AddProductForm(forms.Form):
         for item in items:
             self.fields.update({
                 'item_%s' % item.id: forms.FloatField(
-                    label='', 
+                    label='',
                     required=False,
-                    widget=forms.NumberInput,
-                ),
-            })
+                    widget=forms.NumberInput,), })
 
     title = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'u-full-width'})

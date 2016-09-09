@@ -193,5 +193,4 @@ def auto_create_item_change(instance, **kwargs):
             item=component.item,
             notes='%s / %s шт. / %s' % (product_title,
                                         order.quantity,
-                                        order.customer)
-        )
+                                        order.customer))
