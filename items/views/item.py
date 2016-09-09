@@ -10,17 +10,32 @@ from ..models import Item, ItemChange, Category
 def main(request):
     items = Item.objects.order_by('category')
     categories = Category.objects.order_by('name')
-    return render(request, 'items/main.html', {'items': items,
-                                               'categories': categories})
+    
+    return render(request, 'items/main.html',
+        {'items': items,
+         'categories': categories}
+    )
 
 
 @login_required(login_url='/login/')
-def category(request, pk):
-    category = Category.objects.filter(pk=pk).first()
-    items = Item.objects.filter(category=category)
-    print(category.name)
-    return render(request, 'items/category.html', {'items': items,
-                                                   'category': category})
+def items_by_categories(request, pk):
+    categories = Category.objects.all()
+    active_category = categories.filter(pk=pk).first()
+    items = Item.objects.filter(category=active_category)
+
+    buttons_in_row = 6
+    row, rows = [], []
+    for i, category in enumerate(categories, 1):
+        row.append(category)
+        if not i % buttons_in_row or i == len(categories):
+            rows.append(row)
+            row = []
+    
+    return render(request, 'items/items_by_categories.html',
+        {'items': items,
+         'active_category_id': active_category.id,
+         'rows': rows}
+    )
 
 
 @login_required(login_url='/login/')
@@ -51,7 +66,8 @@ def items_by_dates(request):
 
         if errors:
             return render(request, 'items/items_by_dates.html',
-                          {'errors': errors})
+                {'errors': errors}
+            )
 
         total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
                                                   changed_at__lte=range_stop)
@@ -65,9 +81,10 @@ def items_by_dates(request):
         items = Item.objects.order_by('category')
 
         return render(request, 'items/items_by_dates.html',
-                      {'date_range': date_range,
-                       'items': items,
-                       'total_changes': total_changes})
+            {'date_range': date_range,
+             'items': items,
+             'total_changes': total_changes}
+        )
 
     else:
         range_stop = datetime.today()
@@ -96,14 +113,19 @@ def items_by_dates(request):
 @login_required(login_url='/login/')
 def item_details(request, pk):
     item = Item.objects.filter(pk=pk).first()
-    return render(request, 'items/item_details.html', {'item': item})
+    
+    return render(request, 'items/item_details.html',
+        {'item': item}
+    )
 
 
 @login_required(login_url='/login/')
 def item_change_details(request, pk):
     item_change = ItemChange.objects.filter(pk=pk).first()
+    
     return render(request, 'items/item_change_details.html',
-                  {'item_change': item_change})
+        {'item_change': item_change}
+    )
 
 
 @login_required(login_url='/login/')
@@ -123,13 +145,19 @@ def add_item_change(request, pk):
 
         if error:
             return render(request, 'items/add_item_change.html',
-                          {'error': error, 'item': item})
+                {'error': error,
+                 'item': item}
+            )
         else:
-            item_change = ItemChange(additional_quantity=additional_quantity,
-                                     item=item,
-                                     changed_at=datetime.today(),
-                                     notes=request.POST.get("notes", ""))
-            item_change.save()
+            item_change = ItemChange.objects.create(
+                additional_quantity=additional_quantity,
+                item=item,
+                changed_at=datetime.today(),
+                notes=request.POST.get("notes", "")
+            )
+            
             return redirect('main')
 
-    return render(request, 'items/add_item_change.html', {'item': item})
+    return render(request, 'items/add_item_change.html',
+        {'item': item}
+    )
