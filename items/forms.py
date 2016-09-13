@@ -37,6 +37,7 @@ class AddProductForm(forms.Form):
             fields.append([item, {'name': self['item_%s' % item.id]}])
         return fields
 
+
 class AddStdCableForm(forms.Form):
 
     conduits_category = Category.objects.filter(name="Кожух")
@@ -66,7 +67,7 @@ class AddStdCableForm(forms.Form):
         (4, "4й хід (100 мм)"),
         (4, "5й хід (125 мм)"),)
 
-    MOUNTINGS = (        
+    MOUNTINGS = (
         ("22", "22 (різьба-різьба)"),
         ("23", "23 (різьба-клемп)"),
         ("33", "33 (клемп-клемп)"),)
