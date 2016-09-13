@@ -19,7 +19,7 @@ def main(request):
 
 @login_required(login_url='/login/')
 def items_by_categories(request, pk):
-    categories = Category.objects.all()
+    categories = Category.objects.order_by('name')
     active_category = categories.filter(pk=pk).first()
     items = Item.objects.filter(category=active_category)
 
