@@ -23,6 +23,8 @@ urlpatterns = [
         name='products'),
     url(r'^product_details/(?P<pk>\d+)/', views.product_details,
         name='product_details'),
+    url(r'^add_std_cable/', views.add_std_cable,
+        name='add_std_cable'),
 
     url(r'^login/', views.login,
         name='login'),

@@ -1,0 +1,61 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додати стандартний трос{% endblock meta_title %}
+
+{% block header %}Додати стандартний трос{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'add_std_cable' %}" method="post">
+
+{% csrf_token %}
+
+{{ form.non_field_errors }}
+
+    <div class="row">
+        {{ form.conduit.errors }}
+        {{ form.conduit.label_tag }}
+        {{ form.conduit }}
+    </div>
+
+    <div class="row">
+        {{ form.core.errors }}
+        {{ form.core.label_tag }}
+        {{ form.core }}
+    </div>
+
+    <div class="row">
+        {{ form.serie.errors }}
+        {{ form.serie.label_tag }}
+        {{ form.serie }}
+    </div>
+
+    <div class="row">
+        {{ form.travel.errors }}
+        {{ form.travel.label_tag }}
+        {{ form.travel }}
+    </div>
+
+    <div class="row">
+        {{ form.mounting.errors }}
+        {{ form.mounting.label_tag }}
+        {{ form.mounting }}
+    </div>
+
+    <div class="row">
+        {{ form.length.errors }}
+        {{ form.length.label_tag }}
+        {{ form.length }}
+    </div>
+
+    <div class="row">
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Підтвердити">
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}
