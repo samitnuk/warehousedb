@@ -50,7 +50,7 @@ class AddStdCableForm(forms.Form):
     cores = Item.objects.filter(category=cores_category)
     CORES = []
     for core in cores:
-        CORE.append(
+        CORES.append(
             [core.id, "%s - %s" % (core.title, core.part_number)])
 
     SERIES = (
