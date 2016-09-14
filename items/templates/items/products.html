@@ -4,7 +4,15 @@
 
 {% block meta_title %}Перелік виробів{% endblock meta_title %}
 
-{% block header %}Перелік виробів{% endblock header %}
+{% block header %}
+<div class="row" id="header">
+    <div class="nine columns"><h3>Перелік виробів</h3></div>
+    <div class="three columns">
+        <a class="button button-primary u-full-width"
+           href="{% url 'create_new_product' %}">Додати новий виріб</a>
+    </div>
+</div>
+{% endblock header %}
 
 {% block content %}
 <div class="row">

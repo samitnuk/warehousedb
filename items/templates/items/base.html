@@ -33,26 +33,27 @@
                 <ul class="nav-menu">
                     {% url 'main' as main_path %}
                     <li role="presentation" {% if request.path == main_path %}class="nav-active"{% endif %}>
-                        <a href="{% url 'main' %}">Загально по складу</a>
+                        <a href="{% url 'main' %}">Склад</a>
                     </li>
                     {% url 'items_by_dates' as items_by_dates_path %}
                     <li role="presentation" {% if items_by_dates_path in request.path %}class="nav-active"{% endif%}>
                         <a href="{% url 'items_by_dates' %}">Склад по датах</a>
                     </li>
-                    {% url 'items_by_categories' 1 as items_by_categories_path %}
+                    {% url 'items_by_categories' as items_by_categories_path %}
                     <li role="presentation" {% if items_by_categories_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'items_by_categories' 1 %}">Склад по категоріях</a>
+                        <a href="{% url 'items_by_categories' %}">Склад по категоріях</a>
+                    </li>
+                    <li>|</li>
+                    {% url 'products' as products_path %}
+                    <li role="presentation" {% if products_path in request.path %}class="nav-active"{% endif%}>
+                        <a href="{% url 'products' %}">Вироби</a>
+                    </li>
                 </ul>
             </div>
         </div>
         {% endblock navigation %}
 
-        <!-- header -->
-        <div class="row" id="header">
-            <div class="u-full-width">
-                <h3>{% block header %}{% endblock header %}</h3>
-            </div>
-        </div>
+        {% block header %}{% endblock header %}
 
         <!-- status message-->
         {% block status_message %}

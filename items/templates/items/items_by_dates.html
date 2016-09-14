@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/pikaday.css' %}" />
 {% endblock extra_css %}
 
-{% block header %}Склад по датах{% endblock header %}
-
 {% block content %}
 
 <form  action="{% url 'items_by_dates' %}" method="post">
