@@ -69,3 +69,7 @@ tbody tr:hover {
 .item_link {
     font-weight: bold;
 }
+
+.table-input {
+    margin-bottom: 0;
+}
