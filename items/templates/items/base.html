@@ -48,6 +48,11 @@
                     <li role="presentation" {% if products_path in request.path %}class="nav-active"{% endif%}>
                         <a href="{% url 'products' %}">Вироби</a>
                     </li>
+                    <li>|</li>
+                    {% url 'orders' as orders_path %}
+                    <li role="presentation" {% if orders_path in request.path %}class="nav-active"{% endif%}>
+                        <a href="{% url 'orders' %}">Замовлення</a>
+                    </li>
                 </ul>
             </div>
         </div>

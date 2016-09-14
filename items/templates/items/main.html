@@ -4,6 +4,12 @@
 
 {% block meta_title %}Загальна інформація{% endblock meta_title %}
 
+{% block header %}
+<div class="row" id="header">
+    <div class="nine columns"><h5>Загально по складу</h5></div>
+</div>
+{% endblock header %}
+
 {% block content %}
 {% for category in categories %}
 <div class="row">
