@@ -16,7 +16,8 @@ class AddProductForm(forms.Form):
                 'item_%s' % item.id: forms.FloatField(
                     label='',
                     required=False,
-                    widget=forms.NumberInput,), })
+                    widget=forms.NumberInput(
+                        attrs={'class': 'table-input'}),), })
 
     title = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'u-full-width'})
