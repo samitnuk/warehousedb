@@ -27,7 +27,7 @@ def create_new_product(request):
                                              item=item,
                                              quantity=quantity,)
 
-            return redirect('main')
+            return redirect('products')
 
         else:
             return render(
@@ -38,7 +38,7 @@ def create_new_product(request):
     # if GET or any other method
     else:
         form = AddProductForm(auto_id=False)
-        
+
         return render(
             request, 'items/create_new_product.html',
             {'items': items, 'form': form}
@@ -47,8 +47,8 @@ def create_new_product(request):
 
 @login_required(login_url='/login/')
 def products(request):
-    products = Product.objects.all()
-    
+    products = Product.objects.order_by('-id')
+
     return render(
         request, 'items/products.html',
         {'products': products})
@@ -57,7 +57,7 @@ def products(request):
 @login_required(login_url='/login/')
 def product_details(request, pk):
     product = Product.objects.filter(pk=pk).first()
-    
+
     return render(
         request, 'items/product_details.html',
         {'product': product})

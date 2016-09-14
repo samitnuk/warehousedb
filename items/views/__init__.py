@@ -1,5 +1,7 @@
-from .item import *
+from .items import *
 
-from .product import *
+from .products import *
+
+from .orders import *
 
 from .login import *
