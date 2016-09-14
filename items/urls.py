@@ -8,7 +8,7 @@ urlpatterns = [
         name='main'),
     url(r'^items_by_dates/', views.items_by_dates,
         name='items_by_dates'),
-    url(r'^items_by_categories/(?P<pk>\d+)/', views.items_by_categories,
+    url(r'^items_by_categories/(?P<pk>\d+)?/?', views.items_by_categories,
         name='items_by_categories'),
     url(r'^item_details/(?P<pk>\d+)/', views.item_details,
         name='item_details'),

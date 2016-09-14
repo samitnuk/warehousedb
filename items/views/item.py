@@ -19,6 +19,8 @@ def main(request):
 
 @login_required(login_url='/login/')
 def items_by_categories(request, pk):
+    if pk is None:
+        pk = 1
     categories = Category.objects.order_by('name')
     active_category = categories.filter(pk=pk).first()
     items = Item.objects.filter(category=active_category)
