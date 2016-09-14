@@ -7,6 +7,10 @@ a {
     text-decoration: none;
 }
 
+form {
+    margin-bottom: 0;
+}
+
 .container {
     max-width: 1200px;
 }
