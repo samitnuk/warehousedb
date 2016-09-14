@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
 
+    # items & categories
     url(r'^$', views.main,
         name='main'),
     url(r'^items_by_dates/', views.items_by_dates,
@@ -17,6 +18,7 @@ urlpatterns = [
     url(r'^add_item_change/(?P<pk>\d+)/', views.add_item_change,
         name='add_item_change'),
 
+    # products
     url(r'^create_new_product/', views.create_new_product,
         name='create_new_product'),
     url(r'^products/', views.products,
@@ -25,6 +27,10 @@ urlpatterns = [
         name='product_details'),
     url(r'^add_std_cable/', views.add_std_cable,
         name='add_std_cable'),
+
+    # orders
+    url(r'^orders/', views.orders,
+        name='orders'),
 
     url(r'^login/', views.login,
         name='login'),
