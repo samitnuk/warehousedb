@@ -6,7 +6,7 @@ from ..models import Order
 
 @login_required(login_url='/login/')
 def orders(request):
-    orders = Order.objects.all()
+    orders = Order.objects.order_by('-order_date')
 
     return render(
         request, 'items/orders.html',
