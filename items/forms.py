@@ -1,6 +1,9 @@
 from django import forms
 
-from .models import Item, Category
+from .models import Item, Category, Product
+
+
+input_attrs = {'class': 'u-full-width'}
 
 
 class AddProductForm(forms.Form):
@@ -17,19 +20,16 @@ class AddProductForm(forms.Form):
                     label='',
                     required=False,
                     widget=forms.NumberInput(
-                        attrs={'class': 'table-input'}),), })
+                        attrs=input_attrs),), })
 
     title = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'u-full-width'})
-    )
+        widget=forms.TextInput(attrs=input_attrs))
     part_number = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'class': 'u-full-width'})
-    )
+        widget=forms.TextInput(attrs=input_attrs))
     notes = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={'class': 'u-full-width'})
-    )
+        widget=forms.Textarea(attrs=input_attrs))
 
     def fields_items(self):
         items = Item.objects.all()
@@ -37,6 +37,28 @@ class AddProductForm(forms.Form):
         for item in items:
             fields.append([item, {'name': self['item_%s' % item.id]}])
         return fields
+
+
+class AddOrderForm(forms.Form):
+
+    products = Product.objects.order_by('-id')
+    PRODUCTS = []
+    for product in products:
+        PRODUCTS.append(
+            [product.id, "%s - %s" % (product.title, product.part_number)])
+
+    customer = forms.CharField(
+        label="Замовник",
+        widget=forms.TextInput(attrs=input_attrs))
+
+    product = forms.ChoiceField(
+        label="Виріб",
+        choices=PRODUCTS,
+        widget=forms.Select(attrs=input_attrs))
+
+    quantity = forms.FloatField(
+        label="Кількість",
+        widget=forms.NumberInput(attrs=input_attrs))
 
 
 class AddStdCableForm(forms.Form):
@@ -76,23 +98,23 @@ class AddStdCableForm(forms.Form):
     conduit = forms.ChoiceField(
         label="Кожух",
         choices=CONDUITS,
-        widget=forms.Select(attrs={'class': 'u-full-width'}))
+        widget=forms.Select(attrs=input_attrs))
     core = forms.ChoiceField(
         label="Сердечник",
         choices=CORES,
-        widget=forms.Select(attrs={'class': 'u-full-width'}))
+        widget=forms.Select(attrs=input_attrs))
     serie = forms.ChoiceField(
         label="Серія",
         choices=SERIES,
-        widget=forms.Select(attrs={'class': 'u-full-width'}))
+        widget=forms.Select(attrs=input_attrs))
     travel = forms.ChoiceField(
         label="Хід",
         choices=TRAVELS,
-        widget=forms.Select(attrs={'class': 'u-full-width'}))
+        widget=forms.Select(attrs=input_attrs))
     mounting = forms.ChoiceField(
         label="Кріплення",
         choices=MOUNTINGS,
-        widget=forms.Select(attrs={'class': 'u-full-width'}))
+        widget=forms.Select(attrs=input_attrs))
     length = forms.FloatField(
         label="Довжина, мм",
-        widget=forms.NumberInput(attrs={'class': 'u-full-width'}))
+        widget=forms.NumberInput(attrs=input_attrs))

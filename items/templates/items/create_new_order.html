@@ -1,0 +1,49 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додати нове замовлення{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+    <div class="nine columns"><h5>Додати нове замовлення</h5></div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'create_new_order' %}" method="post">
+
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="row">
+        {{ form.customer.errors }}
+        {{ form.customer.label_tag }}
+        {{ form.customer }}
+    </div>
+
+    <div class="row">
+        {{ form.product.errors }}
+        {{ form.product.label_tag }}
+        {{ form.product }}
+    </div>
+
+    <div class="row">
+        {{ form.quantity.errors }}
+        {{ form.quantity.label_tag }}
+        {{ form.quantity }}
+    </div>
+
+    <div class="row">
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Додати нове замовлення">
+        </div>
+    </div>
+
+
+
+</form>
+
+{% endblock content %}

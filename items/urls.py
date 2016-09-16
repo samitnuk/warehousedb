@@ -31,6 +31,8 @@ urlpatterns = [
     # orders
     url(r'^orders/', views.orders,
         name='orders'),
+    url(r'^create_new_order/', views.create_new_order,
+        name='create_new_order'),
 
     url(r'^login/', views.login,
         name='login'),
