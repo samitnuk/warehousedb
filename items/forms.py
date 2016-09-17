@@ -44,8 +44,13 @@ class AddOrderForm(forms.Form):
     products = Product.objects.order_by('-id')
     PRODUCTS = []
     for product in products:
-        PRODUCTS.append(
-            [product.id, "%s - %s" % (product.title, product.part_number)])
+        if product.part_number:
+            PRODUCTS.append(
+                [product.id, "%s - %s" % (product.title,
+                                          product.part_number)])
+        else:
+            PRODUCTS.append(
+                [product.id, "%s" % product.title])
 
     customer = forms.CharField(
         label="Замовник",
@@ -67,15 +72,24 @@ class AddStdCableForm(forms.Form):
     conduits = Item.objects.filter(category=conduits_category)
     CONDUITS = []
     for conduit in conduits:
-        CONDUITS.append(
-            [conduit.id, "%s - %s" % (conduit.title, conduit.part_number)])
+        if conduit.part_number:
+            CONDUITS.append(
+                [conduit.id, "%s - %s" % (conduit.title,
+                                          conduit.part_number)])
+        else:
+            CONDUITS.append(
+                [conduit.id, "%s" % conduit.title])
 
     cores_category = Category.objects.filter(name="Сердечник")
     cores = Item.objects.filter(category=cores_category)
     CORES = []
     for core in cores:
-        CORES.append(
-            [core.id, "%s - %s" % (core.title, core.part_number)])
+        if core.part_number:
+            CORES.append(
+                [core.id, "%s - %s" % (core.title, core.part_number)])
+        else:
+            CORES.append(
+                [core.id, "%s" % core.title])
 
     SERIES = (
         (3, "#3 серія"),
