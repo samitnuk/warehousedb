@@ -20,7 +20,7 @@ class AddProductForm(forms.Form):
                     label='',
                     required=False,
                     widget=forms.NumberInput(
-                        attrs=input_attrs),), })
+                        attrs={'class': 'table-input'}),), })
 
     title = forms.CharField(
         widget=forms.TextInput(attrs=input_attrs))
