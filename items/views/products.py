@@ -16,8 +16,7 @@ def create_new_product(request):
             product = Product.objects.create(
                 title=form.cleaned_data['title'],
                 part_number=form.cleaned_data['part_number'],
-                notes=form.cleaned_data['notes'],
-            )
+                notes=form.cleaned_data['notes'])
 
             for item in items:
                 quantity = form.cleaned_data['item_%s' % item.id]
@@ -41,17 +40,16 @@ def create_new_product(request):
 
         return render(
             request, 'items/create_new_product.html',
-            {'items': items, 'form': form}
-        )
+            {'items': items, 'form': form})
 
 
 @login_required(login_url='/login/')
 def products(request):
-    products = Product.objects.order_by('-id')
+    products_ = Product.objects.order_by('-id')
 
     return render(
         request, 'items/products.html',
-        {'products': products})
+        {'products': products_})
 
 
 @login_required(login_url='/login/')
@@ -65,6 +63,23 @@ def product_details(request, pk):
 
 @login_required(login_url='/login/')
 def add_std_cable(request):
+
+    if request.method == 'POST':
+        form = AddStdCableForm(request.POST)
+        if form.is_valid():
+            conduit = form.cleaned_data['conduit']
+            core = form.cleaned_data['core']
+            serie = form.cleaned_data['serie']
+            travel = form.cleaned_data['travel']
+            mounting = form.cleaned_data['mounting']
+            length = form.cleaned_data['length']
+
+            return redirect('products')
+
+        return render(
+            request, 'items/add_std_cable.html',
+            {'form': form})
+
     form = AddStdCableForm()
 
     return render(
