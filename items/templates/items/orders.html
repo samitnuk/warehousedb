@@ -31,7 +31,7 @@
                 {% for order in orders %}
                     <tr>
                         <td>{{ order.customer }}</td>
-                        <td>{{ order.order_date|date:'Y-m-d' }}</td>
+                        <td>{{ order.order_date|date:'Y . m . d' }}</td>
                         <td>
                             <a class="item_link" href="{% url 'product_details' order.product.id %}">
                                {{ order.product.title }}
