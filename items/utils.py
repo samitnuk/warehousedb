@@ -131,7 +131,7 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
         Component.objects.create(
             product=cable,
             item=nut,
-            quantity=2 if mounting == "22" else 1)
+            quantity=4 if mounting == "22" else 2)
 
     # washer
     if mounting in ["22", "23"]:
@@ -139,6 +139,6 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
         Component.objects.create(
             product=cable,
             item=washer,
-            quantity=2 if mounting == "22" else 1)
+            quantity=4 if mounting == "22" else 2)
 
     return cable
