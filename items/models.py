@@ -75,8 +75,8 @@ class ItemChange(models.Model):
         if a_q == int(a_q):
             a_q = int(a_q)
         return '{} / {} / {}'.format(self.item,
-                                    self.changed_at.strftime('%Y-%m-%d'),
-                                    a_q)
+                                     self.changed_at.strftime('%Y-%m-%d'),
+                                     a_q)
 
 
 class Category(models.Model):
@@ -180,10 +180,13 @@ class Order(models.Model):
 def auto_create_item_change(instance, **kwargs):
 
     order = instance
+    order_quantity = order.quantity
+    if order_quantity == int(order_quantity):
+        order_quantity = int(order_quantity)
 
     if order.product.part_number:
-        product_title = '%s - %s' % (order.product.part_number,
-                                     order.product.title)
+        product_title = '{} - {}'.format(order.product.part_number,
+                                         order.product.title)
     else:
         product_title = order.product.title
 
@@ -192,5 +195,5 @@ def auto_create_item_change(instance, **kwargs):
             additional_quantity=order.quantity * component.quantity * -1,
             item=component.item,
             notes='{} / {} шт. / {}'.format(product_title,
-                                            order.quantity,
+                                            order_quantity,
                                             order.customer))
