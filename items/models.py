@@ -9,7 +9,7 @@ from django.dispatch import receiver
 class Item(models.Model):
     """Item Model
 
-       Describes separate item in warehouse.
+    Describes separate item in warehouse.
 
     """
 
@@ -43,14 +43,14 @@ class Item(models.Model):
 
     def __str__(self):
         if self.part_number:
-            return '%s - %s' % (self.part_number, self.title,)
+            return '{} - {}'.format(self.part_number, self.title,)
         return self.title
 
 
 class ItemChange(models.Model):
     """ItemChange Model
 
-       Describes each change in quantity of concrete item.
+    Describes each change in quantity of concrete item.
 
     """
 
@@ -74,9 +74,9 @@ class ItemChange(models.Model):
         a_q = self.additional_quantity
         if a_q == int(a_q):
             a_q = int(a_q)
-        return '%s / %s / %s' % (self.item,
-                                 self.changed_at.strftime('%Y-%m-%d'),
-                                 a_q)
+        return '{} / {} / {}'.format(self.item,
+                                    self.changed_at.strftime('%Y-%m-%d'),
+                                    a_q)
 
 
 class Category(models.Model):
@@ -101,7 +101,7 @@ class Category(models.Model):
 class Product(models.Model):
     """Product Model
 
-       Instance of Product Model is set of instances of Component Model
+    Instance of Product Model is set of instances of Component Model
 
     """
 
@@ -123,15 +123,15 @@ class Product(models.Model):
 
     def __str__(self):
         if self.part_number:
-            return '%s - %s' % (self.part_number, self.title)
+            return '{} - {}'.format(self.part_number, self.title)
         return self.title
 
 
 class Component(models.Model):
     """Component Model
 
-       Describes component and quantity of this component
-       in separate product.
+    Describes component and quantity of this component
+    in separate product.
 
     """
 
@@ -146,15 +146,15 @@ class Component(models.Model):
     quantity = models.FloatField(blank=False)
 
     def __str__(self):
-        return '%s' % self.item
+        return '{}'.format(self.item)
 
 
 class Order(models.Model):
     """Order Model
 
-       When instance of Order Model will be created,
-       will be created related instances of ItemChange Model
-       throught post_save signal.
+    When instance of Order Model will be created,
+    will be created related instances of ItemChange Model
+    throught post_save signal.
 
     """
 
@@ -173,7 +173,7 @@ class Order(models.Model):
     quantity = models.FloatField(blank=False, verbose_name="Кількість")
 
     def __str__(self):
-        return '%s / %s' % (self.order_date, self.customer)
+        return '{} / {}'.format(self.order_date, self.customer)
 
 
 @receiver(post_save, sender=Order)
@@ -191,6 +191,6 @@ def auto_create_item_change(instance, **kwargs):
         ItemChange.objects.create(
             additional_quantity=order.quantity * component.quantity * -1,
             item=component.item,
-            notes='%s / %s шт. / %s' % (product_title,
-                                        order.quantity,
-                                        order.customer))
+            notes='{} / {} шт. / {}'.format(product_title,
+                                            order.quantity,
+                                            order.customer))
