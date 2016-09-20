@@ -46,11 +46,11 @@ class AddOrderForm(forms.Form):
     for product in products:
         if product.part_number:
             PRODUCTS.append(
-                [product.id, "%s - %s" % (product.title,
-                                          product.part_number)])
+                [product.id, "{} - {}".format(product.title,
+                                              product.part_number)])
         else:
             PRODUCTS.append(
-                [product.id, "%s" % product.title])
+                [product.id, "{}".format(product.title)])
 
     customer = forms.CharField(
         label="Замовник",
@@ -74,11 +74,11 @@ class AddStdCableForm(forms.Form):
     for conduit in conduits:
         if conduit.part_number:
             CONDUITS.append(
-                [conduit.id, "%s - %s" % (conduit.title,
-                                          conduit.part_number)])
+                [conduit.id, "{} - {}".format(conduit.title,
+                                              conduit.part_number)])
         else:
             CONDUITS.append(
-                [conduit.id, "%s" % conduit.title])
+                [conduit.id, "{}".format(conduit.title)])
 
     cores_category = Category.objects.filter(name="Сердечник")
     cores = Item.objects.filter(category=cores_category)
@@ -86,10 +86,10 @@ class AddStdCableForm(forms.Form):
     for core in cores:
         if core.part_number:
             CORES.append(
-                [core.id, "%s - %s" % (core.title, core.part_number)])
+                [core.id, "{} - {}".format(core.title, core.part_number)])
         else:
             CORES.append(
-                [core.id, "%s" % core.title])
+                [core.id, "{}".format(core.title)])
 
     SERIES = (
         (3, "#3 серія"),
@@ -129,6 +129,6 @@ class AddStdCableForm(forms.Form):
         label="Кріплення",
         choices=MOUNTINGS,
         widget=forms.Select(attrs=input_attrs))
-    length = forms.FloatField(
+    length = forms.IntegerField(
         label="Довжина, мм",
         widget=forms.NumberInput(attrs=input_attrs))
