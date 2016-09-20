@@ -8,6 +8,7 @@ def create_category(name, notes):
         name=name,
         notes=notes)
 
+
 def create_item(title, part_number, part_number2, picture, category, notes):
     return Item.objects.create(
         title=title,
@@ -16,6 +17,7 @@ def create_item(title, part_number, part_number2, picture, category, notes):
         picture=picture,
         category=category,
         notes=notes)
+
 
 class ItemTests(TestCase):
 
