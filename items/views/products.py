@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from ..models import Item, Product, Component
 from ..forms import AddProductForm, AddStdCableForm
+from ..utils import create_std_cable
 
 
 @login_required(login_url='/login/')
@@ -67,12 +68,15 @@ def add_std_cable(request):
     if request.method == 'POST':
         form = AddStdCableForm(request.POST)
         if form.is_valid():
-            conduit = form.cleaned_data['conduit']
-            core = form.cleaned_data['core']
+            conduit_id = form.cleaned_data['conduit']
+            core_id = form.cleaned_data['core']
             serie = form.cleaned_data['serie']
             travel = form.cleaned_data['travel']
             mounting = form.cleaned_data['mounting']
             length = form.cleaned_data['length']
+
+            create_std_cable(
+                core_id, conduit_id, serie, travel, mounting, length)
 
             return redirect('products')
 
