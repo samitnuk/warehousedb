@@ -1,9 +1,12 @@
 from .models import Item, Component, Product
 
+# reserve for cutting
+cutting = 15
+
 CORE_X = {
     3: [],
-    4: [],
-    6: [124, 174, 224, 274, 324],
+    4: [124, 174, 224, 274, 324],
+    6: [130, 180, 230, 280, 330],
     8: []}
 
 CONDUIT_X = {
@@ -12,13 +15,13 @@ CONDUIT_X = {
         "23": [],
         "33": []},
 
-    4: {"22": [],
-        "23": [],
-        "33": []},
-
-    6: {"22": [272, 348, 424, 500, 578],
+    4: {"22": [272, 348, 424, 500, 578],
         "23": [254, 330, 406, 482, 560],
         "33": [236, 312, 388, 464, 542]},
+
+    6: {"22": [278, 354, 430, 506, 582],
+        "23": [256, 332, 408, 484, 560],
+        "33": [234, 310, 386, 462, 538]},
 
     8: {"22": [],
         "23": [],
@@ -54,17 +57,17 @@ HUB_X = {
         "23": [],
         "33": []}}
 
-NUT_X_s = {             # nut on rods (s - small)
+NUT_X_s = {  # nut on rods (s - small)
     3: "Гайка М5",
     4: "Гайка М6",
     6: "Гайка М8",
     8: "Гайка М10"}
 
-NUT_X_b = {             # nut on hubs (b - big)
-    3: "Гайка М12",
-    4: "Гайка М16х1,5",
-    6: "Гайка М18х1,5",
-    8: "Гайка М22"}
+NUT_X_b = {  # nut on hubs (b - big)
+    3: "Гайка низька М12",
+    4: "Гайка низька М16х1.5",
+    6: "Гайка низька М18х1.5",
+    8: "Гайка низька М22"}
 
 WASHER_X = {
     3: "Шайба М12",
@@ -74,27 +77,31 @@ WASHER_X = {
 
 
 def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
+    serie = int(serie)
+    travel = int(travel)
 
     items = Item.objects.all()
 
     cable = Product.objects.create(
         title="Трос дистанційного управління",
-        part_number="100.M{0}{1}{2}.{3:0>5}".format(travel, mounting, length),
+        part_number="100.M{0}{1}{2}.{3:0>5}".format(
+            serie, travel, mounting, length),
         notes="#{} Стандартний трос 'тягни-штовхай'".format(serie))
 
     # core
     core = items.filter(pk=core_id).first()
+    print(core)
     Component.objects.create(
         product=cable,
         item=core,
-        quantity=(length - CORE_X[6][travel]))
+        quantity=(length - CORE_X[serie][travel - 1] + cutting))
 
     # conduit
     conduit = items.filter(pk=int(conduit_id)).first()
     Component.objects.create(
         product=cable,
         item=conduit,
-        quantity=(length - CONDUIT_X[6][mounting][travel]))
+        quantity=(length - CONDUIT_X[serie][mounting][travel - 1] + cutting))
 
     # rod
     rod = items.filter(part_number=ROD_X[serie].format(travel)).first()
@@ -120,6 +127,7 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
 
     # nut (small)
     nut = items.filter(title=NUT_X_s[serie]).first()
+    print(nut)
     Component.objects.create(
         product=cable,
         item=nut,
@@ -128,6 +136,7 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
     # nut (big)
     if mounting in ["22", "23"]:
         nut = items.filter(title=NUT_X_b[serie]).first()
+        print(nut)
         Component.objects.create(
             product=cable,
             item=nut,
