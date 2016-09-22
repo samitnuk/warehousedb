@@ -44,13 +44,10 @@ class AddOrderForm(forms.Form):
     products = Product.objects.order_by('-id')
     PRODUCTS = []
     for product in products:
-        if product.part_number:
-            PRODUCTS.append(
-                [product.id, "{} - {}".format(product.title,
-                                              product.part_number)])
-        else:
-            PRODUCTS.append(
-                [product.id, "{}".format(product.title)])
+        PRODUCTS.append(
+            [product.id, "{} {} / {}".format(product.part_number,
+                                             product.title,
+                                             product.notes)])
 
     customer = forms.CharField(
         label="Замовник",
