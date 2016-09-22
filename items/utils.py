@@ -64,16 +64,16 @@ NUT_X_s = {  # nut on rods (s - small)
     8: "Гайка М10"}
 
 NUT_X_b = {  # nut on hubs (b - big)
-    3: "Гайка низька М12",
-    4: "Гайка низька М16х1.5",
-    6: "Гайка низька М18х1.5",
-    8: "Гайка низька М22"}
+    3: "Гайка М12 низька",
+    4: "Гайка М16х1,5 низька",
+    6: "Гайка М18х1,5 низька",
+    8: "Гайка М22 низька"}
 
 WASHER_X = {
-    3: "Шайба М12",
-    4: "Шайба М16",
-    6: "Шайба М18",
-    8: "Шайба М22"}
+    3: "Шайба 12",
+    4: "Шайба 16",
+    6: "Шайба 18",
+    8: "Шайба 22"}
 
 
 def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
@@ -90,7 +90,6 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
 
     # core
     core = items.filter(pk=core_id).first()
-    print(core)
     Component.objects.create(
         product=cable,
         item=core,
@@ -127,7 +126,6 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
 
     # nut (small)
     nut = items.filter(title=NUT_X_s[serie]).first()
-    print(nut)
     Component.objects.create(
         product=cable,
         item=nut,
@@ -136,7 +134,6 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
     # nut (big)
     if mounting in ["22", "23"]:
         nut = items.filter(title=NUT_X_b[serie]).first()
-        print(nut)
         Component.objects.create(
             product=cable,
             item=nut,
