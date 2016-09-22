@@ -19,10 +19,14 @@ def main(request):
 
 @login_required(login_url='/login/')
 def items_by_categories(request, pk):
-    if pk is None:
-        pk = 1
+
     categories = Category.objects.order_by('name')
-    active_category = categories.filter(pk=pk).first()
+
+    if pk is None:
+        active_category = categories.first()
+    else:
+        active_category = categories.filter(pk=pk).first()
+
     items = Item.objects.filter(category=active_category)
 
     buttons_in_row = 6
@@ -102,14 +106,13 @@ def items_by_dates(request):
 
         items = Item.objects.order_by('category')
 
-        return render(request, 'items/items_by_dates.html',
-                      {'initial_range_start':
-                       datetime.strftime(range_start, "%Y-%m-%d"),
-                       'initial_range_stop':
-                       datetime.strftime(range_stop, "%Y-%m-%d"),
-                       'date_range': date_range,
-                       'items': items,
-                       'total_changes': total_changes})
+        return render(
+            request, 'items/items_by_dates.html',
+            {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
+             'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
+             'date_range': date_range,
+             'items': items,
+             'total_changes': total_changes})
 
 
 @login_required(login_url='/login/')

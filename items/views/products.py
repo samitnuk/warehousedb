@@ -20,8 +20,7 @@ def create_new_product(request):
                 notes=form.cleaned_data['notes'])
 
             for item in items:
-                quantity = form.cleaned_data['item_%s' % item.id]
-                print(quantity)
+                quantity = form.cleaned_data['item_{}'.format(item.id)]
                 if quantity is not None and float(quantity) > 0:
                     Component.objects.create(product=product,
                                              item=item,
