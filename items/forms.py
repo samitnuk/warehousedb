@@ -41,22 +41,25 @@ class AddProductForm(forms.Form):
 
 class AddOrderForm(forms.Form):
 
-    products = Product.objects.order_by('-id')
-    PRODUCTS = []
-    for product in products:
-        PRODUCTS.append(
-            [product.id, "{} {} / {}".format(product.part_number,
-                                             product.title,
-                                             product.notes)])
+    product = forms.ChoiceField(
+        label="Виріб",
+        choices=[],
+        widget=forms.Select(attrs=input_attrs))
+
+    def __init__(self, *args, **kwargs):
+        super(AddOrderForm, self).__init__(*args, **kwargs)
+        products = Product.objects.order_by('-id')
+        self.fields['product'] = forms.ChoiceField(
+            label="Виріб",
+            choices=[(product.id, "{} {} / {}".format(
+                product.part_number,
+                product.title,
+                product.notes)) for product in products],
+            widget=forms.Select(attrs=input_attrs))
 
     customer = forms.CharField(
         label="Замовник",
         widget=forms.TextInput(attrs=input_attrs))
-
-    product = forms.ChoiceField(
-        label="Виріб",
-        choices=PRODUCTS,
-        widget=forms.Select(attrs=input_attrs))
 
     quantity = forms.FloatField(
         label="Кількість",
