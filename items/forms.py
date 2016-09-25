@@ -41,22 +41,6 @@ class AddProductForm(forms.Form):
 
 class AddOrderForm(forms.Form):
 
-    product = forms.ChoiceField(
-        label="Виріб",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
-
-    def __init__(self, *args, **kwargs):
-        super(AddOrderForm, self).__init__(*args, **kwargs)
-        products = Product.objects.order_by('-id')
-        self.fields['product'] = forms.ChoiceField(
-            label="Виріб",
-            choices=[(product.id, "{} {} / {}".format(
-                product.part_number,
-                product.title,
-                product.notes)) for product in products],
-            widget=forms.Select(attrs=input_attrs))
-
     customer = forms.CharField(
         label="Замовник",
         widget=forms.TextInput(attrs=input_attrs))
@@ -65,31 +49,23 @@ class AddOrderForm(forms.Form):
         label="Кількість",
         widget=forms.NumberInput(attrs=input_attrs))
 
+    product = forms.ChoiceField(
+        label="Виріб",
+        choices=[],
+        widget=forms.Select(attrs=input_attrs))
+
+    # product field takes data from DB so it should
+    # be updated each time when form requsted
+    def __init__(self, *args, **kwargs):
+        super(AddOrderForm, self).__init__(*args, **kwargs)
+        products = Product.objects.order_by('-id')
+        self.fields['product'].choices = [(product.id, "{} {} / {}".format(
+            product.part_number,
+            product.title,
+            product.notes)) for product in products]
+
 
 class AddStdCableForm(forms.Form):
-
-    conduits_category = Category.objects.filter(name="Кожух")
-    conduits = Item.objects.filter(category=conduits_category)
-    CONDUITS = []
-    for conduit in conduits:
-        if conduit.part_number:
-            CONDUITS.append(
-                [conduit.id, "{} - {}".format(conduit.title,
-                                              conduit.part_number)])
-        else:
-            CONDUITS.append(
-                [conduit.id, "{}".format(conduit.title)])
-
-    cores_category = Category.objects.filter(name="Сердечник")
-    cores = Item.objects.filter(category=cores_category)
-    CORES = []
-    for core in cores:
-        if core.part_number:
-            CORES.append(
-                [core.id, "{} - {}".format(core.title, core.part_number)])
-        else:
-            CORES.append(
-                [core.id, "{}".format(core.title)])
 
     SERIES = (
         (3, "#3 серія"),
@@ -109,26 +85,49 @@ class AddStdCableForm(forms.Form):
         ("23", "23 (різьба-клемп)"),
         ("33", "33 (клемп-клемп)"),)
 
-    conduit = forms.ChoiceField(
-        label="Кожух",
-        choices=CONDUITS,
-        widget=forms.Select(attrs=input_attrs))
-    core = forms.ChoiceField(
-        label="Сердечник",
-        choices=CORES,
-        widget=forms.Select(attrs=input_attrs))
     serie = forms.ChoiceField(
         label="Серія",
         choices=SERIES,
         widget=forms.Select(attrs=input_attrs))
+
     travel = forms.ChoiceField(
         label="Хід",
         choices=TRAVELS,
         widget=forms.Select(attrs=input_attrs))
+
     mounting = forms.ChoiceField(
         label="Кріплення",
         choices=MOUNTINGS,
         widget=forms.Select(attrs=input_attrs))
+
     length = forms.IntegerField(
         label="Довжина, мм",
         widget=forms.NumberInput(attrs=input_attrs))
+
+    conduit = forms.ChoiceField(
+        label="Кожух",
+        choices=[],
+        widget=forms.Select(attrs=input_attrs))
+
+    core = forms.ChoiceField(
+        label="Сердечник",
+        choices=[],
+        widget=forms.Select(attrs=input_attrs))
+
+    # conduit and core fields take data from DB so they should
+    # be updated each time when form requsted
+    def __init__(self, *args, **kwargs):
+        super(AddStdCableForm, self).__init__(*args, **kwargs)
+        
+        conduits_category = Category.objects.filter(name="Кожух")
+        conduits = Item.objects.filter(category=conduits_category)
+        self.fields['conduit'].choices = [(conduit.id, "{} {}".format(
+            conduit.title,
+            conduit.part_number)) for conduit in conduits]
+
+        cores_category = Category.objects.filter(name="Сердечник")
+        cores = Item.objects.filter(category=cores_category)
+        self.fields['core'].choices = [(core.id, "{} {}".format(
+            core.title,
+            core.part_number)) for core in cores]
+
