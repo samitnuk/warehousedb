@@ -32,14 +32,14 @@
             <tbody>
                 {% for product in products %}
                     <tr>
+                        <td>{{ product.part_number }}</td>
                         <td>
                             <a class="item_link"
                                href="{% url 'product_details' product.id %}">
                                 {{ product.title }}
                             </a>
                         </td>
-                        <td>{{ product.part_number }}</td>
-                        <td>{{ product.notes }}</td>
+                        <td class="notes">{{ product.notes }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

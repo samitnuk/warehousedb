@@ -76,10 +76,12 @@
                     <td>
                         {% for change in total_changes %}
                             {% if change.changed_at|date == date|date and item == change.item %}
-                                <a class="item_link"
-                                   href="{% url 'item_change_details' change.id %}">
-                                    {{ change.additional_quantity|floatformat }}
-                                </a>&nbsp;
+                                <abbr title="{{ change.notes }}">
+                                    <a class="item_link"
+                                       href="{% url 'item_change_details' change.id %}">
+                                        {{ change.additional_quantity|floatformat }}
+                                    </a>&nbsp;
+                                </abbr>
                             {% endif %}
                         {% endfor %}
                     </td>
