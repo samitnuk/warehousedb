@@ -83,7 +83,7 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
     items = Item.objects.all()
 
     cable = Product.objects.create(
-        title="Трос дистанційного управління",
+        title="ТДУ",
         part_number="100.M{0}{1}{2}.{3:0>5}".format(
             serie, travel, mounting, length),
         notes="#{} Стандартний трос 'тягни-штовхай'".format(serie))
