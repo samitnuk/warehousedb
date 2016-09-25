@@ -6,6 +6,12 @@ from .models import Item, Category, Product
 input_attrs = {'class': 'u-full-width'}
 
 
+def get_choices(items):
+    return [(item.id, "{} {}".format(
+            item.title,
+            item.part_number)) for item in items]
+
+
 class AddProductForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
@@ -122,12 +128,8 @@ class AddStdCableForm(forms.Form):
 
         conduits_category = Category.objects.filter(name="Кожух")
         conduits = Item.objects.filter(category=conduits_category)
-        self.fields['conduit'].choices = [(conduit.id, "{} {}".format(
-            conduit.title,
-            conduit.part_number)) for conduit in conduits]
+        self.fields['conduit'].choices = get_choices(conduits)
 
         cores_category = Category.objects.filter(name="Сердечник")
         cores = Item.objects.filter(category=cores_category)
-        self.fields['core'].choices = [(core.id, "{} {}".format(
-            core.title,
-            core.part_number)) for core in cores]
+        self.fields['core'].choices = get_choices(cores)
