@@ -68,10 +68,11 @@ class AddOrderForm(forms.Form):
 class AddStdCableForm(forms.Form):
 
     SERIES = (
-        (3, "#3 серія"),
+        # (3, "#3 серія"),
         (4, "#4 серія"),
         (6, "#6 серія"),
-        (8, "#8 серія"),)
+        # (8, "#8 серія"),
+    )
 
     TRAVELS = (
         (1, "1й хід (25 мм)"),
@@ -118,7 +119,7 @@ class AddStdCableForm(forms.Form):
     # be updated each time when form requsted
     def __init__(self, *args, **kwargs):
         super(AddStdCableForm, self).__init__(*args, **kwargs)
-        
+
         conduits_category = Category.objects.filter(name="Кожух")
         conduits = Item.objects.filter(category=conduits_category)
         self.fields['conduit'].choices = [(conduit.id, "{} {}".format(
@@ -130,4 +131,3 @@ class AddStdCableForm(forms.Form):
         self.fields['core'].choices = [(core.id, "{} {}".format(
             core.title,
             core.part_number)) for core in cores]
-
