@@ -1,9 +1,9 @@
-@import 'https://fonts.googleapis.com/css?family=Roboto';
+@import 'https://fonts.googleapis.com/css?family=Scada';
 
 
 /* global styles */
 body {
-    font-family: 'Roboto', 'Ubuntu Condensed', sans-serif;
+    font-family: 'Scada', 'Ubuntu Condensed', sans-serif;
 }
 
 a {
@@ -85,4 +85,9 @@ tbody tr:hover {
 
 .table-input {
     margin-bottom: 0;
+}
+
+.notes {
+    font-size: 0.8em;
+    color: #444;
 }
