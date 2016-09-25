@@ -16,7 +16,7 @@ class AddProductForm(forms.Form):
 
         for item in items:
             self.fields.update({
-                'item_%s' % item.id: forms.FloatField(
+                'item_{}'.format(item.id): forms.FloatField(
                     label='',
                     required=False,
                     widget=forms.NumberInput(
@@ -35,7 +35,7 @@ class AddProductForm(forms.Form):
         items = Item.objects.all()
         fields = []
         for item in items:
-            fields.append([item, {'name': self['item_%s' % item.id]}])
+            fields.append([item, {'name': self['item_{}'.format(item.id)]}])
         return fields
 
 
