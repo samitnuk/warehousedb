@@ -58,7 +58,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in items %}
+            {% for item, item_changes in items_list %}
                 <tr>
                     <td>
                         <a class="item_link"
@@ -74,8 +74,8 @@
                     </td>
                     {% for date in date_range %}
                     <td>
-                        {% for change in total_changes %}
-                            {% if change.changed_at|date == date|date and item == change.item %}
+                        {% for change in item_changes %}
+                            {% if change.changed_at|date == date|date %}
                                 <abbr title="{{ change.notes }}">
                                     <a class="item_link"
                                        href="{% url 'item_change_details' change.id %}">

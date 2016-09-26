@@ -86,11 +86,14 @@ def items_by_dates(request):
 
         items = Item.objects.order_by('category')
 
+        items_list = []
+        for item in items:
+            items_list.append([item, total_changes.filter(item=item)])
+
         return render(
             request, 'items/items_by_dates.html',
             {'date_range': date_range,
-             'items': items,
-             'total_changes': total_changes})
+             'items_list': items_list})
 
     else:
         range_stop = datetime.today()
@@ -106,13 +109,16 @@ def items_by_dates(request):
 
         items = Item.objects.order_by('category')
 
+        items_list = []
+        for item in items:
+            items_list.append([item, total_changes.filter(item=item)])
+
         return render(
             request, 'items/items_by_dates.html',
             {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
              'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
              'date_range': date_range,
-             'items': items,
-             'total_changes': total_changes})
+             'items_list': items_list})
 
 
 @login_required(login_url='/login/')
