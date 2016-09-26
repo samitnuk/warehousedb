@@ -148,3 +148,25 @@ def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
             quantity=4 if mounting == "22" else 2)
 
     return cable
+
+
+def create_tza_cable(core_id, conduit_id, length):
+
+    cable = Product.objects.create(
+        title="Трос ТЗА",
+        part_number="ТЗА-100.М4(110)20.{:>5}".format(length),
+        notes="")
+
+    # core
+    core = Item.objects.filter(pk=core_id).first()
+    Component.objects.create(
+        product=cable,
+        item=core,
+        quantity=(length - 282 + cutting))
+
+    # conduit
+    conduit = Item.objects.filter(pk=int(conduit_id)).first()
+    Component.objects.create(
+        product=cable,
+        item=conduit,
+        quantity=(length - 443 + cutting))
