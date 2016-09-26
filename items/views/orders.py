@@ -17,8 +17,9 @@ def orders(request):
 @login_required(login_url='/login/')
 def create_new_order(request):
 
+    form = AddOrderForm(request.POST or None)
+
     if request.method == 'POST':
-        form = AddOrderForm(request.POST)
         if form.is_valid():
             Order.objects.create(
                 customer=form.cleaned_data['customer'],
@@ -32,8 +33,6 @@ def create_new_order(request):
             request,
             'items/create_new_order.html',
             {'form': form})
-
-    form = AddOrderForm()
 
     return render(
         request,

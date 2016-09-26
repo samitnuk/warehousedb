@@ -9,10 +9,11 @@ from ..utils import create_std_cable
 @login_required(login_url='/login/')
 def create_new_product(request):
 
+    form = AddProductForm(request.POST or None)
+
     items = Item.objects.all()
 
     if request.method == 'POST':
-        form = AddProductForm(request.POST)
         if form.is_valid():
             product = Product.objects.create(
                 title=form.cleaned_data['title'],
@@ -34,13 +35,9 @@ def create_new_product(request):
                 'items/create_new_product.html',
                 {'items': items, 'form': form})
 
-    # if GET or any other method
-    else:
-        form = AddProductForm(auto_id=False)
-
-        return render(
-            request, 'items/create_new_product.html',
-            {'items': items, 'form': form})
+    return render(
+        request, 'items/create_new_product.html',
+        {'items': items, 'form': form})
 
 
 @login_required(login_url='/login/')
@@ -64,8 +61,9 @@ def product_details(request, pk):
 @login_required(login_url='/login/')
 def add_std_cable(request):
 
+    form = AddStdCableForm(request.POST or None)
+
     if request.method == 'POST':
-        form = AddStdCableForm(request.POST)
         if form.is_valid():
             conduit_id = form.cleaned_data['conduit']
             core_id = form.cleaned_data['core']
@@ -82,8 +80,6 @@ def add_std_cable(request):
         return render(
             request, 'items/add_std_cable.html',
             {'form': form})
-
-    form = AddStdCableForm()
 
     return render(
         request, 'items/add_std_cable.html',
