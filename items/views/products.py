@@ -65,15 +65,15 @@ def add_std_cable(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            conduit_id = form.cleaned_data['conduit']
-            core_id = form.cleaned_data['core']
-            serie = form.cleaned_data['serie']
-            travel = form.cleaned_data['travel']
-            mounting = form.cleaned_data['mounting']
-            length = form.cleaned_data['length']
-
             create_std_cable(
-                core_id, conduit_id, serie, travel, mounting, length)
+                conduit_id=form.cleaned_data['conduit'],
+                core_id=form.cleaned_data['core'],
+                serie=form.cleaned_data['serie'],
+                travel=form.cleaned_data['travel'],
+                mounting=form.cleaned_data['mounting'],
+                is_steel_rods=form.cleaned_data['is_steel_rods'],
+                is_steel_sleeves=form.cleaned_data['is_steel_sleeves'],
+                length=form.cleaned_data['length'])
 
             return redirect('products')
 
