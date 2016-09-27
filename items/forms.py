@@ -7,9 +7,10 @@ input_attrs = {'class': 'u-full-width'}
 
 
 def get_choices(items):
-    return [(item.id, "{} {}".format(
+    return [(item.id, "{} {} ~~~ {}".format(
             item.title,
-            item.part_number)) for item in items]
+            item.part_number,
+            item.notes)) for item in items]
 
 
 class AddProductForm(forms.Form):
@@ -120,6 +121,14 @@ class AddStdCableForm(forms.Form):
         label="Сердечник",
         choices=[],
         widget=forms.Select(attrs=input_attrs))
+
+    is_steel_rods = forms.BooleanField(
+        label="Чорні прутки",
+        required=False)
+
+    is_steel_sleeves = forms.BooleanField(
+        label="Чорні трубки",
+        required=False)
 
     # conduit and core fields take data from DB so they should
     # be updated each time when form requsted
