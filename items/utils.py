@@ -76,81 +76,87 @@ WASHER_X = {
     8: "Шайба 22"}
 
 
-def create_std_cable(core_id, conduit_id, serie, travel, mounting, length):
-    serie = int(serie)
-    travel = int(travel)
+def create_std_cable(conduit_id, core_id, serie, travel, mounting,
+                     is_steel_rods, is_steel_sleeves, length):
 
     items = Item.objects.all()
+    serie = int(serie)
+    travel = int(travel)
+    notes = "#{} Стандартний трос 'тягни-штовхай'".format(serie)
+
+    if is_steel_rods:
+        notes = ", ".join([notes, "прутки з чорної сталі"])
+        rod_part_number = "".join([ROD_X[serie].format(travel), "ст"])
+    else:
+        rod_part_number = ROD_X[serie].format(travel)
+
+    if is_steel_sleeves:
+        notes = ", ".join([notes, "трубки з чорної сталі"])
+        sleeve_part_number = "".join([SLEEVE_X[serie].format(travel), "ст"])
+    else:
+        sleeve_part_number = SLEEVE_X[serie].format(travel)
 
     cable = Product.objects.create(
         title="ТДУ",
         part_number="100.M{0}{1}{2}.{3:0>5}".format(
             serie, travel, mounting, length),
-        notes="#{} Стандартний трос 'тягни-штовхай'".format(serie))
+        notes=notes)
 
     # core
-    core = items.filter(pk=core_id).first()
     Component.objects.create(
         product=cable,
-        item=core,
+        item=items.filter(pk=core_id).first(),
         quantity=(length - CORE_X[serie][travel - 1] + cutting))
 
     # conduit
-    conduit = items.filter(pk=int(conduit_id)).first()
     Component.objects.create(
         product=cable,
-        item=conduit,
+        item=items.filter(pk=int(conduit_id)).first(),
         quantity=(length - CONDUIT_X[serie][mounting][travel - 1] + cutting))
 
     # rod
-    rod = items.filter(part_number=ROD_X[serie].format(travel)).first()
     Component.objects.create(
         product=cable,
-        item=rod,
+        item=items.filter(part_number=rod_part_number).first(),
         quantity=2)
 
     # sleeve
-    sleeve = items.filter(part_number=SLEEVE_X[serie].format(travel)).first()
     Component.objects.create(
         product=cable,
-        item=sleeve,
+        item=items.filter(part_number=sleeve_part_number).first(),
         quantity=2)
 
     # hub
     for part_number in HUB_X[serie][mounting]:
-        hub = items.filter(part_number=part_number).first()
         Component.objects.create(
             product=cable,
-            item=hub,
+            item=items.filter(part_number=part_number).first(),
             quantity=2 if mounting in ["22", "33"] else 1)
 
     # nut (small)
-    nut = items.filter(title=NUT_X_s[serie]).first()
     Component.objects.create(
         product=cable,
-        item=nut,
+        item=items.filter(title=NUT_X_s[serie]).first(),
         quantity=2)
 
     # nut (big)
     if mounting in ["22", "23"]:
-        nut = items.filter(title=NUT_X_b[serie]).first()
         Component.objects.create(
             product=cable,
-            item=nut,
+            item=items.filter(title=NUT_X_b[serie]).first(),
             quantity=4 if mounting == "22" else 2)
 
     # washer
     if mounting in ["22", "23"]:
-        washer = items.filter(title=WASHER_X[serie]).first()
         Component.objects.create(
             product=cable,
-            item=washer,
+            item=items.filter(title=WASHER_X[serie]).first(),
             quantity=4 if mounting == "22" else 2)
 
-    return cable
 
+def create_tza_cable(core_id, conduit_id, is_steel_rods, length):
 
-def create_tza_cable(core_id, conduit_id, length):
+    items = Item.objects.all()
 
     cable = Product.objects.create(
         title="Трос ТЗА",
@@ -170,3 +176,51 @@ def create_tza_cable(core_id, conduit_id, length):
         product=cable,
         item=conduit,
         quantity=(length - 443 + cutting))
+
+    # nut (small)
+    Component.objects.create(
+        product=cable,
+        item=items.filter(title="Гайка М6").first(),
+        quantity=2)
+
+    # nut (big)
+    Component.objects.create(
+        product=cable,
+        item=items.filter(title="Гайка М12х1,25 низька").first(),
+        quantity=2)
+
+    # union nut
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="40013-ТЗА").first(),
+        quantity=1)
+
+    # hub
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="40020-ТЗА").first(),
+        quantity=2)
+
+    # tube 01
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="40004-ТЗА-01").first(),
+        quantity=1)
+
+    # tube 02
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="40004-ТЗА-02").first(),
+        quantity=1)
+
+    # rod 01
+    Component.objects.create(
+        product=cable,
+        item=items.filter(pk=rod1_id).first(),
+        quantity=1)
+
+    # rod 02
+    Component.objects.create(
+        product=cable,
+        item=items.filter(pk=rod2_id).first(),
+        quantity=1)
