@@ -8,7 +8,7 @@ from ..models import Item, ItemChange, Category
 
 @login_required(login_url='/login/')
 def main(request):
-    items = Item.objects.order_by('category')
+    items = Item.objects.order_by('category', 'title', 'part_number')
     categories = Category.objects.order_by('name')
 
     return render(
