@@ -43,6 +43,7 @@
                 <tr>
                     <th>Найменування</th>
                     <th>Індекс</th>
+                    <th>Примітка</th>
                     <th>Кількість</th>
                 </tr>
             </thead>
@@ -54,6 +55,9 @@
                     </td>
                     <td>
                         {{ item.part_number }}
+                    </td>
+                    <td class="notes">
+                        {{ item.notes }}
                     </td>
                     <td>
                         {{ field.name }}

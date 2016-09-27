@@ -49,6 +49,18 @@
     </div>
 
     <div class="row">
+        {{ form.is_steel_rods.label_tag }}
+        {{ form.is_steel_rods }}
+        {{ form.is_steel_rods.errors }}
+    </div>
+
+    <div class="row">
+        {{ form.is_steel_sleeves.label_tag }}
+        {{ form.is_steel_sleeves }}
+        {{ form.is_steel_sleeves.errors }}
+    </div>
+
+    <div class="row">
         {{ form.length.label_tag }}
         {{ form.length }}
         {{ form.length.errors }}

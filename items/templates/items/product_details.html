@@ -24,6 +24,7 @@
             <tr>
                 <th>Найменування</th>
                 <th>Індекс</th>
+                <th>Примітка</th>
                 <th>Кількість</th>
             </tr>
         </thead>
@@ -37,6 +38,7 @@
                         </a>
                     </td>
                     <td>{{ component.item.part_number }}</td>
+                    <td class="notes">{{ component.item.notes }}</td>
                     <td>{{ component.quantity|floatformat }}</td>
                 </tr>
             {% endfor %}
