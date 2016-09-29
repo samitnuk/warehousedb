@@ -21,18 +21,18 @@
     </div>
 </div>    
 {% endif %}
-{% if item.picture %}
-<div class="row">
-    <div class="u-full-width">
-        <img src="{{ PORTAL_URL }}{{ item.picture.url }}">
-    </div>
-</div>    
-{% endif %}
 {% if item.notes %}
 <div class="row">
     <div class="u-full-width">
         <p>{{ item.notes }}</p>
     </div>
 </div>
+{% endif %}
+{% if item.picture %}
+<div class="row">
+    <div class="u-full-width">
+        <img src="{{ PORTAL_URL }}{{ item.picture.url }}">
+    </div>
+</div>    
 {% endif %}
 {% endblock content %}
