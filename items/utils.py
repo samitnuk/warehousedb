@@ -198,11 +198,11 @@ def create_tza_cable(core_id, conduit_id, is_steel_rods, length):
 
     if is_steel_rods:
         notes = "прутки з чорної сталі"
-        rod1_part_number = "40303-ТЗА"
-        rod2_part_number = "40303-5"
-    else:
         rod1_part_number = "40303-ТЗАст"
         rod2_part_number = "40303-5ст"
+    else:
+        rod1_part_number = "40303-ТЗА"
+        rod2_part_number = "40303-5"
 
     cable = Product.objects.create(
         title="Трос ТЗА",
