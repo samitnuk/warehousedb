@@ -6,7 +6,9 @@
 
 {% block header %}
 <div class="row" id="header">
-    <div class="nine columns"><h5>{{ product.title }} {{ product.part_number }}</h5></div>
+    <div class="nine columns"><h5>{{ product.title }} {{ product.part_number }}</h5>
+        {{ product.notes }}
+    </div>
 </div>
 {% endblock header %}
 

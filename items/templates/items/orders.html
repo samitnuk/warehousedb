@@ -33,8 +33,11 @@
                         <td>{{ order.customer }}</td>
                         <td>{{ order.order_date|date:'d . m . Y' }}</td>
                         <td>
-                            <a class="item_link" href="{% url 'product_details' order.product.id %}">
-                               {{ order.product.title }}
+                            <abbr title="{{ order.product.notes }}">
+                                <a class="item_link" href="{% url 'product_details' order.product.id %}">
+                                   {{ order.product.title }}
+                                </a>
+                            </abbr>
                         </td>
                         <td>{{ order.product.part_number }}</td>
                         <td>{{ order.quantity|floatformat }}</td>
