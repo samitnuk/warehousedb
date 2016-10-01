@@ -75,6 +75,24 @@ WASHER_X = {
     6: "Шайба 18",
     8: "Шайба 22"}
 
+ROD_SEAL = {
+    3: "",
+    4: "40008-С",
+    6: "60008-С",
+    8: ""}
+
+SLEEVE_SEAL = {
+    3: "",
+    4: "40324-1",
+    6: "60009-1-С",
+    8: ""}
+
+BEARING = {
+    3: "",
+    4: "40009-1-С",
+    6: "60317-1",
+    8: ""}
+
 
 def create_std_cable(conduit_id, core_id, serie, travel, mounting,
                      is_steel_rods, is_steel_sleeves, length):
@@ -153,15 +171,43 @@ def create_std_cable(conduit_id, core_id, serie, travel, mounting,
             item=items.filter(title=WASHER_X[serie]).first(),
             quantity=4 if mounting == "22" else 2)
 
+    # rod seal
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number=ROD_SEAL[serie]).first(),
+        quantity=2)
+
+    # sleeve seal
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number=ROD_SEAL[serie]).first(),
+        quantity=2)
+
+    # bearing
+    if serie in [3, 4, 6]:
+        Component.objects.create(
+            product=cable,
+            item=items.filter(part_number=BEARING[serie]).first(),
+            quantity=2)
+
 
 def create_tza_cable(core_id, conduit_id, is_steel_rods, length):
 
     items = Item.objects.all()
+    notes = ""
+
+    if is_steel_rods:
+        notes = "прутки з чорної сталі"
+        rod1_part_number = "40303-ТЗА"
+        rod2_part_number = "40303-5"
+    else:
+        rod1_part_number = "40303-ТЗАст"
+        rod2_part_number = "40303-5ст"
 
     cable = Product.objects.create(
         title="Трос ТЗА",
-        part_number="ТЗА-100.М4(110)20.{:>5}".format(length),
-        notes="")
+        part_number="ТЗА-100.М4(110)20.{:0>5}".format(length),
+        notes=notes)
 
     # core
     core = Item.objects.filter(pk=core_id).first()
@@ -216,11 +262,17 @@ def create_tza_cable(core_id, conduit_id, is_steel_rods, length):
     # rod 01
     Component.objects.create(
         product=cable,
-        item=items.filter(pk=rod1_id).first(),
+        item=items.filter(part_number=rod1_part_number).first(),
         quantity=1)
 
     # rod 02
     Component.objects.create(
         product=cable,
-        item=items.filter(pk=rod2_id).first(),
+        item=items.filter(part_number=rod2_part_number).first(),
+        quantity=1)
+
+    # seal
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="425138СР-03").first(),
         quantity=1)

@@ -1,0 +1,53 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додати трос ТЗА{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+    <div class="nine columns"><h5>Додати трос ТЗА</h5></div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'add_tza_cable' %}" method="post">
+
+{% csrf_token %}
+
+{{ form.non_field_errors }}
+
+    <div class="row">
+        {{ form.conduit.label_tag }}
+        {{ form.conduit }}
+        {{ form.conduit.errors }}
+    </div>
+
+    <div class="row">
+        {{ form.core.label_tag }}
+        {{ form.core }}
+        {{ form.core.errors }}
+    </div>
+
+    <div class="row">
+        {{ form.is_steel_rods.label_tag }}
+        {{ form.is_steel_rods }}
+        {{ form.is_steel_rods.errors }}
+    </div>
+
+    <div class="row">
+        {{ form.length.label_tag }}
+        {{ form.length }}
+        {{ form.length.errors }}
+    </div>
+
+    <div class="row">
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Підтвердити">
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

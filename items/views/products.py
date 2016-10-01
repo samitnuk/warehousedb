@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from ..models import Item, Product, Component
-from ..forms import AddProductForm, AddStdCableForm
-from ..utils import create_std_cable
+from ..forms import AddProductForm, AddStdCableForm, AddTZACableForm
+from ..utils import create_std_cable, create_tza_cable
 
 
 @login_required(login_url='/login/')
@@ -83,4 +83,28 @@ def add_std_cable(request):
 
     return render(
         request, 'items/add_std_cable.html',
+        {'form': form})
+
+
+@login_required(login_url='/login/')
+def add_tza_cable(request):
+
+    form = AddTZACableForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            create_tza_cable(
+                conduit_id=form.cleaned_data['conduit'],
+                core_id=form.cleaned_data['core'],
+                is_steel_rods=form.cleaned_data['is_steel_rods'],
+                length=form.cleaned_data['length'])
+
+            return redirect('products')
+
+        return render(
+            request, 'items/add_tza_cable.html',
+            {'form': form})
+
+    return render(
+        request, 'items/add_tza_cable.html',
         {'form': form})

@@ -27,6 +27,8 @@ urlpatterns = [
         name='product_details'),
     url(r'^add_std_cable/', views.add_std_cable,
         name='add_std_cable'),
+    url(r'^add_tza_cable/', views.add_tza_cable,
+        name='add_tza_cable'),
 
     # orders
     url(r'^orders/', views.orders,
