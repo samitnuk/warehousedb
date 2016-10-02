@@ -94,8 +94,10 @@ BEARING = {
     8: ""}
 
 
-def create_std_cable(conduit_id, core_id, serie, travel, mounting,
-                     is_steel_rods, is_steel_sleeves, length):
+def create_std_cable(
+    conduit_id, core_id, serie, travel, mounting,
+    is_steel_rods, is_steel_sleeves, length
+):
 
     items = Item.objects.all()
     serie = int(serie)
@@ -206,7 +208,7 @@ def create_tza_cable(core_id, conduit_id, is_steel_rods, length):
 
     cable = Product.objects.create(
         title="Трос ТЗА",
-        part_number="ТЗА-100.М4(110)20.{:0>5}".format(length),
+        part_number="ТЗА-100.М4(110)20.{:0>5}-01".format(length),
         notes=notes)
 
     # core
@@ -275,4 +277,226 @@ def create_tza_cable(core_id, conduit_id, is_steel_rods, length):
     Component.objects.create(
         product=cable,
         item=items.filter(part_number="425138СР-03").first(),
+        quantity=1)
+
+    # # flange bearing
+    # Component.objects.create(
+    #     product=cable,
+    #     item=items.filter(part_number="FB01-12").first(),
+    #     quantity=1)
+
+
+def base_for_H_cables(cable, is_steel_rod_E):
+
+    # hub
+    Component.objects.create(
+        product=cable,
+        item=Item.objects.filter(part_number="40025-20").first(),
+        quantity=1)
+
+    # flange
+    Component.objects.create(
+        product=cable,
+        item=Item.objects.filter(part_number="Г002", title="Фланець").first(),
+        quantity=1)
+
+    # body
+    Component.objects.create(
+        product=cable,
+        item=Item.objects.filter(part_number="Г-001", title="Стакан").first(),
+        quantity=1)
+
+    if is_steel_rod_E:
+        rod_part_number = "40303-Ест"
+    else:
+        rod_part_number = "40303-Е"
+
+    # body
+    Component.objects.create(
+        product=cable,
+        item=Item.objects.filter(part_number=rod_part_number).first(),
+        quantity=1)
+
+
+def create_H4_cable(
+    core_id,
+    conduit_id,
+    is_steel_rod_E,
+    length
+):
+
+    items = Item.objects.all()
+    notes = ""
+
+    if is_steel_rod_E:
+        notes = "Пруток 40303-Ест (чорна сталь)"
+
+    cable = Product.objects.create(
+        title="Трос Г4 (МТЗ)",
+        part_number="100.М4(40)Г4.{:0>5}".format(length),
+        notes=notes)
+
+    base_for_H_cables(cable, is_steel_rod_E)
+
+    # # core
+    # Component.objects.create(
+    #     product=cable,
+    #     item=items.filter(pk=core_id).first(),
+    #     quantity=(length - ___ + cutting))
+
+    # # conduit
+    # Component.objects.create(
+    #     product=cable,
+    #     item=items.filter(pk=int(conduit_id)).first(),
+    #     quantity=(length - ___ + cutting))
+
+    # nut (small)
+    Component.objects.create(
+        product=cable,
+        item=items.filter(title="Гайка М6").first(),
+        quantity=1)
+
+    # nut (big)
+    Component.objects.create(
+        product=cable,
+        item=items.filter(title="Гайка М16х1,5 низька").first(),
+        quantity=1)
+
+    # special hub
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Ковпачок (держатель)",
+            part_number="Г4").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Штуцер",
+            part_number="Г4").first(),
+        quantity=1)
+
+    # rod
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Пруток",
+            part_number="Г4").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Муфта",
+            part_number="Г-003/002").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Кільце",
+            part_number="Г-005").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Штифт",
+            part_number="Г-004").first(),
+        quantity=1)
+
+
+def create_H2_cable(
+    core_id,
+    conduit_id,
+    is_steel_rod_E,
+    with_01,
+    length
+):
+
+    items = Item.objects.all()
+    notes = ""
+
+    if is_steel_rod_E:
+        notes = "Пруток 40303-Ест (чорна сталь)"
+
+    cable_part_number = "100.М4(35)Г2.{:0>5}".format(length)
+    if with_01:
+        "".join(cable_part_number, "-01")
+
+    cable = Product.objects.create(
+        title="Трос Г4 (МТЗ)",
+        part_number=cable_part_number,
+        notes=notes)
+
+    base_for_H_cables(cable, is_steel_rod_E)
+
+    # # core
+    # Component.objects.create(
+    #     product=cable,
+    #     item=items.filter(pk=core_id).first(),
+    #     quantity=(length - ___ + cutting))
+
+    # # conduit
+    # Component.objects.create(
+    #     product=cable,
+    #     item=items.filter(pk=int(conduit_id)).first(),
+    #     quantity=(length - ___ + cutting))
+
+    # nut (small)
+    Component.objects.create(
+        product=cable,
+        item=items.filter(title="Гайка М6").first(),
+        quantity=2)
+
+    # nut (big)
+    Component.objects.create(
+        product=cable,
+        item=items.filter(title="Гайка М16х1,5 низька").first(),
+        quantity=1)
+
+    # hub
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="40023-03").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="100.М4СБ").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(part_number="І58").first(),
+        quantity=1)
+
+    # rod
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Пруток",
+            part_number="Г203").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Муфта",
+            part_number="Г-003/002" if with_01 else "Г-003/001").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Кільце",
+            part_number="Г-005").first(),
+        quantity=1)
+
+    Component.objects.create(
+        product=cable,
+        item=items.filter(
+            title="Штифт",
+            part_number="Г-004/001" if with_01 else "Г-004").first(),
         quantity=1)
