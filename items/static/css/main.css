@@ -30,6 +30,10 @@ abbr[title] {
     padding: 0;
 }
 
+.hidden_at_start {
+    display: none;
+}
+
 
 /* navigation styles */
 ul.nav-menu {
