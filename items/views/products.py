@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from ..models import Item, Product, Component
-from ..forms import AddProductForm, AddStdCableForm, AddTZACableForm
-from ..utils import create_std_cable, create_tza_cable
+from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
+                     AddBCableForm)
+from ..utils import create_std_cable, create_tza_cable, create_B_cable
 
 
 @login_required(login_url='/login/')
@@ -73,6 +74,7 @@ def add_std_cable(request):
                 mounting=form.cleaned_data['mounting'],
                 is_steel_rods=form.cleaned_data['is_steel_rods'],
                 is_steel_sleeves=form.cleaned_data['is_steel_sleeves'],
+                is_plastic_sleeves=form.cleaned_data['is_steel_sleeves'],
                 length=form.cleaned_data['length'])
 
             return redirect('products')
@@ -107,4 +109,30 @@ def add_tza_cable(request):
 
     return render(
         request, 'items/add_tza_cable.html',
+        {'form': form})
+
+
+@login_required(login_url='/login/')
+def add_B_cable(request):
+
+    form = AddBCableForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            create_B_cable(
+                cable_type=form.cleaned_data['cable_type'],
+                conduit_id=form.cleaned_data['conduit'],
+                core_id=form.cleaned_data['core'],
+                is_steel_rods=form.cleaned_data['is_steel_rods'],
+                is_steel_sleeves=form.cleaned_data['is_steel_sleeves'],
+                length=form.cleaned_data['length'])
+
+            return redirect('products')
+
+        return render(
+            request, 'items/add_B_cable.html',
+            {'form': form})
+
+    return render(
+        request, 'items/add_B_cable.html',
         {'form': form})
