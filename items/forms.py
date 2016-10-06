@@ -30,11 +30,14 @@ class AddProductForm(forms.Form):
                         attrs={'class': 'table-input'}),), })
 
     title = forms.CharField(
+        label="Найменування",
         widget=forms.TextInput(attrs=input_attrs))
     part_number = forms.CharField(
+        label="Індекс",
         required=False,
         widget=forms.TextInput(attrs=input_attrs))
     notes = forms.CharField(
+        label="Примітка",
         required=False,
         widget=forms.Textarea(attrs=input_attrs))
 
@@ -128,6 +131,10 @@ class AddStdCableForm(forms.Form):
 
     is_steel_sleeves = forms.BooleanField(
         label="Чорні трубки",
+        required=False)
+
+    is_plastic_sleeves = forms.BooleanField(
+        label="Пластмасові трубки",
         required=False)
 
     # conduit and core fields take data from DB so they should
