@@ -16,19 +16,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="three columns">
-            <label for="additional_quantity">Кількість</label>
+        <div class="two columns">
+            <label for="additional_quantity">Кількість:</label>
+        </div>
+        <div class="ten columns">
             <input class="u-full-width" type="number" step=any
                    id="additional_quantity" name="additional_quantity"
                    value="{{ request.POST.additional_quantity }}" >
         </div>
-        <div class="three columns">
-            <span class="error">{{ error }}</span>
-        </div>
+        <span class="error">{{ error }}</span>
     </div>
     <div class="row">
-        <div class="tvelwe columns">
-            <label for="notes">Коментар</label>
+        <div class="two columns">
+            <label for="notes">Коментар:</label>
+        </div>
+        <div class="ten columns">
             <textarea class="u-full-width" type="text"
                    id="notes" name="notes"
                    value="{{ request.POST.notes }}">
@@ -36,6 +38,7 @@
         </div>
     </div>
     <div class="row">
+        <div class="two columns">.</div>
         <div class="three columns">
             <input class="button-primary" type="submit" value="Внести зміну">
         </div>

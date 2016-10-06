@@ -19,30 +19,31 @@
 {{ form.non_field_errors }}
 
     <div class="row">
-        {{ form.conduit.label_tag }}
-        {{ form.conduit }}
+        <div class="two columns">{{ form.conduit.label_tag }}</div>
+        <div class="ten columns">{{ form.conduit }}</div>
         {{ form.conduit.errors }}
     </div>
 
     <div class="row">
-        {{ form.core.label_tag }}
-        {{ form.core }}
+        <div class="two columns">{{ form.core.label_tag }}</div>
+        <div class="ten columns">{{ form.core }}</div>
         {{ form.core.errors }}
     </div>
 
     <div class="row">
-        {{ form.is_steel_rods.label_tag }}
-        {{ form.is_steel_rods }}
+        <div class="two columns">{{ form.is_steel_rods.label_tag }}</div>
+        <div class="ten columns">{{ form.is_steel_rods }}</div>
         {{ form.is_steel_rods.errors }}
     </div>
 
     <div class="row">
-        {{ form.length.label_tag }}
-        {{ form.length }}
+        <div class="two columns">{{ form.length.label_tag }}</div>
+        <div class="ten columns">{{ form.length }}</div>
         {{ form.length.errors }}
     </div>
 
     <div class="row">
+        <div class="two columns">.</div>
         <div class="three columns">
             <input class="button-primary" type="submit" value="Підтвердити">
         </div>

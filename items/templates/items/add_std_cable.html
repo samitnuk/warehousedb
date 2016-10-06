@@ -19,54 +19,61 @@
 {{ form.non_field_errors }}
 
     <div class="row">
-        {{ form.conduit.label_tag }}
-        {{ form.conduit }}
+        <div class="two columns">{{ form.conduit.label_tag }}</div>
+        <div class="ten columns">{{ form.conduit }}</div>
         {{ form.conduit.errors }}
     </div>
 
     <div class="row">
-        {{ form.core.label_tag }}
-        {{ form.core }}
+        <div class="two columns">{{ form.core.label_tag }}</div>
+        <div class="ten columns">{{ form.core }}</div>
         {{ form.core.errors }}
     </div>
 
     <div class="row">
-        {{ form.serie.label_tag }}
-        {{ form.serie }}
+        <div class="two columns">{{ form.serie.label_tag }}</div>
+        <div class="ten columns">{{ form.serie }}</div>
         {{ form.serie.errors }}
     </div>
 
     <div class="row">
-        {{ form.travel.label_tag }}
-        {{ form.travel }}
+        <div class="two columns">{{ form.travel.label_tag }}</div>
+        <div class="ten columns">{{ form.travel }}</div>
         {{ form.travel.errors }}
     </div>
 
     <div class="row">
-        {{ form.mounting.label_tag }}
-        {{ form.mounting }}
+        <div class="two columns">{{ form.mounting.label_tag }}</div>
+        <div class="ten columns">{{ form.mounting }}</div>
         {{ form.mounting.errors }}
     </div>
 
     <div class="row">
-        {{ form.is_steel_rods.label_tag }}
-        {{ form.is_steel_rods }}
+        <div class="two columns">{{ form.is_steel_rods.label_tag }}</div>
+        <div class="ten columns">{{ form.is_steel_rods }}</div>
         {{ form.is_steel_rods.errors }}
     </div>
 
     <div class="row">
-        {{ form.is_steel_sleeves.label_tag }}
-        {{ form.is_steel_sleeves }}
+        <div class="two columns">{{ form.is_steel_sleeves.label_tag }}</div>
+        <div class="ten columns">{{ form.is_steel_sleeves }}</div>
         {{ form.is_steel_sleeves.errors }}
     </div>
 
+    <div class="row hidden_at_start">
+        <div class="two columns">{{ form.is_plastic_sleeves.label_tag }}</div>
+        <div class="ten columns">{{ form.is_plastic_sleeves }}</div>
+        {{ form.is_plastic_sleeves.errors }}
+    </div>
+
     <div class="row">
-        {{ form.length.label_tag }}
-        {{ form.length }}
+        <div class="two columns">{{ form.length.label_tag }}</div>
+        <div class="ten columns">{{ form.length }}</div>
         {{ form.length.errors }}
     </div>
 
     <div class="row">
+        <div class="two columns">.</div>
         <div class="three columns">
             <input class="button-primary" type="submit" value="Підтвердити">
         </div>
@@ -75,3 +82,8 @@
 </form>
 
 {% endblock content %}
+
+{% block extra_js %}
+    <script   src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+    <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
+{% endblock extra_js %}

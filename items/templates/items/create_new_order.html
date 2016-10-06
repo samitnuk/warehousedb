@@ -19,30 +19,29 @@
     {{ form.non_field_errors }}
 
     <div class="row">
-        {{ form.customer.label_tag }}
-        {{ form.customer }}
+        <div class="two columns">{{ form.customer.label_tag }}</div>
+        <div class="ten columns">{{ form.customer }}</div>
         {{ form.customer.errors }}
     </div>
 
     <div class="row">
-        {{ form.product.label_tag }}
-        {{ form.product }}
+        <div class="two columns">{{ form.product.label_tag }}</div>
+        <div class="ten columns">{{ form.product }}</div>
         {{ form.product.errors }}
     </div>
 
     <div class="row">
-        {{ form.quantity.label_tag }}
-        {{ form.quantity }}
+        <div class="two columns">{{ form.quantity.label_tag }}</div>
+        <div class="ten columns">{{ form.quantity }}</div>
         {{ form.quantity.errors }}
     </div>
 
     <div class="row">
+        <div class="two columns">.</div>
         <div class="three columns">
             <input class="button-primary" type="submit" value="Додати нове замовлення">
         </div>
     </div>
-
-
 
 </form>
 
