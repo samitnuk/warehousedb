@@ -176,3 +176,54 @@ class AddTZACableForm(forms.Form):
         cores_category = Category.objects.filter(name="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
+
+
+class AddBCableForm(forms.Form):
+
+    CABLES = (
+        (1, "БП-М6323.03008"),
+        (2, "БП-М6323.03008-01"),
+        (3, "БВ-М6323.03024"),
+        (4, "БП-М6323.03130"),
+        (5, "БВ-М6323.03160"),)
+
+    cable = forms.ChoiceField(
+        label="Трос",
+        choices=CABLES,
+        widget=forms.Select(attrs=input_attrs))
+
+    length = forms.IntegerField(
+        initial=3008,
+        label="Довжина, мм",
+        widget=forms.NumberInput(attrs=input_attrs))
+
+    conduit = forms.ChoiceField(
+        label="Кожух",
+        choices=[],
+        widget=forms.Select(attrs=input_attrs))
+
+    core = forms.ChoiceField(
+        label="Сердечник",
+        choices=[],
+        widget=forms.Select(attrs=input_attrs))
+
+    is_steel_rods = forms.BooleanField(
+        label="Чорні прутки",
+        required=False)
+
+    is_steel_sleeves = forms.BooleanField(
+        label="Чорні трубки",
+        required=False)
+
+    # conduit and core fields take data from DB so they should
+    # be updated each time when form requsted
+    def __init__(self, *args, **kwargs):
+        super(AddBCableForm, self).__init__(*args, **kwargs)
+
+        conduits_category = Category.objects.filter(name="Кожух")
+        conduits = Item.objects.filter(category=conduits_category)
+        self.fields['conduit'].choices = get_choices(conduits)
+
+        cores_category = Category.objects.filter(name="Сердечник")
+        cores = Item.objects.filter(category=cores_category)
+        self.fields['core'].choices = get_choices(cores)
