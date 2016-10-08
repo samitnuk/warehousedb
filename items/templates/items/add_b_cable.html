@@ -1,0 +1,71 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додати трос Богдан{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+    <div class="nine columns"><h5>Додати трос Богдан</h5></div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'add_b_cable' %}" method="post">
+
+{% csrf_token %}
+
+{{ form.non_field_errors }}
+
+    <div class="row">
+        <div class="two columns">{{ form.cable_type.label_tag }}</div>
+        <div class="ten columns">{{ form.cable_type }}</div>
+        {{ form.cable_type.errors }}
+    </div>
+
+    <div class="row">
+        <div class="two columns">{{ form.conduit.label_tag }}</div>
+        <div class="ten columns">{{ form.conduit }}</div>
+        {{ form.conduit.errors }}
+    </div>
+
+    <div class="row">
+        <div class="two columns">{{ form.core.label_tag }}</div>
+        <div class="ten columns">{{ form.core }}</div>
+        {{ form.core.errors }}
+    </div>
+
+    <div class="row">
+        <div class="two columns">{{ form.is_steel_rods.label_tag }}</div>
+        <div class="ten columns">{{ form.is_steel_rods }}</div>
+        {{ form.is_steel_rods.errors }}
+    </div>
+
+    <div class="row">
+        <div class="two columns">{{ form.is_steel_sleeves.label_tag }}</div>
+        <div class="ten columns">{{ form.is_steel_sleeves }}</div>
+        {{ form.is_steel_sleeves.errors }}
+    </div>
+
+    <div class="row">
+        <div class="two columns">{{ form.length.label_tag }}</div>
+        <div class="ten columns">{{ form.length }}</div>
+        {{ form.length.errors }}
+    </div>
+
+    <div class="row">
+        <div class="two columns">.</div>
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Створити">
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script   src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+    <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
+{% endblock extra_js %}
