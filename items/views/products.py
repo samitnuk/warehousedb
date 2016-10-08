@@ -74,7 +74,7 @@ def add_std_cable(request):
                 mounting=form.cleaned_data['mounting'],
                 is_steel_rods=form.cleaned_data['is_steel_rods'],
                 is_steel_sleeves=form.cleaned_data['is_steel_sleeves'],
-                is_plastic_sleeves=form.cleaned_data['is_steel_sleeves'],
+                is_plastic_sleeves=form.cleaned_data['is_plastic_sleeves'],
                 length=form.cleaned_data['length'])
 
             return redirect('products')
