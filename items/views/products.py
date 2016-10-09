@@ -72,8 +72,8 @@ def add_std_cable(request):
                 serie=form.cleaned_data['serie'],
                 travel=form.cleaned_data['travel'],
                 mounting=form.cleaned_data['mounting'],
-                is_steel_rods=form.cleaned_data['is_steel_rods'],
-                is_steel_sleeves=form.cleaned_data['is_steel_sleeves'],
+                is_st_rods=form.cleaned_data['is_st_rods'],
+                is_st_sleeves=form.cleaned_data['is_st_sleeves'],
                 is_plastic_sleeves=form.cleaned_data['is_plastic_sleeves'],
                 length=form.cleaned_data['length'])
 
@@ -98,7 +98,7 @@ def add_tza_cable(request):
             create_tza_cable(
                 conduit_id=form.cleaned_data['conduit'],
                 core_id=form.cleaned_data['core'],
-                is_steel_rods=form.cleaned_data['is_steel_rods'],
+                is_st_rods=form.cleaned_data['is_st_rods'],
                 length=form.cleaned_data['length'])
 
             return redirect('products')
@@ -123,8 +123,8 @@ def add_B_cable(request):
                 cable_type=form.cleaned_data['cable_type'],
                 conduit_id=form.cleaned_data['conduit'],
                 core_id=form.cleaned_data['core'],
-                is_steel_rods=form.cleaned_data['is_steel_rods'],
-                is_steel_sleeves=form.cleaned_data['is_steel_sleeves'],
+                is_st_rods=form.cleaned_data['is_st_rods'],
+                is_st_sleeves=form.cleaned_data['is_st_sleeves'],
                 length=form.cleaned_data['length'])
 
             return redirect('products')

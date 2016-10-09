@@ -125,11 +125,11 @@ class AddStdCableForm(forms.Form):
         choices=[],
         widget=forms.Select(attrs=input_attrs))
 
-    is_steel_rods = forms.BooleanField(
+    is_st_rods = forms.BooleanField(
         label="Чорні прутки",
         required=False)
 
-    is_steel_sleeves = forms.BooleanField(
+    is_st_sleeves = forms.BooleanField(
         label="Чорні трубки",
         required=False)
 
@@ -167,7 +167,7 @@ class AddTZACableForm(forms.Form):
         label="Довжина, мм",
         widget=forms.NumberInput(attrs=input_attrs))
 
-    is_steel_rods = forms.BooleanField(
+    is_st_rods = forms.BooleanField(
         label="Чорні прутки",
         required=False)
 
@@ -188,11 +188,11 @@ class AddTZACableForm(forms.Form):
 class AddBCableForm(forms.Form):
 
     CABLES = (
-        (1, "БП-М6323.03008"),
-        (2, "БП-М6323.03008-01"),
-        (3, "БВ-М6323.03024"),
-        (4, "БП-М6323.03130"),
-        (5, "БВ-М6323.03160"),)
+        (0, "БП-М6323.03008"),
+        (1, "БП-М6323.03008-01"),
+        (2, "БВ-М6323.03024"),
+        (3, "БП-М6323.03130"),
+        (4, "БВ-М6323.03160"),)
 
     cable = forms.ChoiceField(
         label="Трос",
@@ -214,11 +214,11 @@ class AddBCableForm(forms.Form):
         choices=[],
         widget=forms.Select(attrs=input_attrs))
 
-    is_steel_rods = forms.BooleanField(
+    is_st_rods = forms.BooleanField(
         label="Чорні прутки",
         required=False)
 
-    is_steel_sleeves = forms.BooleanField(
+    is_st_sleeves = forms.BooleanField(
         label="Чорні трубки",
         required=False)
 
