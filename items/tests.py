@@ -217,7 +217,7 @@ class ProductTests(TestCase):
             conduit_id=self.conduit.id,
             is_st_rods=False,
             is_st_sleeves=True,
-            length=self.length)
+            length=3008)
 
         create_B_cable(
             cable_type=1,
@@ -225,7 +225,7 @@ class ProductTests(TestCase):
             conduit_id=self.conduit.id,
             is_st_rods=True,
             is_st_sleeves=False,
-            length=self.length)
+            length=3008)
 
         create_B_cable(
             cable_type=2,
@@ -233,7 +233,7 @@ class ProductTests(TestCase):
             conduit_id=self.conduit.id,
             is_st_rods=True,
             is_st_sleeves=True,
-            length=self.length)
+            length=3024)
 
         create_B_cable(
             cable_type=3,
@@ -241,7 +241,7 @@ class ProductTests(TestCase):
             conduit_id=self.conduit.id,
             is_st_rods=False,
             is_st_sleeves=False,
-            length=self.length)
+            length=3130)
 
         create_B_cable(
             cable_type=4,
@@ -249,9 +249,37 @@ class ProductTests(TestCase):
             conduit_id=self.conduit.id,
             is_st_rods=False,
             is_st_sleeves=False,
-            length=self.length)
+            length=3160)
 
         cables = Product.objects.all()
 
         self.assertEqual(cables[0].part_number, "БП-М6323.03008")
         self.assertEqual(len(cables[0].components), 17)
+
+        self.assertEqual(cables[1].part_number, "БП-М6323.03008-01")
+        core = cables[1].components.filter(item__title="Сердечник").first()
+        conduit = cables[1].components.filter(item__title="Кожух").first()
+        self.assertEqual(core.quantity, 2723)
+        self.assertEqual(conduit.quantity, 2523)
+        self.assertEqual(len(cables[1].components), 17)
+
+        self.assertEqual(cables[2].part_number, "БВ-М6323.03024")
+        core = cables[2].components.filter(item__title="Сердечник").first()
+        conduit = cables[2].components.filter(item__title="Кожух").first()
+        self.assertEqual(core.quantity, 3024 - 350 + 15)
+        self.assertEqual(conduit.quantity, 3024 - 546 + 15)
+        self.assertEqual(len(cables[2].components), 16)
+
+        self.assertEqual(cables[3].part_number, "БП-М6323.03130")
+        core = cables[3].components.filter(item__title="Сердечник").first()
+        conduit = cables[3].components.filter(item__title="Кожух").first()
+        self.assertEqual(core.quantity, 3130 - 330 + 15)
+        self.assertEqual(conduit.quantity, 3130 - 530 + 15)
+        self.assertEqual(len(cables[3].components), 17)
+
+        self.assertEqual(cables[4].part_number, "БВ-М6323.03160")
+        core = cables[4].components.filter(item__title="Сердечник").first()
+        conduit = cables[4].components.filter(item__title="Кожух").first()
+        self.assertEqual(core.quantity, 3160 - 360 + 15)
+        self.assertEqual(conduit.quantity, 3160 - 562 + 15)
+        self.assertEqual(len(cables[4].components), 16)
