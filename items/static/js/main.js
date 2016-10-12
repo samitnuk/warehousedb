@@ -11,15 +11,21 @@ function showChecker() {
     });
 }
 
-function getBCableLength() {
-
-    var lengths = ["3008", "3008", "3024", "3130", "3160"]
+function getCableLength( lengths ) {
 
     $( '#id_cable_type' ).change( function(event) {
         var cable_type = $( this ).val();
         $( '#id_length' ).val( lengths[ cable_type ] );
     });
 }
+
+function getBCableLength() {
+
+    var lengths = ["3008", "3008", "3024", "3130", "3160"];
+
+    getCableLength( lengths );
+}
+
 
 
 $(document).ready( function() {
