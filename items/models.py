@@ -2,9 +2,6 @@ from datetime import date
 
 from django.db import models
 
-from django.db.models.signals import post_save, pre_delete
-from django.dispatch import receiver
-
 
 class Item(models.Model):
     """Item Model
@@ -174,33 +171,3 @@ class Order(models.Model):
 
     def __str__(self):
         return '{} / {}'.format(self.order_date, self.customer)
-
-
-@receiver(post_save, sender=Order)
-def auto_create_itemchange(instance, **kwargs):
-
-    order = instance
-    order_quantity = order.quantity
-    if order_quantity == int(order_quantity):
-        order_quantity = int(order_quantity)
-
-    if order.product.part_number:
-        product_title = '{} - {}'.format(order.product.part_number,
-                                         order.product.title)
-    else:
-        product_title = order.product.title
-
-    for component in order.product.components:
-        ItemChange.objects.create(
-            additional_quantity=order.quantity * component.quantity * -1,
-            item=component.item,
-            notes='{} / {} шт. / {}'.format(product_title,
-                                            order_quantity,
-                                            order.customer))
-
-
-@receiver(pre_delete, sender=Order)
-def auto_delete_itemchange(instance, **kwargs):
-
-    # order = instance
-    pass
