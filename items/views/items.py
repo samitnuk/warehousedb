@@ -18,7 +18,7 @@ def main(request):
 
 
 @login_required(login_url='/login/')
-def items_by_categories(request, pk):
+def item_list_by_categories(request, pk):
 
     categories = Category.objects.order_by('name')
 
@@ -38,14 +38,14 @@ def items_by_categories(request, pk):
             row = []
 
     return render(
-        request, 'items/items_by_categories.html',
+        request, 'items/item_list_by_categories.html',
         {'items': items,
          'active_category_id': active_category.id,
          'rows': rows})
 
 
 @login_required(login_url='/login/')
-def items_by_dates(request):
+def item_list_by_dates(request):
     if request.method == 'POST':
 
         errors = {}
@@ -72,7 +72,7 @@ def items_by_dates(request):
 
         if errors:
             return render(
-                request, 'items/items_by_dates.html',
+                request, 'items/item_list_by_dates.html',
                 {'errors': errors})
 
         total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
@@ -91,7 +91,7 @@ def items_by_dates(request):
             items_list.append([item, total_changes.filter(item=item)])
 
         return render(
-            request, 'items/items_by_dates.html',
+            request, 'items/item_list_by_dates.html',
             {'date_range': date_range,
              'items_list': items_list})
 
@@ -114,7 +114,7 @@ def items_by_dates(request):
             items_list.append([item, total_changes.filter(item=item)])
 
         return render(
-            request, 'items/items_by_dates.html',
+            request, 'items/item_list_by_dates.html',
             {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
              'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
              'date_range': date_range,
@@ -122,25 +122,25 @@ def items_by_dates(request):
 
 
 @login_required(login_url='/login/')
-def item_details(request, pk):
+def item_detail(request, pk):
     item = Item.objects.filter(pk=pk).first()
 
     return render(
-        request, 'items/item_details.html',
+        request, 'items/item_detail.html',
         {'item': item})
 
 
 @login_required(login_url='/login/')
-def item_change_details(request, pk):
+def itemchange_detail(request, pk):
     item_change = ItemChange.objects.filter(pk=pk).first()
 
     return render(
-        request, 'items/item_change_details.html',
+        request, 'items/itemchange_detail.html',
         {'item_change': item_change})
 
 
 @login_required(login_url='/login/')
-def add_item_change(request, pk):
+def itemchange_create(request, pk):
     item = Item.objects.filter(pk=pk).first()
     if request.method == 'POST':
         additional_quantity = request.POST.get("additional_quantity", "") \
@@ -156,7 +156,7 @@ def add_item_change(request, pk):
 
         if error:
             return render(
-                request, 'items/add_item_change.html',
+                request, 'items/itemchange_create.html',
                 {'error': error,
                  'item': item})
         else:
@@ -170,5 +170,5 @@ def add_item_change(request, pk):
             return redirect('main')
 
     return render(
-        request, 'items/add_item_change.html',
+        request, 'items/itemchange_create.html',
         {'item': item})

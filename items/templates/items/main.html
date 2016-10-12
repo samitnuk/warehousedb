@@ -15,7 +15,7 @@
 <div class="row">
     <div class="two columns">
         <a class="button button-primary u-full-width"
-           href="{% url 'items_by_categories' category.id %}">{{ category.name }}</a>
+           href="{% url 'item_list_by_categories' category.id %}">{{ category.name }}</a>
     </div>
     <div class="ten columns">
         <table class="u-full-width">
@@ -35,13 +35,13 @@
                     <tr>
                         <td>
                             <a class="item_link"
-                               href="{% url 'add_item_change' item.id %}">
+                               href="{% url 'itemchange_create' item.id %}">
                                 &plusmn;
                             </a>
                         </td>
                         <td>
                             <abbr title="{{ item.notes }}">
-                                <a class="item_link" href="{% url 'item_details' item.id %}">
+                                <a class="item_link" href="{% url 'item_detail' item.id %}">
                                     {{ item.title }}
                                 </a>
                             </abbr>

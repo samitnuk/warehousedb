@@ -9,7 +9,7 @@
     <div class="nine columns"><h5>Перелік замовлень</h5></div>
     <div class="three columns">
         <a class="button button-primary u-full-width"
-           href="{% url 'create_new_order' %}">Додати новe замовлення</a>
+           href="{% url 'order_create' %}">Додати новe замовлення</a>
     </div>
 </div>
 {% endblock header %}
@@ -34,7 +34,7 @@
                         <td>{{ order.order_date|date:'d . m . Y' }}</td>
                         <td>
                             <abbr title="{{ order.product.notes }}">
-                                <a class="item_link" href="{% url 'product_details' order.product.id %}">
+                                <a class="item_link" href="{% url 'product_detail' order.product.id %}">
                                    {{ order.product.title }}
                                 </a>
                             </abbr>

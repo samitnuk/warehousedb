@@ -194,7 +194,7 @@ class AddBCableForm(forms.Form):
         (3, "БП-М6323.03130"),
         (4, "БВ-М6323.03160"),)
 
-    cable = forms.ChoiceField(
+    cable_type = forms.ChoiceField(
         label="Трос",
         choices=CABLES,
         widget=forms.Select(attrs=input_attrs))
@@ -222,8 +222,6 @@ class AddBCableForm(forms.Form):
         label="Чорні трубки",
         required=False)
 
-    # conduit and core fields take data from DB so they should
-    # be updated each time when form requsted
     def __init__(self, *args, **kwargs):
         super(AddBCableForm, self).__init__(*args, **kwargs)
 

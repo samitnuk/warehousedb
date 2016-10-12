@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<form  action="{% url 'create_new_product' %}" method="post">
+<form  action="{% url 'product_create' %}" method="post">
 
     {% csrf_token %}
 

@@ -6,16 +6,16 @@ from ..forms import AddOrderForm
 
 
 @login_required(login_url='/login/')
-def orders(request):
+def order_list(request):
     orders_ = Order.objects.order_by('-order_date', '-id')
 
     return render(
-        request, 'items/orders.html',
+        request, 'items/order_list.html',
         {'orders': orders_})
 
 
 @login_required(login_url='/login/')
-def create_new_order(request):
+def order_create(request):
 
     form = AddOrderForm(request.POST or None)
 
@@ -27,14 +27,14 @@ def create_new_order(request):
                     pk=form.cleaned_data['product']).first(),
                 quantity=form.cleaned_data['quantity'])
 
-            return redirect('orders')
+            return redirect('order_list')
 
         return render(
             request,
-            'items/create_new_order.html',
+            'items/order_create.html',
             {'form': form})
 
     return render(
         request,
-        'items/create_new_order.html',
+        'items/order_create.html',
         {'form': form})

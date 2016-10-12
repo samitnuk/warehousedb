@@ -5,39 +5,70 @@ from . import views
 urlpatterns = [
 
     # items & categories
-    url(r'^$', views.main,
+    url(r'^$',
+        views.main,
         name='main'),
-    url(r'^items_by_dates/', views.items_by_dates,
-        name='items_by_dates'),
-    url(r'^items_by_categories/(?P<pk>\d+)?/?', views.items_by_categories,
-        name='items_by_categories'),
-    url(r'^item_details/(?P<pk>\d+)/', views.item_details,
-        name='item_details'),
-    url(r'^item_change_details/(?P<pk>\d+)/', views.item_change_details,
-        name='item_change_details'),
-    url(r'^add_item_change/(?P<pk>\d+)/', views.add_item_change,
-        name='add_item_change'),
+
+    url(r'^item_list_by_dates/',
+        views.item_list_by_dates,
+        name='item_list_by_dates'),
+
+    url(r'^item_list_by_categories/(?P<pk>\d+)?/?',
+        views.item_list_by_categories,
+        name='item_list_by_categories'),
+
+    url(r'^item_details/(?P<pk>\d+)/',
+        views.item_detail,
+        name='item_detail'),
+
+    url(r'^itemchange_detail/(?P<pk>\d+)/',
+        views.itemchange_detail,
+        name='itemchange_detail'),
+
+    url(r'^itemchange_create/(?P<pk>\d+)/',
+        views.itemchange_create,
+        name='itemchange_create'),
 
     # products
-    url(r'^create_new_product/', views.create_new_product,
-        name='create_new_product'),
-    url(r'^products/', views.products,
-        name='products'),
-    url(r'^product_details/(?P<pk>\d+)/', views.product_details,
-        name='product_details'),
-    url(r'^add_std_cable/', views.add_std_cable,
+    url(r'^product_create/',
+        views.product_create,
+        name='product_create'),
+
+    url(r'^product_list/',
+        views.product_list,
+        name='product_list'),
+
+    url(r'^product_detail/(?P<pk>\d+)/',
+        views.product_detail,
+        name='product_detail'),
+
+    url(r'^add_std_cable/',
+        views.add_std_cable,
         name='add_std_cable'),
-    url(r'^add_tza_cable/', views.add_tza_cable,
+
+    url(r'^add_tza_cable/',
+        views.add_tza_cable,
         name='add_tza_cable'),
 
-    # orders
-    url(r'^orders/', views.orders,
-        name='orders'),
-    url(r'^create_new_order/', views.create_new_order,
-        name='create_new_order'),
+    url(r'^add_B_cable/',
+        views.add_B_cable,
+        name='add_B_cable'),
 
-    url(r'^login/', views.login,
+    # orders
+    url(r'^order_list/',
+        views.order_list,
+        name='order_list'),
+
+    url(r'^order_create/',
+        views.order_create,
+        name='order_create'),
+
+    # login & logout
+    url(r'^login/',
+        views.login,
         name='login'),
-    url(r'^logout/', views.logout,
+
+    url(r'^logout/',
+        views.logout,
         name='logout'),
 ]

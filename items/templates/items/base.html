@@ -35,23 +35,23 @@
                     <li role="presentation" {% if request.path == main_path %}class="nav-active"{% endif %}>
                         <a href="{% url 'main' %}">Склад</a>
                     </li>
-                    {% url 'items_by_dates' as items_by_dates_path %}
+                    {% url 'item_list_by_dates' as items_by_dates_path %}
                     <li role="presentation" {% if items_by_dates_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'items_by_dates' %}">Склад по датах</a>
+                        <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
                     </li>
-                    {% url 'items_by_categories' as items_by_categories_path %}
+                    {% url 'item_list_by_categories' as items_by_categories_path %}
                     <li role="presentation" {% if items_by_categories_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'items_by_categories' %}">Склад по категоріях</a>
+                        <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
                     </li>
                     <li>|</li>
-                    {% url 'products' as products_path %}
+                    {% url 'product_list' as products_path %}
                     <li role="presentation" {% if products_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'products' %}">Вироби</a>
+                        <a href="{% url 'product_list' %}">Вироби</a>
                     </li>
                     <li>|</li>
-                    {% url 'orders' as orders_path %}
+                    {% url 'order_list' as orders_path %}
                     <li role="presentation" {% if orders_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'orders' %}">Замовлення</a>
+                        <a href="{% url 'order_list' %}">Замовлення</a>
                     </li>
                 </ul>
             </div>

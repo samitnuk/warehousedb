@@ -16,7 +16,7 @@
 
 {% block content %}
 
-<form  action="{% url 'items_by_dates' %}" method="post">
+<form  action="{% url 'item_list_by_dates' %}" method="post">
     {% csrf_token %}
     <div class="row">
         
@@ -62,13 +62,13 @@
                 <tr>
                     <td>
                         <a class="item_link"
-                           href="{% url 'add_item_change' item.id %}">
+                           href="{% url 'itemchange_create' item.id %}">
                             &plusmn;
                         </a>
                     </td>
                     <td>
                         <a class="item_link"
-                           href="{% url 'item_details' item.id %}">
+                           href="{% url 'item_detail' item.id %}">
                             {{ item.title }} {{ item.part_number }}
                         </a>
                     </td>
@@ -78,7 +78,7 @@
                             {% if change.changed_at|date == date|date %}
                                 <abbr title="{{ change.notes }}">
                                     <a class="item_link"
-                                       href="{% url 'item_change_details' change.id %}">
+                                       href="{% url 'itemchange_detail' change.id %}">
                                         {{ change.additional_quantity|floatformat }}
                                     </a>&nbsp;
                                 </abbr>

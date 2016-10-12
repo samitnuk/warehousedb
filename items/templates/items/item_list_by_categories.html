@@ -16,7 +16,7 @@
     {% for category in row %}
     <div class="two columns">
         <a class="button{% if category.id != active_category_id %} button-primary{% endif %} u-full-width"
-           href="{% url 'items_by_categories' category.id %}">{{ category.name }}</a>
+           href="{% url 'item_list_by_categories' category.id %}">{{ category.name }}</a>
     </div>
     {% endfor %}
 </div>
@@ -37,14 +37,14 @@
             <tr>
                 <td>
                     <a class="item_link"
-                       href="{% url 'add_item_change' item.id %}">
+                       href="{% url 'itemchange_create' item.id %}">
                         &plusmn;
                     </a>
                 </td>
                 <td>
                     <abbr title="{{ item.notes }}">
                         <a class="item_link"
-                           href="{% url 'item_details' item.id %}">
+                           href="{% url 'item_detail' item.id %}">
                             {{ item.title }}
                         </a>
                     </abbr>

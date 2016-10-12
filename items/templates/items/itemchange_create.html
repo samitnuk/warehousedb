@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form  action="{% url 'add_item_change' item.id %}" method="post">
+<form  action="{% url 'itemchange_create' item.id %}" method="post">
 
     {% csrf_token %}
 

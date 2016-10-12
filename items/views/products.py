@@ -8,7 +8,7 @@ from ..utils import create_std_cable, create_tza_cable, create_B_cable
 
 
 @login_required(login_url='/login/')
-def create_new_product(request):
+def product_create(request):
 
     form = AddProductForm(request.POST or None)
 
@@ -28,7 +28,7 @@ def create_new_product(request):
                                              item=item,
                                              quantity=quantity,)
 
-            return redirect('products')
+            return redirect('product_list')
 
         else:
             return render(
@@ -42,20 +42,20 @@ def create_new_product(request):
 
 
 @login_required(login_url='/login/')
-def products(request):
+def product_list(request):
     products_ = Product.objects.order_by('-id')
 
     return render(
-        request, 'items/products.html',
+        request, 'items/product_list.html',
         {'products': products_})
 
 
 @login_required(login_url='/login/')
-def product_details(request, pk):
+def product_detail(request, pk):
     product = Product.objects.filter(pk=pk).first()
 
     return render(
-        request, 'items/product_details.html',
+        request, 'items/product_detail.html',
         {'product': product})
 
 
@@ -77,7 +77,7 @@ def add_std_cable(request):
                 is_plastic_sleeves=form.cleaned_data['is_plastic_sleeves'],
                 length=form.cleaned_data['length'])
 
-            return redirect('products')
+            return redirect('product_list')
 
         return render(
             request, 'items/add_std_cable.html',
@@ -101,7 +101,7 @@ def add_tza_cable(request):
                 is_st_rods=form.cleaned_data['is_st_rods'],
                 length=form.cleaned_data['length'])
 
-            return redirect('products')
+            return redirect('product_list')
 
         return render(
             request, 'items/add_tza_cable.html',
@@ -127,7 +127,7 @@ def add_B_cable(request):
                 is_st_sleeves=form.cleaned_data['is_st_sleeves'],
                 length=form.cleaned_data['length'])
 
-            return redirect('products')
+            return redirect('product_list')
 
         return render(
             request, 'items/add_B_cable.html',
