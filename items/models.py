@@ -2,7 +2,7 @@ from datetime import date
 
 from django.db import models
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 
@@ -177,7 +177,7 @@ class Order(models.Model):
 
 
 @receiver(post_save, sender=Order)
-def auto_create_item_change(instance, **kwargs):
+def auto_create_itemchange(instance, **kwargs):
 
     order = instance
     order_quantity = order.quantity
@@ -197,3 +197,10 @@ def auto_create_item_change(instance, **kwargs):
             notes='{} / {} шт. / {}'.format(product_title,
                                             order_quantity,
                                             order.customer))
+
+
+@receiver(pre_delete, sender=Order)
+def auto_delete_itemchange(instance, **kwargs):
+
+    # order = instance
+    pass
