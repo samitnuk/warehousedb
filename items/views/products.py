@@ -33,11 +33,11 @@ def product_create(request):
         else:
             return render(
                 request,
-                'items/create_new_product.html',
+                'items/product_create.html',
                 {'items': items, 'form': form})
 
     return render(
-        request, 'items/create_new_product.html',
+        request, 'items/product_create.html',
         {'items': items, 'form': form})
 
 
