@@ -26,9 +26,26 @@ function getBCableLength() {
     getCableLength( lengths );
 }
 
+function getHCableLength() {
+
+    var lengths = [];
+
+    getCableLength( lengths );
+}
+
 
 
 $(document).ready( function() {
-    showChecker();
-    getBCableLength();
+
+    if ($(location).attr('pathname') == '/product_create_std_cable/') {
+        showChecker();
+    }
+
+    if ($(location).attr('pathname') == '/product_create_B_cable/') {
+        getBCableLength();
+    }
+
+    if ($(location).attr('pathname') == '/product_create_H_cable/') {
+        getHCableLength();
+    }
 });
