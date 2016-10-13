@@ -42,17 +42,17 @@ urlpatterns = [
         views.product_detail,
         name='product_detail'),
 
-    url(r'^add_std_cable/',
-        views.add_std_cable,
-        name='add_std_cable'),
+    url(r'^product_create_std_cable/',
+        views.product_create_std_cable,
+        name='product_create_std_cable'),
 
-    url(r'^add_tza_cable/',
-        views.add_tza_cable,
-        name='add_tza_cable'),
+    url(r'^product_create_tza_cable/',
+        views.product_create_tza_cable,
+        name='product_create_tza_cable'),
 
-    url(r'^add_B_cable/',
-        views.add_B_cable,
-        name='add_B_cable'),
+    url(r'^product_create_B_cable/',
+        views.product_create_B_cable,
+        name='product_create_B_cable'),
 
     # orders
     url(r'^order_list/',

@@ -60,7 +60,7 @@ def product_detail(request, pk):
 
 
 @login_required(login_url='/login/')
-def add_std_cable(request):
+def product_create_std_cable(request):
 
     form = AddStdCableForm(request.POST or None)
 
@@ -80,16 +80,16 @@ def add_std_cable(request):
             return redirect('product_list')
 
         return render(
-            request, 'items/add_std_cable.html',
+            request, 'items/product_create_std_cable.html',
             {'form': form})
 
     return render(
-        request, 'items/add_std_cable.html',
+        request, 'items/product_create_std_cable.html',
         {'form': form})
 
 
 @login_required(login_url='/login/')
-def add_tza_cable(request):
+def product_create_tza_cable(request):
 
     form = AddTZACableForm(request.POST or None)
 
@@ -104,16 +104,16 @@ def add_tza_cable(request):
             return redirect('product_list')
 
         return render(
-            request, 'items/add_tza_cable.html',
+            request, 'items/product_create_tza_cable.html',
             {'form': form})
 
     return render(
-        request, 'items/add_tza_cable.html',
+        request, 'items/product_create_tza_cable.html',
         {'form': form})
 
 
 @login_required(login_url='/login/')
-def add_B_cable(request):
+def product_create_B_cable(request):
 
     form = AddBCableForm(request.POST or None)
 
@@ -130,9 +130,9 @@ def add_B_cable(request):
             return redirect('product_list')
 
         return render(
-            request, 'items/add_B_cable.html',
+            request, 'items/product_create_B_cable.html',
             {'form': form})
 
     return render(
-        request, 'items/add_B_cable.html',
+        request, 'items/product_create_B_cable.html',
         {'form': form})
