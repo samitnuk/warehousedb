@@ -2,6 +2,8 @@
 
 {% load static from staticfiles %}
 
+{% load items_filters %}
+
 {% block meta_title %}Додати нове замовлення{% endblock meta_title %}
 
 {% block header %}
@@ -20,19 +22,19 @@
 
     <div class="row">
         <div class="two columns">{{ form.customer.label_tag }}</div>
-        <div class="ten columns">{{ form.customer }}</div>
+        <div class="ten columns">{{ form.customer|addclass:"u-full-width" }}</div>
         {{ form.customer.errors }}
     </div>
 
     <div class="row">
         <div class="two columns">{{ form.product.label_tag }}</div>
-        <div class="ten columns">{{ form.product }}</div>
+        <div class="ten columns">{{ form.product|addclass:"u-full-width" }}</div>
         {{ form.product.errors }}
     </div>
 
     <div class="row">
         <div class="two columns">{{ form.quantity.label_tag }}</div>
-        <div class="ten columns">{{ form.quantity }}</div>
+        <div class="ten columns">{{ form.quantity|addclass:"u-full-width" }}</div>
         {{ form.quantity.errors }}
     </div>
 

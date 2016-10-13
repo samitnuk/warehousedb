@@ -25,21 +25,13 @@ class AddProductForm(forms.Form):
             self.fields.update({
                 'item_{}'.format(item.id): forms.FloatField(
                     label='',
-                    required=False,
-                    widget=forms.NumberInput(
-                        attrs={'class': 'table-input'}),), })
+                    required=False), })
 
-    title = forms.CharField(
-        label="Найменування",
-        widget=forms.TextInput(attrs=input_attrs))
-    part_number = forms.CharField(
-        label="Індекс",
-        required=False,
-        widget=forms.TextInput(attrs=input_attrs))
-    notes = forms.CharField(
-        label="Примітка",
-        required=False,
-        widget=forms.Textarea(attrs=input_attrs))
+    title = forms.CharField(label="Найменування")
+
+    part_number = forms.CharField(label="Індекс", required=False)
+
+    notes = forms.CharField(label="Примітка", required=False)
 
     def fields_items(self):
         items = Item.objects.all()
@@ -51,18 +43,11 @@ class AddProductForm(forms.Form):
 
 class AddOrderForm(forms.Form):
 
-    customer = forms.CharField(
-        label="Замовник",
-        widget=forms.TextInput(attrs=input_attrs))
+    customer = forms.CharField(label="Замовник")
 
-    quantity = forms.FloatField(
-        label="Кількість",
-        widget=forms.NumberInput(attrs=input_attrs))
+    quantity = forms.FloatField(label="Кількість")
 
-    product = forms.ChoiceField(
-        label="Виріб",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    product = forms.ChoiceField(label="Виріб", choices=[])
 
     # product field takes data from DB so it should
     # be updated each time when form requsted
@@ -96,49 +81,25 @@ class AddStdCableForm(forms.Form):
         ("23", "23 (різьба-клемп)"),
         ("33", "33 (клемп-клемп)"),)
 
-    serie = forms.ChoiceField(
-        label="Серія",
-        choices=SERIES,
-        widget=forms.Select(attrs=input_attrs))
+    serie = forms.ChoiceField(label="Серія", choices=SERIES)
 
-    travel = forms.ChoiceField(
-        label="Хід",
-        choices=TRAVELS,
-        widget=forms.Select(attrs=input_attrs))
+    travel = forms.ChoiceField(label="Хід", choices=TRAVELS)
 
-    mounting = forms.ChoiceField(
-        label="Кріплення",
-        choices=MOUNTINGS,
-        widget=forms.Select(attrs=input_attrs))
+    mounting = forms.ChoiceField(label="Кріплення", choices=MOUNTINGS)
 
-    length = forms.IntegerField(
-        label="Довжина, мм",
-        widget=forms.NumberInput(attrs=input_attrs))
+    length = forms.IntegerField(label="Довжина, мм")
 
-    conduit = forms.ChoiceField(
-        label="Кожух",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    conduit = forms.ChoiceField(label="Кожух", choices=[])
 
-    core = forms.ChoiceField(
-        label="Сердечник",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    core = forms.ChoiceField(label="Сердечник", choices=[])
 
-    is_st_rods = forms.BooleanField(
-        label="Чорні прутки",
-        required=False)
+    is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
-    is_st_sleeves = forms.BooleanField(
-        label="Чорні трубки",
-        required=False)
+    is_st_sleeves = forms.BooleanField(label="Чорні трубки", required=False)
 
-    is_plastic_sleeves = forms.BooleanField(
-        label="Пластмасові трубки",
-        required=False)
+    is_plastic_sleeves = forms.BooleanField(label="Пластмасові трубки",
+                                            required=False)
 
-    # conduit and core fields take data from DB so they should
-    # be updated each time when form requsted
     def __init__(self, *args, **kwargs):
         super(AddStdCableForm, self).__init__(*args, **kwargs)
 
@@ -153,26 +114,14 @@ class AddStdCableForm(forms.Form):
 
 class AddTZACableForm(forms.Form):
 
-    conduit = forms.ChoiceField(
-        label="Кожух",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    conduit = forms.ChoiceField(label="Кожух", choices=[])
 
-    core = forms.ChoiceField(
-        label="Сердечник",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    core = forms.ChoiceField(label="Сердечник", choices=[])
 
-    length = forms.IntegerField(
-        label="Довжина, мм",
-        widget=forms.NumberInput(attrs=input_attrs))
+    length = forms.IntegerField(label="Довжина, мм")
 
-    is_st_rods = forms.BooleanField(
-        label="Чорні прутки",
-        required=False)
+    is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
-    # conduit and core fields take data from DB so they should
-    # be updated each time when form requsted
     def __init__(self, *args, **kwargs):
         super(AddTZACableForm, self).__init__(*args, **kwargs)
 
@@ -194,33 +143,17 @@ class AddBCableForm(forms.Form):
         (3, "БП-М6323.03130"),
         (4, "БВ-М6323.03160"),)
 
-    cable_type = forms.ChoiceField(
-        label="Трос",
-        choices=CABLES,
-        widget=forms.Select(attrs=input_attrs))
+    cable_type = forms.ChoiceField(label="Трос", choices=CABLES)
 
-    length = forms.IntegerField(
-        initial=3008,
-        label="Довжина, мм",
-        widget=forms.NumberInput(attrs=input_attrs))
+    length = forms.IntegerField(label="Довжина, мм", initial=3008)
 
-    conduit = forms.ChoiceField(
-        label="Кожух",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    conduit = forms.ChoiceField(label="Кожух", choices=[])
 
-    core = forms.ChoiceField(
-        label="Сердечник",
-        choices=[],
-        widget=forms.Select(attrs=input_attrs))
+    core = forms.ChoiceField(label="Сердечник", choices=[])
 
-    is_st_rods = forms.BooleanField(
-        label="Чорні прутки",
-        required=False)
+    is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
-    is_st_sleeves = forms.BooleanField(
-        label="Чорні трубки",
-        required=False)
+    is_st_sleeves = forms.BooleanField(label="Чорні трубки", required=False)
 
     def __init__(self, *args, **kwargs):
         super(AddBCableForm, self).__init__(*args, **kwargs)

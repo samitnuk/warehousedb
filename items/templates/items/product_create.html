@@ -2,6 +2,8 @@
 
 {% load static from staticfiles %}
 
+{% load items_filters %}
+
 {% block meta_title %}Додати новій виріб{% endblock meta_title %}
 
 {% block header %}
@@ -20,19 +22,19 @@
 
     <div class="row">
         <div class="two columns">{{ form.title.label_tag }}</div>
-        <div class="ten columns">{{ form.title }}</div>
+        <div class="ten columns">{{ form.title|addclass:"u-full-width" }}</div>
         {{ form.title.errors }}
     </div>
 
     <div class="row">
         <div class="two columns">{{ form.part_number.label_tag }}</div>
-        <div class="ten columns">{{ form.part_number }}</div>
+        <div class="ten columns">{{ form.part_number|addclass:"u-full-width" }}</div>
         {{ form.part_number.errors }}
     </div>
 
     <div class="row">
         <div class="two columns">{{ form.notes.label_tag }}</div>
-        <div class="ten columns">{{ form.notes }}</div>
+        <div class="ten columns">{{ form.notes|addclass:"u-full-width" }}</div>
         {{ form.notes.errors }}
     </div>
 
@@ -50,7 +52,7 @@
                 {% for item, field in form.fields_items %}
                 <tr>
                     <td>
-                        <a href="{% url 'item_details' item.id %}">{{ item.title }}</a>
+                        <a href="{% url 'item_detail' item.id %}">{{ item.title }}</a>
                     </td>
                     <td>
                         {{ item.part_number }}
@@ -59,7 +61,7 @@
                         {{ item.notes }}
                     </td>
                     <td>
-                        {{ field.name }}
+                        {{ field.name|addclass:"table-input" }}
                     </td>
                 </tr>
                 {% endfor %}

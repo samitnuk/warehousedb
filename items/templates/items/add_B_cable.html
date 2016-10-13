@@ -2,6 +2,8 @@
 
 {% load static from staticfiles %}
 
+{% load items_filters %}
+
 {% block meta_title %}Додати трос Богдан{% endblock meta_title %}
 
 {% block header %}
@@ -20,19 +22,19 @@
 
     <div class="row">
         <div class="two columns">{{ form.cable_type.label_tag }}</div>
-        <div class="ten columns">{{ form.cable_type }}</div>
+        <div class="ten columns">{{ form.cable_type|addclass:"u-full-width" }}</div>
         {{ form.cable_type.errors }}
     </div>
 
     <div class="row">
         <div class="two columns">{{ form.conduit.label_tag }}</div>
-        <div class="ten columns">{{ form.conduit }}</div>
+        <div class="ten columns">{{ form.conduit|addclass:"u-full-width" }}</div>
         {{ form.conduit.errors }}
     </div>
 
     <div class="row">
         <div class="two columns">{{ form.core.label_tag }}</div>
-        <div class="ten columns">{{ form.core }}</div>
+        <div class="ten columns">{{ form.core|addclass:"u-full-width" }}</div>
         {{ form.core.errors }}
     </div>
 
@@ -50,7 +52,7 @@
 
     <div class="row">
         <div class="two columns">{{ form.length.label_tag }}</div>
-        <div class="ten columns">{{ form.length }}</div>
+        <div class="ten columns">{{ form.length|addclass:"u-full-width" }}</div>
         {{ form.length.errors }}
     </div>
 
