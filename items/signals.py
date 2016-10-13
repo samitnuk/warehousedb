@@ -30,9 +30,6 @@ def itemchange_auto_create(instance, **kwargs):
 @receiver(pre_delete, sender=Order)
 def itemchange_auto_delete(instance, **kwargs):
 
-    order = instance
+    ItemChange.objects.filter(order=instance).delete()
 
-    ItemChange.objects.filter(
-        product=order.product).delete()
-
-    # TODO: add product field to ItemChange model and make migrations
+    # TODO: add order field to ItemChange model and make migrations
