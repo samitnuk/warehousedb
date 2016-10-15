@@ -44,38 +44,6 @@ class Item(models.Model):
         return self.title
 
 
-class ItemChange(models.Model):
-    """ItemChange Model
-
-    Describes each change in quantity of concrete item.
-
-    """
-
-    class Meta(object):
-        verbose_name = "Зміна кількості"
-        verbose_name_plural = "Зміни кількості"
-
-    additional_quantity = models.FloatField(blank=False)
-
-    item = models.ForeignKey('Item', related_name='quantity')
-
-    changed_at = models.DateField(
-        blank=False,
-        default=date.today,
-        verbose_name="Дата зміни",
-    )
-
-    notes = models.TextField(blank=True, verbose_name="Примітка")
-
-    def __str__(self):
-        a_q = self.additional_quantity
-        if a_q == int(a_q):
-            a_q = int(a_q)
-        return '{} / {} / {}'.format(self.item,
-                                     self.changed_at.strftime('%Y-%m-%d'),
-                                     a_q)
-
-
 class Category(models.Model):
     """Category Model
 
@@ -171,3 +139,38 @@ class Order(models.Model):
 
     def __str__(self):
         return '{} / {}'.format(self.order_date, self.customer)
+
+
+class ItemChange(models.Model):
+    """ItemChange Model
+
+    Describes each change in quantity of concrete item.
+
+    """
+
+    class Meta(object):
+        verbose_name = "Зміна кількості"
+        verbose_name_plural = "Зміни кількості"
+
+    additional_quantity = models.FloatField(blank=False)
+
+    item = models.ForeignKey('Item', related_name='quantity')
+
+    changed_at = models.DateField(
+        blank=False,
+        default=date.today,
+        verbose_name="Дата зміни",
+    )
+
+    order = models.ForeignKey('Order', blank=True, null=True,
+                              verbose_name="Замовлення")
+
+    notes = models.TextField(blank=True, verbose_name="Примітка")
+
+    def __str__(self):
+        a_q = self.additional_quantity
+        if a_q == int(a_q):
+            a_q = int(a_q)
+        return '{} / {} / {}'.format(self.item,
+                                     self.changed_at.strftime('%Y-%m-%d'),
+                                     a_q)

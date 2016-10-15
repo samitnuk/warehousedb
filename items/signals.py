@@ -24,7 +24,8 @@ def itemchange_auto_create(instance, **kwargs):
             item=component.item,
             notes='{} / {} шт. / {}'.format(product_title,
                                             order_quantity,
-                                            order.customer))
+                                            order.customer),
+            order=order)
 
 
 @receiver(pre_delete, sender=Order)
