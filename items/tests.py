@@ -1,7 +1,9 @@
-from django.contrib.auth.models import User
-from django.test import TestCase, Client
+from datetime import date
 
-from .models import Item, Category
+from django.contrib.auth.models import User
+from django.test import Client, TestCase
+
+from .models import Category, Item, ItemChange
 
 from .utils import *
 
@@ -74,6 +76,24 @@ class ItemTests(TestCase):
         self.assertEqual(item.category.name, "Тестова категорія")
         self.assertEqual(item.category.notes, "Тестова нотатка")
         # self.assertEqual(item.picture, None)
+
+
+class ItemChangeTests(TestCase):
+
+    fixtures = ['items/load_data.json']
+
+    item = Item.objects.first()
+
+    def test_itemchange_creation(self):
+
+        ItemChange.objects.create(
+            item=self.item,
+            changed_at=date.today,
+            notes="",
+            order=None)
+
+        itemchange = ItemChange.objects.all()
+        self.assertEqual(len(itemchange), 1)
 
 
 class ProductTests(TestCase):
