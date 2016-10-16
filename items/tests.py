@@ -1,5 +1,3 @@
-from datetime import date
-
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
@@ -101,13 +99,13 @@ class ItemChangeTests(TestCase):
             product=product,
             quantity=10)
 
-        itemchange = ItemChange.objects.all()
-        self.assertEqual(len(itemchange), 1)
+        itemchanges = ItemChange.objects.all()
+        self.assertEqual(len(itemchanges), 1)
 
         Order.objects.first().delete()
 
-        itemchange = ItemChange.objects.all()
-        self.assertEqual(len(itemchange), 0)
+        itemchanges = ItemChange.objects.all()
+        self.assertEqual(len(itemchanges), 0)
 
 
 class ProductTests(TestCase):
