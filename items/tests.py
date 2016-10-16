@@ -3,7 +3,7 @@ from datetime import date
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from .models import Category, Item, ItemChange
+from .models import Category, Item, ItemChange, Order
 
 from .utils import *
 
@@ -86,14 +86,28 @@ class ItemChangeTests(TestCase):
 
     def test_itemchange_creation(self):
 
-        ItemChange.objects.create(
+        product = Product.objects.create(
+            title="Test PRODUCT",
+            part_number="",
+            notes="")
+
+        Component.objects.create(
+            product=product,
             item=self.item,
-            changed_at=date.today,
-            notes="",
-            order=None)
+            quantity=10)
+
+        Order.objects.create(
+            customer="Test ORDER",
+            product=product,
+            quantity=10)
 
         itemchange = ItemChange.objects.all()
         self.assertEqual(len(itemchange), 1)
+
+        Order.objects.first().delete()
+
+        itemchange = ItemChange.objects.all()
+        self.assertEqual(len(itemchange), 0)
 
 
 class ProductTests(TestCase):
