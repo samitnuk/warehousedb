@@ -121,6 +121,10 @@ class Order(models.Model):
     will be created related instances of ItemChange Model
     throught post_save signal.
 
+    When instance of Order Model will be deleted,
+    will be deleted related instances of ItemChange Model
+    throught model manager.
+
     """
 
     class Meta(object):
