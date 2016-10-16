@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import ItemChange, Order
@@ -26,11 +26,3 @@ def itemchange_auto_create(instance, **kwargs):
                                             order_quantity,
                                             order.customer),
             order=order)
-
-
-@receiver(pre_delete, sender=Order)
-def itemchange_auto_delete(instance, **kwargs):
-
-    ItemChange.objects.filter(order=instance).delete()
-
-    # TODO: add order field to ItemChange model and make migrations
