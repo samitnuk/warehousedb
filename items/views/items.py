@@ -8,8 +8,8 @@ from ..models import Item, ItemChange, Category
 
 @login_required(login_url='/login/')
 def main(request):
-    items = Item.objects.order_by('category', 'title', 'part_number')
-    categories = Category.objects.order_by('name')
+    items = Item.objects.all()
+    categories = Category.objects.all()
 
     return render(
         request, 'items/main.html',
@@ -20,7 +20,7 @@ def main(request):
 @login_required(login_url='/login/')
 def item_list_by_categories(request, pk):
 
-    categories = Category.objects.order_by('name')
+    categories = Category.objects.all()
 
     if pk is None:
         active_category = categories.first()
@@ -84,7 +84,7 @@ def item_list_by_dates(request):
             date_range.append(range_start)
             range_start += timedelta(days=1)
 
-        items = Item.objects.order_by('category')
+        items = Item.objects.all()
 
         items_list = []
         for item in items:
@@ -107,7 +107,7 @@ def item_list_by_dates(request):
         total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
                                                   changed_at__lte=range_stop)
 
-        items = Item.objects.order_by('category')
+        items = Item.objects.all()
 
         items_list = []
         for item in items:

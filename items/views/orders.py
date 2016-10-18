@@ -7,7 +7,7 @@ from ..forms import AddOrderForm
 
 @login_required(login_url='/login/')
 def order_list(request):
-    orders_ = Order.objects.order_by('-order_date', '-id')
+    orders_ = Order.objects.all()
 
     return render(
         request, 'items/order_list.html',

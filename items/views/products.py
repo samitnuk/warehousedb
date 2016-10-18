@@ -43,7 +43,7 @@ def product_create(request):
 
 @login_required(login_url='/login/')
 def product_list(request):
-    products_ = Product.objects.order_by('-id')
+    products_ = Product.objects.all()
 
     return render(
         request, 'items/product_list.html',
