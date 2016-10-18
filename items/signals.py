@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import ItemChange, Order
+from .models import ItemChange, MaterialChange, Order
 
 
 @receiver(post_save, sender=Order)
@@ -22,7 +22,27 @@ def itemchange_auto_create(instance, **kwargs):
         ItemChange.objects.create(
             additional_quantity=order.quantity * component.quantity * -1,
             item=component.item,
+            order=order,
+            material=None,
             notes='{} / {} шт. / {}'.format(product_title,
                                             order_quantity,
-                                            order.customer),
-            order=order)
+                                            order.customer))
+
+
+@receiver(post_save, sender=ItemChange)
+def materialchange_auto_create(instance, **kwargs):
+
+    itemchange = instance
+
+    # instance of MaterialChange Model should be created if
+    # additional_quantity is positive and material selected
+    if itemchange.additional_quantity > 0 and itemchange.material:
+
+        MaterialChange.object.create(
+            additional_quantity=(
+                itemchange.additional_quantity * itemchange.item.rate),
+            material=itemchange.material,
+            notes="{} {} / {} шт.".format(
+                itemchange.item.title,
+                itemchange.item.part_number,
+                itemchange.additional_quantity))
