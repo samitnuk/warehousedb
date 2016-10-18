@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
 
-    # items & categories
+    # items, itemchanges & categories
     url(r'^$',
         views.main,
         name='main'),
@@ -62,6 +62,10 @@ urlpatterns = [
     url(r'^order_create/',
         views.order_create,
         name='order_create'),
+
+    # materials & materialchanges
+
+    # tools & toolchanges
 
     # login & logout
     url(r'^login/',
