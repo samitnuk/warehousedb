@@ -103,11 +103,11 @@ class AddStdCableForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AddStdCableForm, self).__init__(*args, **kwargs)
 
-        conduits_category = Category.objects.filter(name="Кожух")
+        conduits_category = Category.objects.filter(title="Кожух")
         conduits = Item.objects.filter(category=conduits_category)
         self.fields['conduit'].choices = get_choices(conduits)
 
-        cores_category = Category.objects.filter(name="Сердечник")
+        cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
@@ -125,11 +125,11 @@ class AddTZACableForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AddTZACableForm, self).__init__(*args, **kwargs)
 
-        conduits_category = Category.objects.filter(name="Кожух")
+        conduits_category = Category.objects.filter(title="Кожух")
         conduits = Item.objects.filter(category=conduits_category)
         self.fields['conduit'].choices = get_choices(conduits)
 
-        cores_category = Category.objects.filter(name="Сердечник")
+        cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
@@ -158,10 +158,10 @@ class AddBCableForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AddBCableForm, self).__init__(*args, **kwargs)
 
-        conduits_category = Category.objects.filter(name="Кожух")
+        conduits_category = Category.objects.filter(title="Кожух")
         conduits = Item.objects.filter(category=conduits_category)
         self.fields['conduit'].choices = get_choices(conduits)
 
-        cores_category = Category.objects.filter(name="Сердечник")
+        cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)

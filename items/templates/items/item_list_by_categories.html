@@ -16,7 +16,7 @@
     {% for category in row %}
     <div class="two columns">
         <a class="button{% if category.id != active_category_id %} button-primary{% endif %} u-full-width"
-           href="{% url 'item_list_by_categories' category.id %}">{{ category.name }}</a>
+           href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
     </div>
     {% endfor %}
 </div>

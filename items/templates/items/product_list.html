@@ -35,6 +35,7 @@
                     <th>Найменування</th>
                     <th>Індекс</th>
                     <th>Примітка</th>
+                    <th>Вага, кг</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,7 @@
                             </a>
                         </td>
                         <td class="notes">{{ product.notes }}</td>
+                        <td>{{ product.weight }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
