@@ -88,7 +88,7 @@ class ItemChangeTests(TestCase):
 
     item = Item.objects.first()
 
-    def test_itemchange_creation(self):
+    def test_itemchange_auto_creation(self):
 
         product = Product.objects.create(
             title="Test PRODUCT",
@@ -106,12 +106,18 @@ class ItemChangeTests(TestCase):
             quantity=10)
 
         itemchanges = ItemChange.objects.all()
-        self.assertEqual(len(itemchanges), 1)
+        self.assertEqual(len(itemchanges), 0)
 
         Order.objects.first().delete()
 
+        Order.objects.create(
+            customer="Test ORDER",
+            product=product,
+            quantity=10,
+            ready=True)
+
         itemchanges = ItemChange.objects.all()
-        self.assertEqual(len(itemchanges), 0)
+        self.assertEqual(len(itemchanges), 1)
 
 
 class ProductTests(TestCase):
