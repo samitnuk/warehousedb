@@ -8,25 +8,26 @@ from .models import ItemChange, MaterialChange, Order
 def itemchange_auto_create(instance, **kwargs):
 
     order = instance
-    order_quantity = order.quantity
-    if order_quantity == int(order_quantity):
-        order_quantity = int(order_quantity)
+    if order.ready:
+        order_quantity = order.quantity
+        if order_quantity == int(order_quantity):
+            order_quantity = int(order_quantity)
 
-    if order.product.part_number:
-        product_title = '{} - {}'.format(order.product.part_number,
-                                         order.product.title)
-    else:
-        product_title = order.product.title
+        if order.product.part_number:
+            product_title = '{} - {}'.format(order.product.part_number,
+                                             order.product.title)
+        else:
+            product_title = order.product.title
 
-    for component in order.product.components:
-        ItemChange.objects.create(
-            additional_quantity=order.quantity * component.quantity * -1,
-            item=component.item,
-            order=order,
-            material=None,
-            notes='{} / {} шт. / {}'.format(product_title,
-                                            order_quantity,
-                                            order.customer))
+        for component in order.product.components:
+            ItemChange.objects.create(
+                additional_quantity=order.quantity * component.quantity * -1,
+                item=component.item,
+                order=order,
+                material=None,
+                notes='{} / {} шт. / {}'.format(product_title,
+                                                order_quantity,
+                                                order.customer))
 
 
 @receiver(post_save, sender=ItemChange)

@@ -136,6 +136,9 @@ class Order(models.Model):
 
     quantity = models.FloatField(blank=False, verbose_name="Кількість")
 
+    ready = models.BooleanField(default=False,
+                                verbose_name="Готовність замовлення")
+
     class Meta(object):
         verbose_name = "Замовлення"
         verbose_name_plural = "Замовлення"
