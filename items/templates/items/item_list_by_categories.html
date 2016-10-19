@@ -29,6 +29,8 @@
                 <th>Найменування</th>
                 <th>Індекс</th>
                 <th>Наш індекс</th>
+                <th>Норма витрати, м</th>
+                <th>Вага, кг</th>
                 <th>К-сть</th>
             </tr>
         </thead>
@@ -51,6 +53,8 @@
                 </td>
                 <td>{{ item.part_number }}</td>
                 <td>{{ item.part_number2 }}</td>
+                <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
+                <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
                 <td>{{ item.current_total|floatformat }}</td>
             </tr>
             {% endfor %}
