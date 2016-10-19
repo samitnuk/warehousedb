@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from ..models import Item, ItemChange, Category
+from ..forms import DateRangeForm
 
 
 @login_required(login_url='/login/')
@@ -46,6 +47,39 @@ def item_list_by_categories(request, pk):
 
 @login_required(login_url='/login/')
 def item_list_by_dates(request):
+
+    # form = DateRangeForm(request.POST or None)
+
+    # if request.method == 'POST':
+    #     if form.is_valid():
+    #         range_start = datetime.strptime(
+    #             form.cleaned_data['range_start'], "%Y-%m-%d")
+    #         range_stop = datetime.strptime(
+    #             form.cleaned_data['range_stop'], "%Y-%m-%d")
+
+    #         if range_start > range_stop:
+    #             range_start, range_stop = range_stop, range_start
+
+    #         total_changes = ItemChange.objects.filter(
+    #             changed_at__gte=range_start,
+    #             changed_at__lte=range_stop)
+
+    #         date_range = []
+    #         while range_start <= range_stop:
+    #             date_range.append(range_start)
+    #             range_start += timedelta(days=1)
+
+    #         items = Item.objects.all()
+
+    #         items_list = []
+    #         for item in items:
+    #             items_list.append([item, total_changes.filter(item=item)])
+
+    #         return render(
+    #             request, 'items/item_list_by_dates.html',
+    #             {'date_range': date_range,
+    #              'items_list': items_list})
+
     if request.method == 'POST':
 
         errors = {}

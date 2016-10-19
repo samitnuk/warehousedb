@@ -165,3 +165,10 @@ class AddBCableForm(forms.Form):
         cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
+
+
+class DateRangeForm(forms.Form):
+
+    range_start = forms.DateField(label="від")
+
+    range_stop = forms.DateField(label="до")
