@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from ..models import Item, ItemChange, Category
 from ..forms import DateRangeForm
 
-from ..helpers import get_date_range
+from ..helpers import get_date_range, get_objects_list
 
 
 @login_required(login_url='/login/')
@@ -57,44 +57,36 @@ def item_list_by_dates(request):
             range_start = form.cleaned_data['range_start']
             range_stop = form.cleaned_data['range_stop']
 
-            date_range = get_date_range(range_start, range_stop)
-
-            total_changes = ItemChange.objects.filter(
-                changed_at__gte=range_start,
-                changed_at__lte=range_stop)
-
-            items = Item.objects.all()
-
-            items_list = []
-            for item in items:
-                items_list.append([item, total_changes.filter(item=item)])
+            items_list = get_objects_list(
+                range_start=range_start,
+                range_stop=range_stop,
+                object_model=Item,
+                objectchange_model=ItemChange,
+                field_name='item'
+            )
 
             return render(
                 request, 'items/item_list_by_dates.html',
-                {'date_range': date_range,
+                {'date_range': get_date_range(range_start, range_stop),
                  'items_list': items_list,
                  'form': form})
 
     range_stop = datetime.today()
     range_start = range_stop - timedelta(days=7)  # 7 days before today
 
-    date_range = get_date_range(range_start, range_stop)
-
-    total_changes = ItemChange.objects.filter(
-        changed_at__gte=range_start,
-        changed_at__lte=range_stop)
-
-    items = Item.objects.all()
-
-    items_list = []
-    for item in items:
-        items_list.append([item, total_changes.filter(item=item)])
+    items_list = get_objects_list(
+        range_start=range_start,
+        range_stop=range_stop,
+        object_model=Item,
+        objectchange_model=ItemChange,
+        field_name='item'
+    )
 
     return render(
         request, 'items/item_list_by_dates.html',
         {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
          'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
-         'date_range': date_range,
+         'date_range': get_date_range(range_start, range_stop),
          'items_list': items_list,
          'form': form})
 

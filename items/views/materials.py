@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from ..models import Material, MaterialChange
 from ..forms import DateRangeForm
 
-from ..helpers import get_date_range
+from ..helpers import get_date_range, get_objects_list
 
 
 @login_required(login_url='/login/')
@@ -28,49 +28,37 @@ def material_list_by_dates(request):
             range_start = form.cleaned_data['range_start']
             range_stop = form.cleaned_data['range_stop']
 
-            if range_start > range_stop:
-                range_start, range_stop = range_stop, range_start
-
-            date_range = get_date_range(range_start, range_stop)
-
-            total_changes = MaterialChange.objects.filter(
-                changed_at__gte=range_start,
-                changed_at__lte=range_stop)
-
-            materials = Material.objects.all()
-
-            materials_list = []
-            for material in materials:
-                materials_list.append(
-                    [material, total_changes.filter(material=material)])
+            materials_list = get_objects_list(
+                range_start=range_start,
+                range_stop=range_stop,
+                object_model=Material,
+                objectchange_model=MaterialChange,
+                field_name='material'
+            )
 
             return render(
                 request, 'items/material_list_by_dates.html',
-                {'date_range': date_range,
-                 'material_list': material_list,
+                {'date_range': get_date_range(range_start, range_stop),
+                 'materials_list': materials_list,
                  'form': form})
 
     range_stop = datetime.today()
     range_start = range_stop - timedelta(days=7)  # 7 days before today
 
-    date_range = get_date_range(range_start, range_stop)
-
-    total_changes = MaterialChange.objects.filter(changed_at__gte=range_start,
-                                                  changed_at__lte=range_stop)
-
-    materials = Material.objects.all()
-
-    materials_list = []
-    for material in materials:
-        materials_list.append(
-            [materials, total_changes.filter(materials=materials)])
+    materials_list = get_objects_list(
+        range_start=range_start,
+        range_stop=range_stop,
+        object_model=Material,
+        objectchange_model=MaterialChange,
+        field_name='material'
+    )
 
     return render(
         request, 'items/material_list_by_dates.html',
         {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
          'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
-         'date_range': date_range,
-         'material_list': material_list,
+         'date_range': get_date_range(range_start, range_stop),
+         'material_list': materials_list,
          'form': form})
 
 
