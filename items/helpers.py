@@ -4,7 +4,7 @@ from datetime import timedelta
 def get_date_range(range_start, range_stop):
     """
     Receives two dates.
-    Returns list of dates between two dates
+    :return: list of dates between two dates
 
     """
 
@@ -26,6 +26,10 @@ def get_objects_list(
         objectchange_model,
         field_name
 ):
+    """
+
+    :return: list of lists [object, changes of this object]
+    """
     total_changes = objectchange_model.objects.filter(
         changed_at__gte=range_start,
         changed_at__lte=range_stop
