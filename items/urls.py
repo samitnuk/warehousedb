@@ -57,49 +57,49 @@ urlpatterns = [
 
     # materials & materialchanges
     # -----------------------------------------------------------------
-    # rl(r'^material_list/', views.material_list,
-    #     name='material_list'),
+    url(r'^material_list/', views.material_list,
+        name='material_list'),
 
-    # url(r'^material_create/', views.material_create,
-    #     name='material_create'),
+    url(r'^material_list_by_dates/', views.material_list_by_dates,
+        name='material_list_by_dates'),
 
-    # url(r'^material_delete/', views.material_delete,
-    #     name='material_delete'),
+    url(r'^material_create/', views.material_create,
+        name='material_create'),
 
-    # url(r'^material_detail/', views.material_detail,
-    #     name='material_detail'),
+    url(r'^material_delete/(?P<pk>\d+)/', views.material_delete,
+        name='material_delete'),
 
-    # url(r'^material_list_by_dates/', views.material_list_by_dates,
-    #     name='material_list_by_dates'),
+    url(r'^material_detail/(?P<pk>\d+)/', views.material_detail,
+        name='material_detail'),
 
-    # url(r'^materialchange_detail/(?P<pk>\d+)/', views.materialchange_detail,
-    #     name='materialchange_detail'),
+    url(r'^materialchange_detail/(?P<pk>\d+)/', views.materialchange_detail,
+        name='materialchange_detail'),
 
-    # url(r'^materialchange_create/(?P<pk>\d+)/', views.materialchange_create,
-    #     name='materialchange_create'),
+    url(r'^materialchange_create/(?P<pk>\d+)/', views.materialchange_create,
+        name='materialchange_create'),
 
     # tools & toolchanges
     # -----------------------------------------------------------------
-    # rl(r'^tool_list/', views.tool_list,
-    #     name='tool_list'),
+    url(r'^tool_list/', views.tool_list,
+        name='tool_list'),
 
-    # url(r'^tool_create/', views.tool_create,
-    #     name='tool_create'),
+    url(r'^tool_list_by_dates/', views.tool_list_by_dates,
+        name='tool_list_by_dates'),
 
-    # url(r'^tool_delete/', views.tool_delete,
-    #     name='tool_delete'),
+    url(r'^tool_create/', views.tool_create,
+        name='tool_create'),
 
-    # url(r'^tool_detail/', views.tool_detail,
-    #     name='tool_detail'),
+    url(r'^tool_delete/(?P<pk>\d+)/', views.tool_delete,
+        name='tool_delete'),
 
-    # url(r'^tool_list_by_dates/', views.tool_list_by_dates,
-    #     name='tool_list_by_dates'),
+    url(r'^tool_detail/(?P<pk>\d+)/', views.tool_detail,
+        name='tool_detail'),
 
-    # url(r'^toolchange_detail/(?P<pk>\d+)/', views.toolchange_detail,
-    #     name='toolchange_detail'),
+    url(r'^toolchange_detail/(?P<pk>\d+)/', views.toolchange_detail,
+        name='toolchange_detail'),
 
-    # url(r'^toolchange_create/(?P<pk>\d+)/', views.toolchange_create,
-    #     name='toolchange_create'),
+    url(r'^toolchange_create/', views.toolchange_create,
+        name='toolchange_create'),
 
     # login & logout
     # -----------------------------------------------------------------
