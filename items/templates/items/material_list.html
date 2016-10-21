@@ -1,0 +1,46 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Матеріали{% endblock meta_title %}
+
+{% block subnavigation %}
+    <div class="row" id="navigation">
+        <div class="u-full-width">
+            <ul class="nav-menu">
+                <li role="presentation">
+                    <a href="{% url 'material_list_by_dates' %}">Матеріали по датах</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+{% endblock subnavigation %}
+
+{% block content %}
+
+<div class="row">
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Найменування</th>
+                <th>Примітка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>
+                    <a class="item_link"
+                       href="{% url 'material_detail' material.id %}">
+                        {{ materials.title }}
+                    </a>
+                </td>
+                <td>{{ material.notes }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

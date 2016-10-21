@@ -4,11 +4,21 @@
 
 {% block meta_title %}Склад по категоріях{% endblock meta_title %}
 
-{% block header %}
-<div class="row" id="header">
-    <div class="nine columns"><h5>Склад по категоріях</h5></div>
-</div>
-{% endblock header %}
+{% block subnavigation %}
+    <div class="row" id="navigation">
+        <div class="u-full-width">
+            <ul class="nav-menu">
+                <li role="presentation">
+                    <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
+                </li>
+                <li role="presentation" class="nav-active">
+                    <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+{% endblock subnavigation %}
 
 {% block content %}
 {% for row in rows %}

@@ -35,13 +35,13 @@
                     <li role="presentation" {% if request.path == main_path %}class="nav-active"{% endif %}>
                         <a href="{% url 'main' %}">Склад</a>
                     </li>
-                    {% url 'item_list_by_dates' as items_by_dates_path %}
-                    <li role="presentation" {% if items_by_dates_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
+                    {% url 'material_list' as materials_path %}
+                    <li role="presentation" {% if materials_path in request.path %}class="nav-active"{% endif%}>
+                        <a href="{% url 'material_list' %}">Матеріали</a>
                     </li>
-                    {% url 'item_list_by_categories' as items_by_categories_path %}
-                    <li role="presentation" {% if items_by_categories_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
+                    {% url 'tool_list' as tool_path %}
+                    <li role="presentation" {% if tool_path in request.path %}class="nav-active"{% endif%}>
+                        <a href="{% url 'tool_list' %}">Інструменти</a>
                     </li>
                     <li>|</li>
                     {% url 'product_list' as products_path %}
@@ -57,6 +57,8 @@
             </div>
         </div>
         {% endblock navigation %}
+
+        {% block subnavigation %} {% endblock subnavigation %}
 
         {% block header %}{% endblock header %}
 

@@ -4,7 +4,7 @@
 
 {% load items_filters %}
 
-{% block meta_title %}Склад по датах{% endblock meta_title %}
+{% block meta_title %}Інструменти по датах{% endblock meta_title %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/pikaday.css' %}" />
@@ -15,10 +15,7 @@
         <div class="u-full-width">
             <ul class="nav-menu">
                 <li role="presentation" class="nav-active">
-                    <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
-                </li>
-                <li role="presentation">
-                    <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
+                    <a href="{% url 'tool_list_by_dates' %}">Інструменти по датах</a>
                 </li>
             </ul>
         </div>
@@ -28,7 +25,7 @@
 
 {% block content %}
 
-<form  action="{% url 'item_list_by_dates' %}" method="post">
+<form  action="{% url 'tool_list_by_dates' %}" method="post">
     
     {% csrf_token %}
 
@@ -67,27 +64,27 @@
             </tr>
         </thead>
         <tbody>
-            {% for item, item_changes in items_list %}
+            {% for tool, tool_changes in tool_list %}
             <tr>
                 <td>
                     <a class="item_link"
-                       href="{% url 'itemchange_create' item.id %}">
+                       href="{% url 'toolchange_create' item.id %}">
                         &plusmn;
                     </a>
                 </td>
                 <td>
                     <a class="item_link"
-                       href="{% url 'item_detail' item.id %}">
-                        {{ item.title }} {{ item.part_number }}
+                       href="{% url 'tool_detail' item.id %}">
+                        {{ tool.title }}
                     </a>
                 </td>
                 {% for date in date_range %}
                 <td>
-                    {% for change in item_changes %}
+                    {% for change in tool_changes %}
                     {% if change.changed_at|date == date|date %}
                     <abbr title="{{ change.notes }}">
                         <a class="item_link"
-                           href="{% url 'itemchange_detail' change.id %}">
+                           href="{% url 'toolchange_detail' change.id %}">
                             {{ change.additional_quantity|floatformat }}
                         </a>&nbsp;
                     </abbr>
