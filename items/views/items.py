@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from ..models import Item, ItemChange, Category
 from ..forms import DateRangeForm
 
+from ..helpers import get_date_range
+
 
 @login_required(login_url='/login/')
 def main(request):
@@ -48,111 +50,53 @@ def item_list_by_categories(request, pk):
 @login_required(login_url='/login/')
 def item_list_by_dates(request):
 
-    # form = DateRangeForm(request.POST or None)
-
-    # if request.method == 'POST':
-    #     if form.is_valid():
-    #         range_start = datetime.strptime(
-    #             form.cleaned_data['range_start'], "%Y-%m-%d")
-    #         range_stop = datetime.strptime(
-    #             form.cleaned_data['range_stop'], "%Y-%m-%d")
-
-    #         if range_start > range_stop:
-    #             range_start, range_stop = range_stop, range_start
-
-    #         total_changes = ItemChange.objects.filter(
-    #             changed_at__gte=range_start,
-    #             changed_at__lte=range_stop)
-
-    #         date_range = []
-    #         while range_start <= range_stop:
-    #             date_range.append(range_start)
-    #             range_start += timedelta(days=1)
-
-    #         items = Item.objects.all()
-
-    #         items_list = []
-    #         for item in items:
-    #             items_list.append([item, total_changes.filter(item=item)])
-
-    #         return render(
-    #             request, 'items/item_list_by_dates.html',
-    #             {'date_range': date_range,
-    #              'items_list': items_list})
+    form = DateRangeForm(request.POST or None)
 
     if request.method == 'POST':
+        if form.is_valid():
+            range_start = form.cleaned_data['range_start']
+            range_stop = form.cleaned_data['range_stop']
 
-        errors = {}
+            date_range = get_date_range(range_start, range_stop)
 
-        range_start = request.POST.get("range_start", "").strip()
-        if not range_start:
-            errors["range_start"] = "Дата є обов'язковою"
-        else:
-            try:
-                range_start = datetime.strptime(range_start, "%Y-%m-%d")
-            except Exception:
-                errors["range_start"] = \
-                    "Введіть коректний формат дати (напр. 2016-08-01)"
+            total_changes = ItemChange.objects.filter(
+                changed_at__gte=range_start,
+                changed_at__lte=range_stop)
 
-        range_stop = request.POST.get("range_stop", "").strip()
-        if not range_stop:
-            errors["range_stop"] = "Дата є обов'язковою"
-        else:
-            try:
-                range_stop = datetime.strptime(range_stop, "%Y-%m-%d")
-            except Exception:
-                errors["range_stop"] = \
-                    "Введіть коректний формат дати (напр. 2016-08-01)"
+            items = Item.objects.all()
 
-        if errors:
+            items_list = []
+            for item in items:
+                items_list.append([item, total_changes.filter(item=item)])
+
             return render(
                 request, 'items/item_list_by_dates.html',
-                {'errors': errors})
+                {'date_range': date_range,
+                 'items_list': items_list,
+                 'form': form})
 
-        total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
-                                                  changed_at__lte=range_stop)
-        if range_start > range_stop:
-            range_start, range_stop = range_stop, range_start
-        date_range = []
-        while range_start <= range_stop:
-            date_range.append(range_start)
-            range_start += timedelta(days=1)
+    range_stop = datetime.today()
+    range_start = range_stop - timedelta(days=7)  # 7 days before today
 
-        items = Item.objects.all()
+    date_range = get_date_range(range_start, range_stop)
 
-        items_list = []
-        for item in items:
-            items_list.append([item, total_changes.filter(item=item)])
+    total_changes = ItemChange.objects.filter(
+        changed_at__gte=range_start,
+        changed_at__lte=range_stop)
 
-        return render(
-            request, 'items/item_list_by_dates.html',
-            {'date_range': date_range,
-             'items_list': items_list})
+    items = Item.objects.all()
 
-    else:
-        range_stop = datetime.today()
-        range_start = range_stop - timedelta(days=7)  # 7 days before today
-        date_range = []
-        i = range_start
-        while i <= range_stop:
-            date_range.append(i)
-            i += timedelta(days=1)
+    items_list = []
+    for item in items:
+        items_list.append([item, total_changes.filter(item=item)])
 
-        total_changes = ItemChange.objects.filter(changed_at__gte=range_start,
-                                                  changed_at__lte=range_stop)
-
-        items = Item.objects.all()
-
-        items_list = []
-        for item in items:
-            items_list.append([item, total_changes.filter(item=item)])
-
-        return render(
-            request, 'items/item_list_by_dates.html',
-            {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
-             'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
-             'date_range': date_range,
-             'items_list': items_list})
+    return render(
+        request, 'items/item_list_by_dates.html',
+        {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
+         'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
+         'date_range': date_range,
+         'items_list': items_list,
+         'form': form})
 
 
 @login_required(login_url='/login/')
