@@ -17,3 +17,26 @@ def get_date_range(range_start, range_stop):
         range_start += timedelta(days=1)
 
     return date_range
+
+
+def get_objects_list(
+        range_start,
+        range_stop,
+        object_model,
+        objectchange_model,
+        field_name
+):
+    total_changes = objectchange_model.objects.filter(
+        changed_at__gte=range_start,
+        changed_at__lte=range_stop
+    )
+
+    objects_ = object_model.objects.all()
+
+    objects_list = []
+    for object_ in objects_:
+        objects_list.append(
+            [object_, total_changes.filter(**{field_name: object_})]
+        )
+
+    return objects_list
