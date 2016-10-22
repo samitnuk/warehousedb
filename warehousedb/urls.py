@@ -19,10 +19,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+from items.views import login, logout
+
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'', include('items.urls')),
+    url(r'^item/', include('items.urls.items')),
+    url(r'^product/', include('items.urls.products')),
+    url(r'^order/', include('items.urls.orders')),
+    url(r'^material/', include('items.urls.materials')),
+    url(r'^tool/', include('items.urls.tools')),
+
+    url(r'^login/', login, name='login'),
+    url(r'^logout/', logout, name='logout'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
