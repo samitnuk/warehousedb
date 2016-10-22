@@ -31,9 +31,9 @@
         <div class="row" id="navigation">
             <div class="u-full-width">
                 <ul class="nav-menu">
-                    {% url 'main' as main_path %}
-                    <li role="presentation" {% if request.path == main_path %}class="nav-active"{% endif %}>
-                        <a href="{% url 'main' %}">Склад</a>
+                    {% url 'item_list' as item_list_path %}
+                    <li role="presentation" {% if request.path == item_list_path %}class="nav-active"{% endif %}>
+                        <a href="{% url 'item_list' %}">Склад</a>
                     </li>
                     {% url 'material_list' as materials_path %}
                     <li role="presentation" {% if materials_path in request.path %}class="nav-active"{% endif%}>
