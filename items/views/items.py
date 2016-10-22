@@ -10,7 +10,7 @@ from ..helpers import get_date_range, get_objects_list
 
 
 @login_required(login_url='/login/')
-def main(request):
+def item_list(request):
     items = Item.objects.all()
     categories = Category.objects.all()
 
@@ -98,6 +98,11 @@ def item_detail(request, pk):
     return render(
         request, 'items/item_detail.html',
         {'item': item})
+
+
+@login_required(login_url='/login/')
+def item_create(request):
+    pass
 
 
 @login_required(login_url='/login/')

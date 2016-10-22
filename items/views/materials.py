@@ -63,6 +63,11 @@ def material_list_by_dates(request):
 
 
 @login_required(login_url='/login/')
+def material_detail(request, pk):
+    pass
+
+
+@login_required(login_url='/login/')
 def material_create(request):
     pass
 
@@ -73,15 +78,15 @@ def material_delete(request, pk):
 
 
 @login_required(login_url='/login/')
-def material_detail(request, pk):
-    pass
-
-
-@login_required(login_url='/login/')
 def materialchange_detail(request, pk):
     pass
 
 
 @login_required(login_url='/login/')
-def materialchange_create(request, pk):
+def materialchange_create(request):
+    pass
+
+
+@login_required(login_url='/login/')
+def materialchange_delete(request, pk):
     pass

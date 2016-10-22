@@ -63,6 +63,11 @@ def tool_list_by_dates(request):
 
 
 @login_required(login_url='/login/')
+def tool_detail(request, pk):
+    pass
+
+
+@login_required(login_url='/login/')
 def tool_create(request):
     pass
 
@@ -73,15 +78,15 @@ def tool_delete(request, pk):
 
 
 @login_required(login_url='/login/')
-def tool_detail(request, pk):
-    pass
-
-
-@login_required(login_url='/login/')
 def toolchange_detail(request, pk):
     pass
 
 
 @login_required(login_url='/login/')
 def toolchange_create(request):
+    pass
+
+
+@login_required(login_url='/login/')
+def toolchange_delete(request):
     pass

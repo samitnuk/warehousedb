@@ -38,3 +38,8 @@ def order_create(request):
         request,
         'items/order_create.html',
         {'form': form})
+
+
+@login_required(login_url='/login/')
+def order_delete(request):
+    pass
