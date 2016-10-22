@@ -37,15 +37,15 @@ function getHCableLength() {
 
 $(document).ready( function() {
 
-    if ($(location).attr('pathname') == '/product_create_std_cable/') {
+    if ($(location).attr('pathname') == '/product/create_std_cable/') {
         showChecker();
     }
 
-    if ($(location).attr('pathname') == '/product_create_B_cable/') {
+    if ($(location).attr('pathname') == '/product/create_b_cable/') {
         getBCableLength();
     }
 
-    if ($(location).attr('pathname') == '/product_create_H_cable/') {
+    if ($(location).attr('pathname') == '/product/create_h_cable/') {
         getHCableLength();
     }
 });
