@@ -6,7 +6,7 @@ from ..forms import AddOrderForm
 
 
 @login_required(login_url='/login/')
-def order_list(request):
+def list_(request):
     orders_ = Order.objects.all()
 
     return render(
@@ -15,7 +15,7 @@ def order_list(request):
 
 
 @login_required(login_url='/login/')
-def order_create(request):
+def create(request):
 
     form = AddOrderForm(request.POST or None)
 
@@ -41,5 +41,5 @@ def order_create(request):
 
 
 @login_required(login_url='/login/')
-def order_delete(request):
+def delete(request):
     pass

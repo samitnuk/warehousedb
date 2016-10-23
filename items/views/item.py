@@ -10,7 +10,7 @@ from ..helpers import get_date_range, get_objects_list
 
 
 @login_required(login_url='/login/')
-def item_list(request):
+def list_(request):
     items = Item.objects.all()
     categories = Category.objects.all()
 
@@ -21,7 +21,7 @@ def item_list(request):
 
 
 @login_required(login_url='/login/')
-def item_list_by_categories(request, pk):
+def list_by_categories(request, pk):
 
     categories = Category.objects.all()
 
@@ -48,7 +48,7 @@ def item_list_by_categories(request, pk):
 
 
 @login_required(login_url='/login/')
-def item_list_by_dates(request):
+def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
@@ -92,7 +92,7 @@ def item_list_by_dates(request):
 
 
 @login_required(login_url='/login/')
-def item_detail(request, pk):
+def detail(request, pk):
     item = Item.objects.filter(pk=pk).first()
 
     return render(
@@ -101,7 +101,7 @@ def item_detail(request, pk):
 
 
 @login_required(login_url='/login/')
-def item_create(request):
+def create(request):
     pass
 
 

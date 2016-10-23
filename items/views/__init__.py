@@ -1,11 +1,11 @@
-from .items import *
+from .item import *
 
-from .products import *
+from .product import *
 
-from .orders import *
+from .order import *
 
-from .materials import *
+from .material import *
 
-from .tools import *
+from .tool import *
 
 from .login import *

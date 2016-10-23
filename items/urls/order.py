@@ -1,17 +1,17 @@
 from django.conf.urls import url
 
-from ..views import orders
+from ..views import order
 
 
 urlpatterns = [
 
-    url(r'^list/', orders.order_list, name='order_list'),
+    url(r'^list/', order.list_, name='order_list'),
 
     url(r'^create/',
-        orders.order_create,
+        order.create,
         name='order_create'),
 
     url(r'^delete/(?P<pk>\d+)/',
-        orders.order_delete,
+        order.delete,
         name='order_delete'),
 ]

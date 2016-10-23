@@ -3,23 +3,23 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from ..models import Material, MaterialChange
+from ..models import Tool, ToolChange
 from ..forms import DateRangeForm
 
 from ..helpers import get_date_range, get_objects_list
 
 
 @login_required(login_url='/login/')
-def material_list(request):
-    materials = Material.objects.all()
+def list_(request):
+    tool = Tool.objects.all()
 
     return render(
-        request, 'items/material_list.html',
-        {'materials': materials})
+        request, 'items/tool_list.html',
+        {'tool': tool})
 
 
 @login_required(login_url='/login/')
-def material_list_by_dates(request):
+def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
@@ -28,65 +28,65 @@ def material_list_by_dates(request):
             range_start = form.cleaned_data['range_start']
             range_stop = form.cleaned_data['range_stop']
 
-            materials_list = get_objects_list(
+            tools_list = get_objects_list(
                 range_start=range_start,
                 range_stop=range_stop,
-                object_model=Material,
-                objectchange_model=MaterialChange,
-                field_name='material'
+                object_model=Tool,
+                objectchange_model=ToolChange,
+                field_name='tool'
             )
 
             return render(
-                request, 'items/material_list_by_dates.html',
+                request, 'items/tool_list_by_dates.html',
                 {'date_range': get_date_range(range_start, range_stop),
-                 'materials_list': materials_list,
+                 'tools_list': tools_list,
                  'form': form})
 
     range_stop = datetime.today()
     range_start = range_stop - timedelta(days=7)  # 7 days before today
 
-    materials_list = get_objects_list(
+    tools_list = get_objects_list(
         range_start=range_start,
         range_stop=range_stop,
-        object_model=Material,
-        objectchange_model=MaterialChange,
-        field_name='material'
+        object_model=Tool,
+        objectchange_model=ToolChange,
+        field_name='tool'
     )
 
     return render(
-        request, 'items/material_list_by_dates.html',
+        request, 'items/tool_list_by_dates.html',
         {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
          'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
          'date_range': get_date_range(range_start, range_stop),
-         'material_list': materials_list,
+         'tools_list': tools_list,
          'form': form})
 
 
 @login_required(login_url='/login/')
-def material_detail(request, pk):
+def detail(request, pk):
     pass
 
 
 @login_required(login_url='/login/')
-def material_create(request):
+def create(request):
     pass
 
 
 @login_required(login_url='/login/')
-def material_delete(request, pk):
+def delete(request, pk):
     pass
 
 
 @login_required(login_url='/login/')
-def materialchange_detail(request, pk):
+def toolchange_detail(request, pk):
     pass
 
 
 @login_required(login_url='/login/')
-def materialchange_create(request):
+def toolchange_create(request):
     pass
 
 
 @login_required(login_url='/login/')
-def materialchange_delete(request, pk):
+def toolchange_delete(request):
     pass

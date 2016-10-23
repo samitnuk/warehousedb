@@ -8,7 +8,7 @@ from ..utils import create_std_cable, create_tza_cable, create_B_cable
 
 
 @login_required(login_url='/login/')
-def product_list(request):
+def list_(request):
     products_ = Product.objects.all()
 
     return render(
@@ -17,7 +17,7 @@ def product_list(request):
 
 
 @login_required(login_url='/login/')
-def product_detail(request, pk):
+def detail(request, pk):
     product = Product.objects.filter(pk=pk).first()
 
     return render(
@@ -26,7 +26,7 @@ def product_detail(request, pk):
 
 
 @login_required(login_url='/login/')
-def product_create(request):
+def create(request):
 
     form = AddProductForm(request.POST or None)
 
@@ -60,12 +60,12 @@ def product_create(request):
 
 
 @login_required(login_url='/login/')
-def product_delete(request, pk):
+def delete(request, pk):
     pass
 
 
 @login_required(login_url='/login/')
-def product_create_std_cable(request):
+def create_std_cable(request):
 
     form = AddStdCableForm(request.POST or None)
 
@@ -94,7 +94,7 @@ def product_create_std_cable(request):
 
 
 @login_required(login_url='/login/')
-def product_create_tza_cable(request):
+def create_tza_cable(request):
 
     form = AddTZACableForm(request.POST or None)
 
@@ -118,7 +118,7 @@ def product_create_tza_cable(request):
 
 
 @login_required(login_url='/login/')
-def product_create_b_cable(request):
+def create_b_cable(request):
 
     form = AddBCableForm(request.POST or None)
 
@@ -144,5 +144,5 @@ def product_create_b_cable(request):
 
 
 @login_required(login_url='/login/')
-def product_create_h_cable(request):
+def create_h_cable(request):
     pass

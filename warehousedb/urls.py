@@ -25,11 +25,11 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'^item/', include('items.urls.items')),
-    url(r'^product/', include('items.urls.products')),
-    url(r'^order/', include('items.urls.orders')),
-    url(r'^material/', include('items.urls.materials')),
-    url(r'^tool/', include('items.urls.tools')),
+    url(r'^item/', include('items.urls.item')),
+    url(r'^product/', include('items.urls.product')),
+    url(r'^order/', include('items.urls.order')),
+    url(r'^material/', include('items.urls.material')),
+    url(r'^tool/', include('items.urls.tool')),
 
     url(r'^login/', login, name='login'),
     url(r'^logout/', logout, name='logout'),
