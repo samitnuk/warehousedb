@@ -44,7 +44,8 @@ def list_by_categories(request, category_pk):
         request, 'items/item_list_by_categories.html',
         {'items': items,
          'active_category_id': active_category.id,
-         'rows': rows})
+         'rows': rows},
+    )
 
 
 @login_required(login_url='/login/')
@@ -52,24 +53,24 @@ def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            range_start = form.cleaned_data['range_start']
-            range_stop = form.cleaned_data['range_stop']
+    if request.method == 'POST' and form.is_valid():
+        range_start = form.cleaned_data['range_start']
+        range_stop = form.cleaned_data['range_stop']
 
-            items_list = get_objects_list(
-                range_start=range_start,
-                range_stop=range_stop,
-                object_model=Item,
-                objectchange_model=ItemChange,
-                field_name='item'
-            )
+        items_list = get_objects_list(
+            range_start=range_start,
+            range_stop=range_stop,
+            object_model=Item,
+            objectchange_model=ItemChange,
+            field_name='item',
+        )
 
-            return render(
-                request, 'items/item_list_by_dates.html',
-                {'date_range': get_date_range(range_start, range_stop),
-                 'items_list': items_list,
-                 'form': form})
+        return render(
+            request, 'items/item_list_by_dates.html',
+            {'date_range': get_date_range(range_start, range_stop),
+             'items_list': items_list,
+             'form': form},
+        )
 
     range_stop = datetime.today()
     range_start = range_stop - timedelta(days=7)  # 7 days before today
@@ -79,7 +80,7 @@ def list_by_dates(request):
         range_stop=range_stop,
         object_model=Item,
         objectchange_model=ItemChange,
-        field_name='item'
+        field_name='item',
     )
 
     return render(
@@ -97,7 +98,8 @@ def detail(request, pk):
 
     return render(
         request, 'items/item_detail.html',
-        {'item': item})
+        {'item': item},
+    )
 
 
 @login_required(login_url='/login/')
@@ -111,7 +113,8 @@ def itemchange_detail(request, pk):
 
     return render(
         request, 'items/itemchange_detail.html',
-        {'item_change': item_change})
+        {'item_change': item_change},
+    )
 
 
 @login_required(login_url='/login/')
@@ -146,4 +149,5 @@ def itemchange_create(request, pk):
 
     return render(
         request, 'items/itemchange_create.html',
-        {'item': item})
+        {'item': item},
+    )
