@@ -1,6 +1,14 @@
 from datetime import timedelta
 
 
+def get_choices(items):
+
+    return [(item.id, "{} {} ~~~ {}".format(
+            item.title,
+            item.part_number,
+            item.notes)) for item in items]
+
+
 def get_date_range(range_start, range_stop):
     """
     Receives two dates.
