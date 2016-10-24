@@ -5,7 +5,7 @@ from ..views import item
 
 urlpatterns = [
 
-    url(r'^list/', item.list_, name='item_list'),
+    url(r'^$', item.list_, name='item_list'),
 
     url(r'^list_by_dates/',
         item.list_by_dates,

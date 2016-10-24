@@ -25,7 +25,7 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'^item/', include('items.urls.item')),
+    url(r'^', include('items.urls.item')),
     url(r'^product/', include('items.urls.product')),
     url(r'^order/', include('items.urls.order')),
     url(r'^material/', include('items.urls.material')),
