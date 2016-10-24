@@ -11,7 +11,7 @@ urlpatterns = [
         item.list_by_dates,
         name='item_list_by_dates'),
 
-    url(r'^list_by_categories/(?P<pk>\d+)?/?',  # category <pk>
+    url(r'^list_by_categories/(?P<category_pk>\d+)?/?',
         item.list_by_categories,
         name='item_list_by_categories'),
 

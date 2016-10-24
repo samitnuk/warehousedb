@@ -21,14 +21,14 @@ def list_(request):
 
 
 @login_required(login_url='/login/')
-def list_by_categories(request, pk):
+def list_by_categories(request, category_pk):
 
     categories = Category.objects.all()
 
-    if pk is None:
+    if category_pk is None:
         active_category = categories.first()
     else:
-        active_category = categories.filter(pk=pk).first()
+        active_category = categories.filter(pk=category_pk).first()
 
     items = Item.objects.filter(category=active_category)
 
