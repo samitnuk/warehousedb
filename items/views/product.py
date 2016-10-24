@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from ..models import Item, Product, Component
 from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
                      AddBCableForm)
-from ..utils import create_std_cable, create_tza_cable, create_B_cable
+from items import utils
 
 
 @login_required(login_url='/login/')
@@ -71,7 +71,7 @@ def create_std_cable(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            create_std_cable(
+            utils.create_std_cable(
                 conduit_id=form.cleaned_data['conduit'],
                 core_id=form.cleaned_data['core'],
                 serie=form.cleaned_data['serie'],
@@ -100,7 +100,7 @@ def create_tza_cable(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            create_tza_cable(
+            utils.create_tza_cable(
                 conduit_id=form.cleaned_data['conduit'],
                 core_id=form.cleaned_data['core'],
                 is_st_rods=form.cleaned_data['is_st_rods'],
@@ -124,7 +124,7 @@ def create_b_cable(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            create_B_cable(
+            utils.create_B_cable(
                 cable_type=form.cleaned_data['cable_type'],
                 conduit_id=form.cleaned_data['conduit'],
                 core_id=form.cleaned_data['core'],
@@ -145,4 +145,5 @@ def create_b_cable(request):
 
 @login_required(login_url='/login/')
 def create_h_cable(request):
+    # utils.create_h_cable()
     pass
