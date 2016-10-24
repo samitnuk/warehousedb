@@ -27,6 +27,7 @@
                 <th>Найменування</th>
                 <th>Індекс</th>
                 <th>Примітка</th>
+                <th>Вага, кг</th>
                 <th>Кількість</th>
             </tr>
         </thead>
@@ -41,6 +42,9 @@
                     </td>
                     <td>{{ component.item.part_number }}</td>
                     <td class="notes">{{ component.item.notes }}</td>
+                    {% with component.item.weight as weight %}
+                    <td>{% if weight %}{{ weight }}{% endif %}</td>
+                    {% endwith %}
                     <td>{{ component.quantity|floatformat }}</td>
                 </tr>
             {% endfor %}
