@@ -23,24 +23,24 @@ def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            range_start = form.cleaned_data['range_start']
-            range_stop = form.cleaned_data['range_stop']
+    if request.method == 'POST' and form.is_valid():
+        range_start = form.cleaned_data['range_start']
+        range_stop = form.cleaned_data['range_stop']
 
-            materials_list = get_objects_list(
-                range_start=range_start,
-                range_stop=range_stop,
-                object_model=Material,
-                objectchange_model=MaterialChange,
-                field_name='material'
-            )
+        materials_list = get_objects_list(
+            range_start=range_start,
+            range_stop=range_stop,
+            object_model=Material,
+            objectchange_model=MaterialChange,
+            field_name='material',
+        )
 
-            return render(
-                request, 'items/material_list_by_dates.html',
-                {'date_range': get_date_range(range_start, range_stop),
-                 'materials_list': materials_list,
-                 'form': form})
+        return render(
+            request, 'items/material_list_by_dates.html',
+            {'date_range': get_date_range(range_start, range_stop),
+             'materials_list': materials_list,
+             'form': form},
+        )
 
     range_stop = datetime.today()
     range_start = range_stop - timedelta(days=7)  # 7 days before today
@@ -50,7 +50,7 @@ def list_by_dates(request):
         range_stop=range_stop,
         object_model=Material,
         objectchange_model=MaterialChange,
-        field_name='material'
+        field_name='material',
     )
 
     return render(
@@ -59,12 +59,17 @@ def list_by_dates(request):
          'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
          'date_range': get_date_range(range_start, range_stop),
          'material_list': materials_list,
-         'form': form})
+         'form': form},
+    )
 
 
 @login_required(login_url='/login/')
 def detail(request, pk):
-    pass
+
+    return render(
+        request, 'items/material_detail.html',
+        {'material': Material.objects.filter(pk=pk).first()},
+    )
 
 
 @login_required(login_url='/login/')
@@ -74,12 +79,18 @@ def create(request):
 
 @login_required(login_url='/login/')
 def delete(request, pk):
-    pass
+    Material.objects.filter(pk=pk).delete()
+
+    return redirect('material_list')
 
 
 @login_required(login_url='/login/')
 def materialchange_detail(request, pk):
-    pass
+
+    return render(
+        request, 'items/materialchange_detail.html',
+        {'materialchange': MaterialChange.objects.filter(pk=pk).first()}
+    )
 
 
 @login_required(login_url='/login/')
@@ -89,4 +100,6 @@ def materialchange_create(request):
 
 @login_required(login_url='/login/')
 def materialchange_delete(request, pk):
-    pass
+    MaterialChange.objects.filter(pk=pk).delete()
+
+    return redirect('material_list_by_dates')
