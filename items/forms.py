@@ -1,16 +1,36 @@
 from django import forms
 
+from django.contrib.auth.models import User
+
 from .models import Item, Category, Product
 
+from .helpers import get_choices
 
-input_attrs = {'class': 'u-full-width'}
 
+class LoginForm(forms.Form):
 
-def get_choices(items):
-    return [(item.id, "{} {} ~~~ {}".format(
-            item.title,
-            item.part_number,
-            item.notes)) for item in items]
+    username = forms.CharField(label="Логін")
+
+    password = forms.CharField(label="Пароль", widget=forms.PasswordInput())
+
+    def clean(self):
+        cleaned_data = super(LoginForm, self).clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            self.add_error(
+                'username',
+                forms.ValidationError('Неправильний логін'),
+            )
+        else:
+            if not user.check_password(password) and password:
+                self.add_error(
+                    'password',
+                    forms.ValidationError('Неправильний пароль'),
+                )
+        return cleaned_data
 
 
 class AddProductForm(forms.Form):

@@ -2,42 +2,38 @@
 
 {% load static from staticfiles %}
 
+{% load items_filters %}
+
 {% block meta_title %}Логін{% endblock meta_title %}
 
 {% block navigation %} {% endblock navigation %}
 
 {% block content %}
 
-<form  action="{% url 'login' %}" method="post">
+<form  action="{% url 'login' %}" method="post" style="padding-top: 15px;">
 
     {% csrf_token %}
 
+    {{ form.non_field_errors }}
+
     <div class="row">
-        <div class="three columns">
-            <label for="username">Логін</label>
-            <input class="u-full-width" type="text"
-                   id="username" name="username"
-                   value="{{ request.POST.username }}" >
-        </div>
-        <div class="three columns">
-            <span class="error">{{ errors.username }}</span>
-        </div>
+        <div class="two columns">{{ form.username.label_tag }}</div>
+        <div class="three columns">{{ form.username|addclass:"u-full-width" }}</div>
+        <div class="three columns">{{ form.username.errors }}</div>
     </div>
+
     <div class="row">
-        <div class="three columns">
-            <label for="username">Пароль</label>
-            <input class="u-full-width" type="password"
-                   id="password" name="password" >
-        </div>
-        <div class="three columns">
-            <span class="error">{{ errors.password }}</span>
-        </div>
+        <div class="two columns">{{ form.password.label_tag }}</div>
+        <div class="three columns">{{ form.password|addclass:"u-full-width" }}</div>
+        <div class="three columns">{{ form.password.errors }}</div>
     </div>
+
     <div class="row">
         <div class="three columns">
             <input class="button-primary" type="submit" value="Логін">
         </div>
     </div>
+
 </form>
 
 {% endblock content %}
