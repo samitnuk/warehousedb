@@ -27,7 +27,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login_user(request, user)
-                return redirect('main')
+                return redirect('item_list')
             else:
                 errors["password"] = "Неправильний пароль"
 
