@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from ..models import Item, ItemChange, Category
-from ..forms import DateRangeForm
+from ..forms import DateRangeForm, ItemCreateForm
 
 from ..helpers import get_date_range, get_objects_list
 
@@ -89,7 +89,8 @@ def list_by_dates(request):
          'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
          'date_range': get_date_range(range_start, range_stop),
          'items_list': items_list,
-         'form': form})
+         'form': form}
+    )
 
 
 @login_required(login_url='/login/')
@@ -104,7 +105,27 @@ def detail(request, pk):
 
 @login_required(login_url='/login/')
 def create(request):
-    pass
+
+    form = ItemCreateForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        Item.objects.create(
+            title=form.cleaned_data['title'],
+            part_number=form.cleaned_data['part_number'],
+            part_number2=form.cleaned_data['part_number2'],
+            picture=form.cleaned_data['picture'],
+            category=form.cleaned_data['category'],
+            rate=form.cleaned_data['rate'],
+            weight=form.cleaned_data['weight'],
+            notes=form.cleaned_data['notes'],
+        )
+
+        return redirect('item_list')
+
+    return render(
+        request, 'items/item_create.html',
+        {'form': form},
+    )
 
 
 @login_required(login_url='/login/')
