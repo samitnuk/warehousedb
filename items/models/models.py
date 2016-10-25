@@ -24,9 +24,11 @@ class Item(Base):
     category = models.ForeignKey('Category', blank=True, null=True,
                                  verbose_name="Категорія")
 
-    rate = models.FloatField(blank=True)    # consumption rate in metres
+    rate = models.FloatField(blank=True,
+                             verbose_name="Норма витрати, м")
 
-    weight = models.FloatField(blank=True)  # in kilograms
+    weight = models.FloatField(blank=True,
+                               verbose_name="Вага, кг")
 
     class Meta:
         verbose_name = "Позиція на складі"
