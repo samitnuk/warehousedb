@@ -36,7 +36,7 @@ def get_objects_list(
 ):
     """
 
-    :return: list of lists [object, changes of this object]
+    :return: list of lists [object, [changes of this object]]
     """
     total_changes = objectchange_model.objects.filter(
         changed_at__gte=range_start,
