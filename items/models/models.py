@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.db import models
+from django.urls import reverse
 
 from .base import Base, BaseChange
 
@@ -169,6 +170,9 @@ class Material(Base):
             return total['additional_quantity__sum']
         return ""
 
+    def get_absolute_url(self):
+        return reverse('material_detail', kwargs={'pk': self.pk})
+
 
 class Tool(Base):
     """Tool Model
@@ -188,6 +192,9 @@ class Tool(Base):
         if total['additional_quantity__sum'] is not None:
             return total['additional_quantity__sum']
         return ""
+
+    def get_absolute_url(self):
+        return reverse('tool_detail', kwargs={'pk': self.pk})
 
 
 class ItemChange(BaseChange):

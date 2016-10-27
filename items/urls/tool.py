@@ -27,7 +27,7 @@ urlpatterns = [
         tool.toolchange_detail,
         name='toolchange_detail'),
 
-    url(r'^toolchange_create/',
+    url(r'^toolchange_create/(?P<pk>\d+)/',
         tool.toolchange_create,
         name='toolchange_create'),
 

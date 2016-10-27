@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 from ..models import Material, MaterialChange
 from ..forms import DateRangeForm
@@ -38,7 +40,7 @@ def list_by_dates(request):
         return render(
             request, 'items/material_list_by_dates.html',
             {'date_range': get_date_range(range_start, range_stop),
-             'materials_list': materials_list,
+             'material_list': materials_list,
              'form': form},
         )
 
@@ -72,9 +74,9 @@ def detail(request, pk):
     )
 
 
-@login_required(login_url='/login/')
-def create(request):
-    pass
+class MaterialCreate(CreateView):
+    model = Material
+    fields = ['title', 'notes']
 
 
 @login_required(login_url='/login/')
@@ -94,7 +96,7 @@ def materialchange_detail(request, pk):
 
 
 @login_required(login_url='/login/')
-def materialchange_create(request):
+def materialchange_create(request, pk):
     pass
 
 

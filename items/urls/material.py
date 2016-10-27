@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from ..views import material
 
@@ -16,7 +17,7 @@ urlpatterns = [
         name='material_detail'),
 
     url(r'^create/',
-        material.create,
+        login_required(material.MaterialCreate.as_view()),
         name='material_create'),
 
     url(r'^delete/(?P<pk>\d+)/',
@@ -27,7 +28,7 @@ urlpatterns = [
         material.materialchange_detail,
         name='materialchange_detail'),
 
-    url(r'^materialchange_create/',
+    url(r'^materialchange_create/(?P<pk>\d+)/',
         material.materialchange_create,
         name='materialchange_create'),
 

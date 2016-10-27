@@ -95,7 +95,7 @@ def toolchange_detail(request, pk):
 
 
 @login_required(login_url='/login/')
-def toolchange_create(request):
+def toolchange_create(request, pk):
     pass
 
 
