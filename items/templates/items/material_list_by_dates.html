@@ -64,17 +64,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for material, material_changes in materials_list %}
+            {% for material, material_changes in material_list %}
             <tr>
                 <td>
                     <a class="item_link"
-                       href="{% url 'materialchange_create' item.id %}">
+                       href="{% url 'materialchange_create' material.id %}">
                         &plusmn;
                     </a>
                 </td>
                 <td>
                     <a class="item_link"
-                       href="{% url 'material_detail' item.id %}">
+                       href="{% url 'material_detail' material.id %}">
                         {{ material.title }}
                     </a>
                 </td>

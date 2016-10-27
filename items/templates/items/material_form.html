@@ -1,0 +1,44 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% load items_filters %}
+
+{% block meta_title %}Додати трос Богдан{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+    <div class="nine columns"><h5>Створити новий матеріал</h5></div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<form  action="{% url 'material_create' %}" method="post">
+
+{% csrf_token %}
+
+{{ form.non_field_errors }}
+
+    <div class="row">
+        <div class="two columns">{{ form.title.label_tag }}</div>
+        <div class="seven columns">{{ form.title|addclass:"u-full-width" }}</div>
+        <div class="three columns error">{{ form.title.errors }}</div>
+    </div>
+
+    <div class="row">
+        <div class="two columns">{{ form.notes.label_tag }}</div>
+        <div class="seven columns">{{ form.notes|addclass:"u-full-width" }}</div>
+        <div class="three columns error">{{ form.notes.errors }}</div>
+    </div>
+
+    <div class="row">
+        <div class="two columns">.</div>
+        <div class="three columns">
+            <input class="button-primary" type="submit" value="Створити">
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

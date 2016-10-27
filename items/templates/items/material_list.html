@@ -6,15 +6,20 @@
 
 {% block subnavigation %}
     <div class="row" id="navigation">
-        <div class="u-full-width">
-            <ul class="nav-menu">
-                <li role="presentation">
-                    <a href="{% url 'material_list_by_dates' %}">Матеріали по датах</a>
-                </li>
-            </ul>
+        <ul class="nav-menu u-full-width">
+            <li role="presentation">
+                <a href="{% url 'material_list_by_dates' %}">Матеріали по датах</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row" id="header">
+        <div class="two columns u-pull-right">
+            <a class="button button-primary u-full-width"
+               href="{% url 'material_create' %}">
+                Додати матеріал
+            </a>
         </div>
     </div>
-    <br>
 {% endblock subnavigation %}
 
 {% block content %}
@@ -23,20 +28,29 @@
     <table class="u-full-width">
         <thead>
             <tr>
+                <th>-</th>
                 <th>Найменування</th>
                 <th>Примітка</th>
+                <th>Кількість</th>
             </tr>
         </thead>
         <tbody>
-            {% for item in items %}
+            {% for material in materials %}
             <tr>
                 <td>
                     <a class="item_link"
-                       href="{% url 'material_detail' material.id %}">
-                        {{ materials.title }}
+                       href="{% url 'materialchange_create' material.id %}">
+                        &plusmn;
                     </a>
                 </td>
-                <td>{{ material.notes }}</td>
+                <td>
+                    <a class="item_link"
+                       href="{% url 'material_detail' material.id %}">
+                        {{ material.title }}
+                    </a>
+                </td>
+                <td class="notes">{{ material.notes }}</td>
+                <td>{{ item.current_total|floatformat }}</td>
             </tr>
             {% endfor %}
         </tbody>
