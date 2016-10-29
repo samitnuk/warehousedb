@@ -20,8 +20,12 @@ urlpatterns = [
         login_required(material.MaterialCreate.as_view()),
         name='material_create'),
 
+    url(r'^update/(?P<pk>\d+)/',
+        login_required(material.MaterialUpdate.as_view()),
+        name='material_delete'),
+
     url(r'^delete/(?P<pk>\d+)/',
-        material.delete,
+        login_required(material.MaterialDelete.as_view()),
         name='material_delete'),
 
     url(r'^materialchange_detail/(?P<pk>\d+)/',

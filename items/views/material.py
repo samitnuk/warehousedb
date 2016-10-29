@@ -79,11 +79,21 @@ class MaterialCreate(CreateView):
     fields = ['title', 'notes']
 
 
-@login_required(login_url='/login/')
-def delete(request, pk):
-    Material.objects.filter(pk=pk).delete()
+class MaterialUpdate(CreateView):
+    model = Material
+    fields = ['title', 'notes']
 
-    return redirect('material_list')
+
+class MaterialDelete(DeleteView):
+    model = Material
+    success_url = reverse_lazy('material_list')
+
+
+# @login_required(login_url='/login/')
+# def delete(request, pk):
+#     Material.objects.filter(pk=pk).delete()
+#
+#     return redirect('material_list')
 
 
 @login_required(login_url='/login/')
