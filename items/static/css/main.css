@@ -18,12 +18,33 @@ abbr[title] {
     border-bottom: none;
 }
 
+h5 {
+    margin-bottom: 10px;
+}
+
 .container {
     max-width: 1200px;
 }
 
+.row {
+    padding-top: 10px;
+}
+
 .error, .errorlist {
     color: red;
+}
+
+.button.button-danger,
+input[type="submit"].button-danger {
+    color: #FFF;
+    background-color: #c2561a;
+    border-color: #c2561a;
+}
+.button.button-danger:hover,
+input[type="submit"].button-danger:hover {
+    color: #FFF;
+    background-color: #da611e;
+    border-color: #da611e;
 }
 
 .button {
@@ -36,11 +57,14 @@ abbr[title] {
 
 
 /* navigation styles */
-ul.nav-menu {
-    padding: 10px 0 5px 0;
+#navigation {
     border-bottom: 1px solid #e1e1e1;
+}
+
+ul.nav-menu {
+    /*border-bottom: 1px solid #e1e1e1;*/
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
 ul.nav-menu li {
