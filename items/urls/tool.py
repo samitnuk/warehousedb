@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from ..views import tool
 
@@ -12,15 +13,19 @@ urlpatterns = [
         name='tool_list_by_dates'),
 
     url(r'^detail/(?P<pk>\d+)/',
-        tool.detail,
+        login_required(tool.ToolDetail.as_view()),
         name='tool_detail'),
 
     url(r'^create/',
-        tool.create,
+        login_required(tool.ToolCreate.as_view()),
         name='tool_create'),
 
+    url(r'^update/(?P<pk>\d+)/',
+        login_required(tool.ToolUpdate.as_view()),
+        name='tool_update'),
+
     url(r'^delete/(?P<pk>\d+)/',
-        tool.delete,
+        login_required(tool.ToolDelete.as_view()),
         name='tool_delete'),
 
     url(r'^toolchange_detail/(?P<pk>\d+)/',

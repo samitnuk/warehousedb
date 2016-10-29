@@ -153,7 +153,7 @@ def itemchange_create(request, pk):
                 changed_at=datetime.today(),
                 notes=request.POST.get("notes", ""))
 
-            return redirect('main')
+            return redirect('item_list')
 
     context = {'item': item}
 

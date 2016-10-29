@@ -7,27 +7,27 @@ urlpatterns = [
 
     url(r'^$', item.list_, name='item_list'),
 
-    url(r'^list_by_dates/',
+    url(r'^item/list_by_dates/',
         item.list_by_dates,
         name='item_list_by_dates'),
 
-    url(r'^list_by_categories/(?P<category_pk>\d+)?/?',
+    url(r'^item/list_by_categories/(?P<category_pk>\d+)?/?',
         item.list_by_categories,
         name='item_list_by_categories'),
 
-    url(r'^detail/(?P<pk>\d+)/',
+    url(r'^item/detail/(?P<pk>\d+)/',
         item.detail,
         name='item_detail'),
 
-    url(r'^create/',
+    url(r'^item/create/',
         item.create,
         name='item_create'),
 
-    url(r'^itemchange_detail/(?P<pk>\d+)/',
+    url(r'^item/itemchange_detail/(?P<pk>\d+)/',
         item.itemchange_detail,
         name='itemchange_detail'),
 
-    url(r'^itemchange_create/(?P<pk>\d+)/',
+    url(r'^item/itemchange_create/(?P<pk>\d+)/',
         item.itemchange_create,
         name='itemchange_create'),
 ]

@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy, reverse
 
 from ..models import Material, MaterialChange
 from ..forms import DateRangeForm
@@ -34,15 +35,13 @@ def list_by_dates(request):
             range_stop=range_stop,
             object_model=Material,
             objectchange_model=MaterialChange,
-            field_name='material',
-        )
+            field_name='material')
 
         return render(
             request, 'items/material_list_by_dates.html',
             {'date_range': get_date_range(range_start, range_stop),
              'material_list': materials_list,
-             'form': form},
-        )
+             'form': form})
 
     range_stop = datetime.today()
     range_start = range_stop - timedelta(days=7)  # 7 days before today
@@ -52,8 +51,7 @@ def list_by_dates(request):
         range_stop=range_stop,
         object_model=Material,
         objectchange_model=MaterialChange,
-        field_name='material',
-    )
+        field_name='material')
 
     return render(
         request, 'items/material_list_by_dates.html',
@@ -61,39 +59,41 @@ def list_by_dates(request):
          'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
          'date_range': get_date_range(range_start, range_stop),
          'material_list': materials_list,
-         'form': form},
-    )
+         'form': form})
 
+class MaterialDetail(DetailView):
+    model = Material
+    template_name = 'items/object_detail.html'
 
-@login_required(login_url='/login/')
-def detail(request, pk):
+    def url_for_update(self):
+        return reverse('material_update', kwargs={'pk': self.kwargs['pk']})
 
-    return render(
-        request, 'items/material_detail.html',
-        {'material': Material.objects.filter(pk=pk).first()},
-    )
+    def url_for_delete(self):
+        return reverse('material_delete', kwargs={'pk': self.kwargs['pk']})
 
 
 class MaterialCreate(CreateView):
     model = Material
     fields = ['title', 'notes']
+    template_name = 'items/object_form.html'
+
+    def page_name(self):
+        return "Створити матеріал"
 
 
-class MaterialUpdate(CreateView):
+class MaterialUpdate(UpdateView):
     model = Material
     fields = ['title', 'notes']
+    template_name = 'items/object_form.html'
+
+    def page_name(self):
+        return "Редагувати матеріал"
 
 
 class MaterialDelete(DeleteView):
     model = Material
     success_url = reverse_lazy('material_list')
-
-
-# @login_required(login_url='/login/')
-# def delete(request, pk):
-#     Material.objects.filter(pk=pk).delete()
-#
-#     return redirect('material_list')
+    template_name = "items/object_confirm_delete.html"
 
 
 @login_required(login_url='/login/')

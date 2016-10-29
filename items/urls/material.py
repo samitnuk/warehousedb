@@ -13,7 +13,7 @@ urlpatterns = [
         name='material_list_by_dates'),
 
     url(r'^detail/(?P<pk>\d+)/',
-        material.detail,
+        login_required(material.MaterialDetail.as_view()),
         name='material_detail'),
 
     url(r'^create/',
@@ -22,7 +22,7 @@ urlpatterns = [
 
     url(r'^update/(?P<pk>\d+)/',
         login_required(material.MaterialUpdate.as_view()),
-        name='material_delete'),
+        name='material_update'),
 
     url(r'^delete/(?P<pk>\d+)/',
         login_required(material.MaterialDelete.as_view()),
