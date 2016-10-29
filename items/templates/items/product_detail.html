@@ -6,49 +6,49 @@
 
 {% block header %}
 <div class="row" id="header">
-    <div class="nine columns"><h5>{{ product.title }} {{ product.part_number }}</h5>
-        {{ product.notes }}
-    </div>
+  <div class="nine columns"><h5>{{ product.title }} {{ product.part_number }}</h5>
+    {{ product.notes }}
+  </div>
 </div>
 {% endblock header %}
 
 {% block content %}
 {% if item.notes %}
 <div class="row">
-    <div class="u-full-width">
-        <p>{{ item.notes }}</p>
-    </div>
+  <div class="u-full-width">
+    <p>{{ item.notes }}</p>
+  </div>
 </div>
 {% endif %}
 <div class="row">
-    <table class="u-full-width">
-        <thead>
-            <tr>
-                <th>Найменування</th>
-                <th>Індекс</th>
-                <th>Примітка</th>
-                <th>Вага, кг</th>
-                <th>Кількість</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for component in product.components %}
-                <tr>
-                    <td>
-                        <a class="item_link"
-                           href="{% url 'item_detail' component.item.id %}">
-                            {{ component.item.title }}
-                        </a>
-                    </td>
-                    <td>{{ component.item.part_number }}</td>
-                    <td class="notes">{{ component.item.notes }}</td>
-                    {% with component.item.weight as weight %}
-                    <td>{% if weight %}{{ weight }}{% endif %}</td>
-                    {% endwith %}
-                    <td>{{ component.quantity|floatformat }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Найменування</th>
+        <th>Індекс</th>
+        <th>Примітка</th>
+        <th>Вага, кг</th>
+        <th>Кількість</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for component in product.components %}
+        <tr>
+          <td>
+            <a class="item_link"
+               href="{% url 'item_detail' component.item.id %}">
+              {{ component.item.title }}
+            </a>
+          </td>
+          <td>{{ component.item.part_number }}</td>
+          <td class="notes">{{ component.item.notes }}</td>
+          {% with component.item.weight as weight %}
+          <td>{% if weight %}{{ weight }}{% endif %}</td>
+          {% endwith %}
+          <td>{{ component.quantity|floatformat }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock content %}

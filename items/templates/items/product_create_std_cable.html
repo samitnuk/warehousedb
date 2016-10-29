@@ -8,7 +8,7 @@
 
 {% block header %}
 <div class="row" id="header">
-    <div class="nine columns"><h5>Додати стандартний трос</h5></div>
+  <div class="nine columns"><h5>Додати стандартний трос</h5></div>
 </div>
 {% endblock header %}
 
@@ -20,72 +20,72 @@
 
 {{ form.non_field_errors }}
 
-    <div class="row">
-        <div class="two columns">{{ form.conduit.label_tag }}</div>
-        <div class="ten columns">{{ form.conduit|addclass:"u-full-width" }}</div>
-        {{ form.conduit.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.conduit.label_tag }}</div>
+    <div class="ten columns">{{ form.conduit|addclass:"u-full-width" }}</div>
+    {{ form.conduit.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.core.label_tag }}</div>
-        <div class="ten columns">{{ form.core|addclass:"u-full-width" }}</div>
-        {{ form.core.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.core.label_tag }}</div>
+    <div class="ten columns">{{ form.core|addclass:"u-full-width" }}</div>
+    {{ form.core.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.serie.label_tag }}</div>
-        <div class="ten columns">{{ form.serie|addclass:"u-full-width" }}</div>
-        {{ form.serie.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.serie.label_tag }}</div>
+    <div class="ten columns">{{ form.serie|addclass:"u-full-width" }}</div>
+    {{ form.serie.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.travel.label_tag }}</div>
-        <div class="ten columns">{{ form.travel|addclass:"u-full-width" }}</div>
-        {{ form.travel.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.travel.label_tag }}</div>
+    <div class="ten columns">{{ form.travel|addclass:"u-full-width" }}</div>
+    {{ form.travel.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.mounting.label_tag }}</div>
-        <div class="ten columns">{{ form.mounting|addclass:"u-full-width" }}</div>
-        {{ form.mounting.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.mounting.label_tag }}</div>
+    <div class="ten columns">{{ form.mounting|addclass:"u-full-width" }}</div>
+    {{ form.mounting.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.is_st_rods.label_tag }}</div>
-        <div class="ten columns">{{ form.is_st_rods }}</div>
-        {{ form.is_st_rods.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.is_st_rods.label_tag }}</div>
+    <div class="ten columns">{{ form.is_st_rods }}</div>
+    {{ form.is_st_rods.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.is_st_sleeves.label_tag }}</div>
-        <div class="ten columns">{{ form.is_st_sleeves }}</div>
-        {{ form.is_st_sleeves.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.is_st_sleeves.label_tag }}</div>
+    <div class="ten columns">{{ form.is_st_sleeves }}</div>
+    {{ form.is_st_sleeves.errors }}
+  </div>
 
-    <div class="row hidden_at_start">
-        <div class="two columns">{{ form.is_plastic_sleeves.label_tag }}</div>
-        <div class="ten columns">{{ form.is_plastic_sleeves }}</div>
-        {{ form.is_plastic_sleeves.errors }}
-    </div>
+  <div class="row hidden_at_start">
+    <div class="two columns">{{ form.is_plastic_sleeves.label_tag }}</div>
+    <div class="ten columns">{{ form.is_plastic_sleeves }}</div>
+    {{ form.is_plastic_sleeves.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">{{ form.length.label_tag }}</div>
-        <div class="ten columns">{{ form.length|addclass:"u-full-width" }}</div>
-        {{ form.length.errors }}
-    </div>
+  <div class="row">
+    <div class="two columns">{{ form.length.label_tag }}</div>
+    <div class="ten columns">{{ form.length|addclass:"u-full-width" }}</div>
+    {{ form.length.errors }}
+  </div>
 
-    <div class="row">
-        <div class="two columns">.</div>
-        <div class="three columns">
-            <input class="button-primary" type="submit" value="Підтвердити">
-        </div>
+  <div class="row">
+    <div class="two columns">.</div>
+    <div class="three columns">
+      <input class="button-primary" type="submit" value="Підтвердити">
     </div>
+  </div>
 
 </form>
 
 {% endblock content %}
 
 {% block extra_js %}
-    <script   src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
-    <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
+  <script   src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+  <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
 {% endblock extra_js %}

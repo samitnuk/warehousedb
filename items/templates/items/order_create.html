@@ -8,7 +8,7 @@
 
 {% block header %}
 <div class="row" id="header">
-    <div class="nine columns"><h5>Додати нове замовлення</h5></div>
+  <div class="nine columns"><h5>Додати нове замовлення</h5></div>
 </div>
 {% endblock header %}
 
@@ -16,34 +16,34 @@
 
 <form  action="{% url 'order_create' %}" method="post">
 
-    {% csrf_token %}
+  {% csrf_token %}
 
-    {{ form.non_field_errors }}
+  {{ form.non_field_errors }}
 
-    <div class="row">
-        <div class="two columns">{{ form.customer.label_tag }}</div>
-        <div class="ten columns">{{ form.customer|addclass:"u-full-width" }}</div>
-        {{ form.customer.errors }}
+  <div class="row">
+    <div class="two columns">{{ form.customer.label_tag }}</div>
+    <div class="ten columns">{{ form.customer|addclass:"u-full-width" }}</div>
+    {{ form.customer.errors }}
+  </div>
+
+  <div class="row">
+    <div class="two columns">{{ form.product.label_tag }}</div>
+    <div class="ten columns">{{ form.product|addclass:"u-full-width" }}</div>
+    {{ form.product.errors }}
+  </div>
+
+  <div class="row">
+    <div class="two columns">{{ form.quantity.label_tag }}</div>
+    <div class="ten columns">{{ form.quantity|addclass:"u-full-width" }}</div>
+    {{ form.quantity.errors }}
+  </div>
+
+  <div class="row">
+    <div class="two columns">.</div>
+    <div class="three columns">
+      <input class="button-primary" type="submit" value="Додати нове замовлення">
     </div>
-
-    <div class="row">
-        <div class="two columns">{{ form.product.label_tag }}</div>
-        <div class="ten columns">{{ form.product|addclass:"u-full-width" }}</div>
-        {{ form.product.errors }}
-    </div>
-
-    <div class="row">
-        <div class="two columns">{{ form.quantity.label_tag }}</div>
-        <div class="ten columns">{{ form.quantity|addclass:"u-full-width" }}</div>
-        {{ form.quantity.errors }}
-    </div>
-
-    <div class="row">
-        <div class="two columns">.</div>
-        <div class="three columns">
-            <input class="button-primary" type="submit" value="Додати нове замовлення">
-        </div>
-    </div>
+  </div>
 
 </form>
 

@@ -6,45 +6,45 @@
 
 {% block header %}
 <div class="row" id="header">
-    <div class="nine columns"><h5>Перелік замовлень</h5></div>
-    <div class="three columns">
-        <a class="button button-primary u-full-width"
-           href="{% url 'order_create' %}">Додати новe замовлення</a>
-    </div>
+  <div class="nine columns"><h5>Перелік замовлень</h5></div>
+  <div class="three columns">
+    <a class="button button-primary u-full-width"
+       href="{% url 'order_create' %}">Додати новe замовлення</a>
+  </div>
 </div>
 {% endblock header %}
 
 {% block content %}
 <div class="row">
-    <div class="u-full-width">
-        <table class="u-full-width">
-            <thead>
-                <tr>
-                    <th>Замовник</th>
-                    <th>Дата замовлення</th>
-                    <th>Виріб</th>
-                    <th>Індекс</th>
-                    <th>Кількість</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders %}
-                    <tr>
-                        <td>{{ order.customer }}</td>
-                        <td>{{ order.order_date|date:'d . m . Y' }}</td>
-                        <td>
-                            <abbr title="{{ order.product.notes }}">
-                                <a class="item_link" href="{% url 'product_detail' order.product.id %}">
-                                   {{ order.product.title }}
-                                </a>
-                            </abbr>
-                        </td>
-                        <td>{{ order.product.part_number }}</td>
-                        <td>{{ order.quantity|floatformat }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <div class="u-full-width">
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Замовник</th>
+          <th>Дата замовлення</th>
+          <th>Виріб</th>
+          <th>Індекс</th>
+          <th>Кількість</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+          <tr>
+            <td>{{ order.customer }}</td>
+            <td>{{ order.order_date|date:'d . m . Y' }}</td>
+            <td>
+              <abbr title="{{ order.product.notes }}">
+                <a class="item_link" href="{% url 'product_detail' order.product.id %}">
+                   {{ order.product.title }}
+                </a>
+              </abbr>
+            </td>
+            <td>{{ order.product.part_number }}</td>
+            <td>{{ order.quantity|floatformat }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock content %}

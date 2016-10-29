@@ -5,69 +5,69 @@
 {% block meta_title %}Склад по категоріях{% endblock meta_title %}
 
 {% block subnavigation %}
-    <div class="row" id="navigation">
-        <div class="u-full-width">
-            <ul class="nav-menu">
-                <li role="presentation">
-                    <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
-                </li>
-                <li role="presentation" class="nav-active">
-                    <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
-                </li>
-            </ul>
-        </div>
+  <div class="row" id="navigation">
+    <div class="u-full-width">
+      <ul class="nav-menu">
+        <li role="presentation">
+          <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
+        </li>
+        <li role="presentation" class="nav-active">
+          <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
+        </li>
+      </ul>
     </div>
+  </div>
 {% endblock subnavigation %}
 
 {% block content %}
 {% for row in rows %}
 <div class="row">
-    {% for category in row %}
-    <div class="two columns">
-        <a class="button{% if category.id != active_category_id %} button-primary{% endif %} u-full-width"
-           href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
-    </div>
-    {% endfor %}
+  {% for category in row %}
+  <div class="two columns">
+    <a class="button{% if category.id != active_category_id %} button-primary{% endif %} u-full-width"
+       href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
+  </div>
+  {% endfor %}
 </div>
 {% endfor %}
 <div class="row">
-    <table class="u-full-width">
-        <thead>
-            <tr>
-                <th>-</th>
-                <th>Найменування</th>
-                <th>Індекс</th>
-                <th>Наш індекс</th>
-                <th>Норма витрати, м</th>
-                <th>Вага, кг</th>
-                <th>К-сть</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td>
-                    <a class="item_link"
-                       href="{% url 'itemchange_create' item.id %}">
-                        &plusmn;
-                    </a>
-                </td>
-                <td>
-                    <abbr title="{{ item.notes }}">
-                        <a class="item_link"
-                           href="{% url 'item_detail' item.id %}">
-                            {{ item.title }}
-                        </a>
-                    </abbr>
-                </td>
-                <td>{{ item.part_number }}</td>
-                <td>{{ item.part_number2 }}</td>
-                <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
-                <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
-                <td>{{ item.current_total|floatformat }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>-</th>
+        <th>Найменування</th>
+        <th>Індекс</th>
+        <th>Наш індекс</th>
+        <th>Норма витрати, м</th>
+        <th>Вага, кг</th>
+        <th>К-сть</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>
+          <a class="item_link"
+             href="{% url 'itemchange_create' item.id %}">
+            &plusmn;
+          </a>
+        </td>
+        <td>
+          <abbr title="{{ item.notes }}">
+            <a class="item_link"
+               href="{% url 'item_detail' item.id %}">
+              {{ item.title }}
+            </a>
+          </abbr>
+        </td>
+        <td>{{ item.part_number }}</td>
+        <td>{{ item.part_number2 }}</td>
+        <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
+        <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
+        <td>{{ item.current_total|floatformat }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock content %}

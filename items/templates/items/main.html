@@ -5,66 +5,66 @@
 {% block meta_title %}Загальна інформація{% endblock meta_title %}
 
 {% block subnavigation %}
-    <div class="row" id="navigation">
-        <div class="u-full-width">
-            <ul class="nav-menu">
-                <li role="presentation">
-                    <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
-                </li>
-                <li role="presentation">
-                    <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
-                </li>
-            </ul>
-        </div>
+  <div class="row" id="navigation">
+    <div class="u-full-width">
+      <ul class="nav-menu">
+        <li role="presentation">
+          <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
+        </li>
+        <li role="presentation">
+          <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
+        </li>
+      </ul>
     </div>
+  </div>
 {% endblock subnavigation %}
 
 {% block content %}
 {% for category in categories %}
 <div class="row">
-    <div class="two columns">
-        <a class="button button-primary u-full-width"
-           href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
-    </div>
-    <div class="ten columns">
-        <table class="u-full-width">
-            <thead>
-                <tr>
-                    <th>-</th>
-                    <th>Найменування</th>
-                    <th>Індекс</th>
-                    <th>Наш індекс</th>
-                    <th>Примітка</th>
-                    <th>К-сть</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in items %}
-                    {% if item.category == category %}
-                    <tr>
-                        <td>
-                            <a class="item_link"
-                               href="{% url 'itemchange_create' item.id %}">
-                                &plusmn;
-                            </a>
-                        </td>
-                        <td>
-                            <abbr title="{{ item.notes }}">
-                                <a class="item_link" href="{% url 'item_detail' item.id %}">
-                                    {{ item.title }}
-                                </a>
-                            </abbr>
-                        </td>
-                        <td>{{ item.part_number }}</td>
-                        <td>{{ item.part_number2 }}</td>
-                        <td class="notes">{{ item.notes }}</td>
-                        <td>{{ item.current_total|floatformat }}</td>
-                    </tr>
-                    {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <div class="two columns">
+    <a class="button button-primary u-full-width"
+       href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
+  </div>
+  <div class="ten columns">
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>-</th>
+          <th>Найменування</th>
+          <th>Індекс</th>
+          <th>Наш індекс</th>
+          <th>Примітка</th>
+          <th>К-сть</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          {% if item.category == category %}
+          <tr>
+            <td>
+              <a class="item_link"
+                 href="{% url 'itemchange_create' item.id %}">
+                &plusmn;
+              </a>
+            </td>
+            <td>
+              <abbr title="{{ item.notes }}">
+                <a class="item_link" href="{% url 'item_detail' item.id %}">
+                  {{ item.title }}
+                </a>
+              </abbr>
+            </td>
+            <td>{{ item.part_number }}</td>
+            <td>{{ item.part_number2 }}</td>
+            <td class="notes">{{ item.notes }}</td>
+            <td>{{ item.current_total|floatformat }}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endfor %}
 {% endblock content %}

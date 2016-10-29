@@ -8,7 +8,7 @@
 
 {% block header %}
 <div class="row" id="header">
-    <div class="nine columns"><h5>Додати новий виріб</h5></div>
+  <div class="nine columns"><h5>Додати новий виріб</h5></div>
 </div>
 {% endblock header %}
 
@@ -16,64 +16,64 @@
 
 <form  action="{% url 'product_create' %}" method="post">
 
-    {% csrf_token %}
+  {% csrf_token %}
 
-    {{ form.non_field_errors }}
+  {{ form.non_field_errors }}
 
-    <div class="row">
-        <div class="two columns">{{ form.title.label_tag }}</div>
-        <div class="ten columns">{{ form.title|addclass:"u-full-width" }}</div>
-        {{ form.title.errors }}
+  <div class="row">
+    <div class="two columns">{{ form.title.label_tag }}</div>
+    <div class="ten columns">{{ form.title|addclass:"u-full-width" }}</div>
+    {{ form.title.errors }}
+  </div>
+
+  <div class="row">
+    <div class="two columns">{{ form.part_number.label_tag }}</div>
+    <div class="ten columns">{{ form.part_number|addclass:"u-full-width" }}</div>
+    {{ form.part_number.errors }}
+  </div>
+
+  <div class="row">
+    <div class="two columns">{{ form.notes.label_tag }}</div>
+    <div class="ten columns">{{ form.notes|addclass:"u-full-width" }}</div>
+    {{ form.notes.errors }}
+  </div>
+
+  <div class="row">
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Найменування</th>
+          <th>Індекс</th>
+          <th>Примітка</th>
+          <th>Кількість</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item, field in form.fields_items %}
+        <tr>
+          <td>
+            <a href="{% url 'item_detail' item.id %}">{{ item.title }}</a>
+          </td>
+          <td>
+            {{ item.part_number }}
+          </td>
+          <td class="notes">
+            {{ item.notes }}
+          </td>
+          <td>
+            {{ field.name|addclass:"table-input" }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="three columns">
+      <input class="button-primary" type="submit" value="Додати новий виріб">
     </div>
-
-    <div class="row">
-        <div class="two columns">{{ form.part_number.label_tag }}</div>
-        <div class="ten columns">{{ form.part_number|addclass:"u-full-width" }}</div>
-        {{ form.part_number.errors }}
-    </div>
-
-    <div class="row">
-        <div class="two columns">{{ form.notes.label_tag }}</div>
-        <div class="ten columns">{{ form.notes|addclass:"u-full-width" }}</div>
-        {{ form.notes.errors }}
-    </div>
-
-    <div class="row">
-        <table class="u-full-width">
-            <thead>
-                <tr>
-                    <th>Найменування</th>
-                    <th>Індекс</th>
-                    <th>Примітка</th>
-                    <th>Кількість</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item, field in form.fields_items %}
-                <tr>
-                    <td>
-                        <a href="{% url 'item_detail' item.id %}">{{ item.title }}</a>
-                    </td>
-                    <td>
-                        {{ item.part_number }}
-                    </td>
-                    <td class="notes">
-                        {{ item.notes }}
-                    </td>
-                    <td>
-                        {{ field.name|addclass:"table-input" }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <div class="row">
-        <div class="three columns">
-            <input class="button-primary" type="submit" value="Додати новий виріб">
-        </div>
-    </div>
+  </div>
 
 </form>
 

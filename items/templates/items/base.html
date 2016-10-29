@@ -3,68 +3,68 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="utf-8" />
-    <title>Склад - {% block meta_title %}{% endblock meta_title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8" />
+  <title>Склад - {% block meta_title %}{% endblock meta_title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- TODO: Favicon -->
+  <!-- TODO: Favicon -->
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/normalize.css' %}" />
-    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
-    {% block extra_css %}{% endblock extra_css %}
-    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/normalize.css' %}" />
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
+  {% block extra_css %}{% endblock extra_css %}
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
 
 </head>
 <body>
 
-    <!-- start container -->
-    <div class="container">
+  <!-- start container -->
+  <div class="container">
 
-        {% block navigation %}
-        <!-- navigation -->
-        <div class="row" id="navigation">
-            <div class="u-full-width">
-                <ul class="nav-menu">
-                    {% url 'item_list' as item_list_path %}
-                    <li role="presentation" {% if request.path == item_list_path %}class="nav-active"{% endif %}>
-                        <a href="{% url 'item_list' %}">Склад</a>
-                    </li>
-                    {% url 'material_list' as materials_path %}
-                    <li role="presentation" {% if materials_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'material_list' %}">Матеріали</a>
-                    </li>
-                    {% url 'tool_list' as tool_path %}
-                    <li role="presentation" {% if tool_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'tool_list' %}">Інструменти</a>
-                    </li>
-                    <li>|</li>
-                    {% url 'product_list' as products_path %}
-                    <li role="presentation" {% if products_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'product_list' %}">Вироби</a>
-                    </li>
-                    <li>|</li>
-                    {% url 'order_list' as orders_path %}
-                    <li role="presentation" {% if orders_path in request.path %}class="nav-active"{% endif%}>
-                        <a href="{% url 'order_list' %}">Замовлення</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        {% endblock navigation %}
+    {% block navigation %}
+    <!-- navigation -->
+    <div class="row" id="navigation">
+      <div class="u-full-width">
+        <ul class="nav-menu">
+          {% url 'item_list' as item_list_path %}
+          <li role="presentation" {% if request.path == item_list_path %}class="nav-active"{% endif %}>
+            <a href="{% url 'item_list' %}">Склад</a>
+          </li>
+          {% url 'material_list' as materials_path %}
+          <li role="presentation" {% if materials_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'material_list' %}">Матеріали</a>
+          </li>
+          {% url 'tool_list' as tool_path %}
+          <li role="presentation" {% if tool_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'tool_list' %}">Інструменти</a>
+          </li>
+          <li>|</li>
+          {% url 'product_list' as products_path %}
+          <li role="presentation" {% if products_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'product_list' %}">Вироби</a>
+          </li>
+          <li>|</li>
+          {% url 'order_list' as orders_path %}
+          <li role="presentation" {% if orders_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'order_list' %}">Замовлення</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% endblock navigation %}
 
-        {% block subnavigation %} {% endblock subnavigation %}
+    {% block subnavigation %} {% endblock subnavigation %}
 
-        {% block header %}{% endblock header %}
+    {% block header %}{% endblock header %}
 
-        <!-- main content -->
-        {% block content %}{% endblock content %}
+    <!-- main content -->
+    {% block content %}{% endblock content %}
 
-    </div><!-- end container -->
+  </div><!-- end container -->
 
-    <!-- javascript -->
-    {% block extra_js %}{% endblock extra_js %}
+  <!-- javascript -->
+  {% block extra_js %}{% endblock extra_js %}
 </body>
 </html>

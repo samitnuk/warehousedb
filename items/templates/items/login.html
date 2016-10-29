@@ -1,4 +1,4 @@
-{% extends 'items/base.html' %}
+a{% extends 'items/base.html' %}
 
 {% load static from staticfiles %}
 
@@ -12,27 +12,27 @@
 
 <form  action="{% url 'login' %}" method="post" style="padding-top: 15px;">
 
-    {% csrf_token %}
+  {% csrf_token %}
 
-    {{ form.non_field_errors }}
+  {{ form.non_field_errors }}
 
-    <div class="row">
-        <div class="two columns">{{ form.username.label_tag }}</div>
-        <div class="three columns">{{ form.username|addclass:"u-full-width" }}</div>
-        <div class="three columns">{{ form.username.errors }}</div>
+  <div class="row">
+    <div class="two columns">{{ form.username.label_tag }}</div>
+    <div class="three columns">{{ form.username|addclass:"u-full-width" }}</div>
+    <div class="three columns">{{ form.username.errors }}</div>
+  </div>
+
+  <div class="row">
+    <div class="two columns">{{ form.password.label_tag }}</div>
+    <div class="three columns">{{ form.password|addclass:"u-full-width" }}</div>
+    <div class="three columns">{{ form.password.errors }}</div>
+  </div>
+
+  <div class="row">
+    <div class="three columns">
+      <input class="button-primary" type="submit" value="Логін">
     </div>
-
-    <div class="row">
-        <div class="two columns">{{ form.password.label_tag }}</div>
-        <div class="three columns">{{ form.password|addclass:"u-full-width" }}</div>
-        <div class="three columns">{{ form.password.errors }}</div>
-    </div>
-
-    <div class="row">
-        <div class="three columns">
-            <input class="button-primary" type="submit" value="Логін">
-        </div>
-    </div>
+  </div>
 
 </form>
 
