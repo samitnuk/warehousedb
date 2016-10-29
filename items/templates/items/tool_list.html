@@ -5,42 +5,56 @@
 {% block meta_title %}Інструменти{% endblock meta_title %}
 
 {% block subnavigation %}
-    <div class="row" id="navigation">
-        <div class="u-full-width">
-            <ul class="nav-menu">
-                <li role="presentation">
-                    <a href="{% url 'tool_list_by_dates' %}">Інструменти по датах</a>
-                </li>
-            </ul>
-        </div>
+  <div class="row" id="navigation">
+    <div class="eight columns">
+      <ul class="nav-menu">
+        <li role="presentation">
+          <a href="{% url 'tool_list_by_dates' %}">Інструменти по датах</a>
+        </li>
+      </ul>
     </div>
-    <br>
+    <div class="two columns u-pull-right">
+      <a class="button button-primary u-full-width"
+         href="{% url 'tool_create' %}">
+        Додати
+      </a>
+    </div>
+  </div>
 {% endblock subnavigation %}
 
 {% block content %}
 
 <div class="row">
-    <table class="u-full-width">
-        <thead>
-            <tr>
-                <th>Найменування</th>
-                <th>Примітка</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tool in tools %}
-            <tr>
-                <td>
-                    <a class="item_link"
-                       href="{% url 'tool_detail' tool.id %}">
-                        {{ tool.title }}
-                    </a>
-                </td>
-                <td>{{ tool.notes }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>-</th>
+        <th>Найменування</th>
+        <th>Примітка</th>
+        <th>Кількість</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tool in tools %}
+      <tr>
+        <td>
+          <a class="item_link"
+             href="{% url 'toolchange_create' tool.id %}">
+            &plusmn;
+          </a>
+        </td>
+        <td>
+          <a class="item_link"
+             href="{% url 'tool_detail' tool.id %}">
+            {{ tool.title }}
+          </a>
+        </td>
+        <td>{{ tool.notes }}</td>
+        <td>{{ tool.current_total|floatformat }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 {% endblock content %}

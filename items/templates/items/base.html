@@ -59,17 +59,6 @@
 
         {% block header %}{% endblock header %}
 
-        <!-- status message-->
-        {% block status_message %}
-        <div class="row" id="status_message">
-            <div class="u-full-width">
-                {% if request.GET.status_message %}
-                <div class="alert">{{ request.GET.status_message }}</div>
-                {% endif %}
-            </div>
-        </div>
-        {% endblock status_message %}
-
         <!-- main content -->
         {% block content %}{% endblock content %}
 

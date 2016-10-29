@@ -5,56 +5,56 @@
 {% block meta_title %}Матеріали{% endblock meta_title %}
 
 {% block subnavigation %}
-    <div class="row" id="navigation">
-        <ul class="nav-menu u-full-width">
-            <li role="presentation">
-                <a href="{% url 'material_list_by_dates' %}">Матеріали по датах</a>
-            </li>
-        </ul>
+  <div class="row" id="navigation">
+    <div class="eight columns">
+      <ul class="nav-menu">
+        <li role="presentation">
+          <a href="{% url 'material_list_by_dates' %}">Матеріали по датах</a>
+        </li>
+      </ul>
     </div>
-    <div class="row" id="header">
-        <div class="two columns u-pull-right">
-            <a class="button button-primary u-full-width"
-               href="{% url 'material_create' %}">
-                Додати матеріал
-            </a>
-        </div>
+    <div class="two columns u-pull-right">
+      <a class="button button-primary u-full-width"
+         href="{% url 'material_create' %}">
+        Додати
+      </a>
     </div>
+  </div>
 {% endblock subnavigation %}
 
 {% block content %}
 
 <div class="row">
-    <table class="u-full-width">
-        <thead>
-            <tr>
-                <th>-</th>
-                <th>Найменування</th>
-                <th>Примітка</th>
-                <th>Кількість</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for material in materials %}
-            <tr>
-                <td>
-                    <a class="item_link"
-                       href="{% url 'materialchange_create' material.id %}">
-                        &plusmn;
-                    </a>
-                </td>
-                <td>
-                    <a class="item_link"
-                       href="{% url 'material_detail' material.id %}">
-                        {{ material.title }}
-                    </a>
-                </td>
-                <td class="notes">{{ material.notes }}</td>
-                <td>{{ item.current_total|floatformat }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>-</th>
+        <th>Найменування</th>
+        <th>Примітка</th>
+        <th>Кількість</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for material in materials %}
+      <tr>
+        <td>
+          <a class="item_link"
+             href="{% url 'materialchange_create' material.id %}">
+            &plusmn;
+          </a>
+        </td>
+        <td>
+          <a class="item_link"
+             href="{% url 'material_detail' material.id %}">
+            {{ material.title }}
+          </a>
+        </td>
+        <td class="notes">{{ material.notes }}</td>
+        <td>{{ material.current_total|floatformat }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 {% endblock content %}
