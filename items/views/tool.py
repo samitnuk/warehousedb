@@ -17,6 +17,7 @@ def list_(request):
     context = {'tools': Tool.objects.all()}
     return render(request, 'items/tool_list.html', context)
 
+
 @login_required(login_url='/login/')
 def list_by_dates(request):
 
@@ -69,6 +70,7 @@ class ToolCreate(CreateView):
     model = Tool
     fields = ['title', 'notes']
     template_name = 'items/object_form.html'
+    success_url = reverse_lazy('tool_list')
 
     def page_name(self):
         return "Створити інструмент"

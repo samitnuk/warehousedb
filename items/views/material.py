@@ -61,6 +61,7 @@ def list_by_dates(request):
          'material_list': materials_list,
          'form': form})
 
+
 class MaterialDetail(DetailView):
     model = Material
     template_name = 'items/object_detail.html'
@@ -76,6 +77,7 @@ class MaterialCreate(CreateView):
     model = Material
     fields = ['title', 'notes']
     template_name = 'items/object_form.html'
+    success_url = reverse_lazy('material_list')
 
     def page_name(self):
         return "Створити матеріал"
