@@ -255,6 +255,9 @@ class MaterialChange(BaseChange):
                                      self.changed_at.strftime('%Y-%m-%d'),
                                      self.additional_quantity)
 
+    def get_absolute_url(self):
+        return reverse('materialchange_detail', kwargs={'pk': self.pk})
+
 
 class ToolChange(BaseChange):
     """ToolChange Model
@@ -273,3 +276,6 @@ class ToolChange(BaseChange):
         return '{} / {} / {} шт.'.format(self.tool,
                                          self.changed_at.strftime('%Y-%m-%d'),
                                          int(self.additional_quantity))
+
+    def get_absolute_url(self):
+        return reverse('toolchange_detail', kwargs={'pk': self.pk})
