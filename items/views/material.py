@@ -44,7 +44,7 @@ def list_by_dates(request):
              'form': form})
 
     range_stop = datetime.today()
-    range_start = range_stop - timedelta(days=7)  # 7 days before today
+    range_start = range_stop - timedelta(days=7)
 
     materials_list = get_objects_list(
         range_start=range_start,
@@ -79,7 +79,8 @@ class MaterialCreate(CreateView):
     template_name = 'items/object_form.html'
     success_url = reverse_lazy('material_list')
 
-    def page_name(self):
+    @staticmethod
+    def page_name():
         return "Створити матеріал"
 
 
@@ -88,7 +89,8 @@ class MaterialUpdate(UpdateView):
     fields = ['title', 'notes']
     template_name = 'items/object_form.html'
 
-    def page_name(self):
+    @staticmethod
+    def page_name():
         return "Редагувати матеріал"
 
 
@@ -107,13 +109,33 @@ def materialchange_detail(request, pk):
     )
 
 
-@login_required(login_url='/login/')
-def materialchange_create(request, pk):
-    pass
+class MaterialChangeCreate(CreateView):
+    model = MaterialChange
+    fields = ['additional_quantity', 'notes']
+    template_name = 'items/objectchange_form.html'
+    success_url = reverse_lazy('material_list')
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        # the actual modification of the form
+        form.instance.material = Material.objects.filter(
+            pk=self.kwargs['material_pk']).first()
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_initial(self):
+        return {'object': Material.objects.filter(
+            pk=self.kwargs['material_pk']).first()}
 
 
-@login_required(login_url='/login/')
-def materialchange_delete(request, pk):
-    MaterialChange.objects.filter(pk=pk).delete()
+class MaterialChangeDelete(DeleteView):
+    model = MaterialChange
+    success_url = reverse_lazy('material_list')
+    template_name = "items/object_confirm_delete.html"
 
-    return redirect('material_list_by_dates')

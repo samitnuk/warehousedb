@@ -32,11 +32,11 @@ urlpatterns = [
         tool.toolchange_detail,
         name='toolchange_detail'),
 
-    url(r'^toolchange_create/(?P<pk>\d+)/',
-        tool.toolchange_create,
+    url(r'^toolchange_create/(?P<tool_pk>\d+)/',
+        login_required(tool.ToolChangeCreate.as_view()),
         name='toolchange_create'),
 
     url(r'^toolchange_delete/(?P<pk>\d+)/',
-        tool.toolchange_delete,
+        login_required(tool.ToolChangeDelete.as_view()),
         name='toolchange_delete'),
 ]

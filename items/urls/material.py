@@ -32,11 +32,11 @@ urlpatterns = [
         material.materialchange_detail,
         name='materialchange_detail'),
 
-    url(r'^materialchange_create/(?P<pk>\d+)/',
-        material.materialchange_create,
+    url(r'^materialchange_create/(?P<material_pk>\d+)',
+        login_required(material.MaterialChangeCreate.as_view()),
         name='materialchange_create'),
 
     url(r'^materialchange_delete/(?P<pk>\d+)/',
-        material.materialchange_delete,
+        login_required(material.MaterialChangeDelete.as_view()),
         name='materialchange_delete'),
 ]

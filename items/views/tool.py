@@ -39,7 +39,7 @@ def list_by_dates(request):
         return render(request, 'items/tool_list_by_dates.html', context)
 
     range_stop = datetime.today()
-    range_start = range_stop - timedelta(days=7)  # 7 days before today
+    range_start = range_stop - timedelta(days=7)
 
     context = {
         'form': form,
@@ -72,7 +72,8 @@ class ToolCreate(CreateView):
     template_name = 'items/object_form.html'
     success_url = reverse_lazy('tool_list')
 
-    def page_name(self):
+    @staticmethod
+    def page_name():
         return "Створити інструмент"
 
 
@@ -81,7 +82,8 @@ class ToolUpdate(UpdateView):
     fields = ['title', 'notes']
     template_name = 'items/object_form.html'
 
-    def page_name(self):
+    @staticmethod
+    def page_name():
         return "Редагувати інструмент"
 
 
@@ -100,14 +102,32 @@ def toolchange_detail(request, pk):
     )
 
 
-@login_required(login_url='/login/')
-def toolchange_create(request, pk):
-    
-    return redirect('tool_list_by_dates')
+class ToolChangeCreate(CreateView):
+    model = ToolChange
+    fields = ['additional_quantity', 'notes']
+    template_name = 'items/objectchange_form.html'
+    success_url = reverse_lazy('tool_list')
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        # the actual modification of the form
+        form.instance.tool = Tool.objects.filter(
+            pk=self.kwargs['tool_pk']).first()
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_initial(self):
+        return {'object': Tool.objects.filter(
+            pk=self.kwargs['tool_pk']).first()}
 
 
-@login_required(login_url='/login/')
-def toolchange_delete(request, pk):
-    ToolChange.objects.filter(pk=pk).delete()
-
-    return redirect('tool_list_by_dates')
+class ToolChangeDelete(DeleteView):
+    model = ToolChange
+    success_url = reverse_lazy('tool_list')
+    template_name = "items/object_confirm_delete.html"
