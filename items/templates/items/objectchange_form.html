@@ -4,11 +4,11 @@
 
 {% load items_filters %}
 
-{% block meta_title %}Додати{% endblock meta_title %}
+{% block meta_title %}Додати зміну кількості{% endblock meta_title %}
 
 {% block header %}
 <div class="row" id="header">
-  <div class="nine columns"><h5>{{ view.page_name }}</h5></div>
+  <div class="nine columns"><h5>{{ view.get_initial.object }}</h5></div>
 </div>
 {% endblock header %}
 
@@ -21,9 +21,9 @@
 {{ form.non_field_errors }}
 
   <div class="row">
-    <div class="two columns">{{ form.title.label_tag }}</div>
-    <div class="seven columns">{{ form.title|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ form.title.errors }}</div>
+    <div class="two columns">{{ form.additional_quantity.label_tag }}</div>
+    <div class="seven columns">{{ form.additional_quantity|addclass:"u-full-width" }}</div>
+    <div class="three columns error">{{ form.additional_quantity.errors }}</div>
   </div>
 
   <div class="row">
