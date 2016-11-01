@@ -6,7 +6,9 @@ from ..views import tool
 
 urlpatterns = [
 
-    url(r'^list/', tool.list_, name='tool_list'),
+    url(r'^list/',
+        login_required(tool.ToolList.as_view()),
+        name='tool_list'),
 
     url(r'^list_by_dates/',
         tool.list_by_dates,

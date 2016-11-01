@@ -6,7 +6,9 @@ from ..views import material
 
 urlpatterns = [
 
-    url(r'^list/', material.list_, name='material_list'),
+    url(r'^list/',
+        login_required(material.MaterialList.as_view()),
+        name='material_list'),
 
     url(r'^list_by_dates/',
         material.list_by_dates,

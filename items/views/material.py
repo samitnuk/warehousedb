@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy, reverse
 
@@ -12,13 +13,9 @@ from ..forms import DateRangeForm
 from ..helpers import get_date_range, get_objects_list
 
 
-@login_required(login_url='/login/')
-def list_(request):
-    materials = Material.objects.all()
-
-    return render(
-        request, 'items/material_list.html',
-        {'materials': materials})
+class MaterialList(ListView):
+    model = Material
+    context_object_name = 'materials'
 
 
 @login_required(login_url='/login/')

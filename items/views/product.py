@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 
 from ..models import Item, Product, Component
 from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
@@ -7,22 +8,23 @@ from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
 from items import utils
 
 
+class ProductList(ListView):
+    model = Product
+    context_object_name = 'products'
+
+
 @login_required(login_url='/login/')
 def list_(request):
-    products_ = Product.objects.all()
+    context = {'products': Product.objects.all()}
 
-    return render(
-        request, 'items/product_list.html',
-        {'products': products_})
+    return render(request, 'items/product_list.html', context)
 
 
 @login_required(login_url='/login/')
 def detail(request, pk):
-    product = Product.objects.filter(pk=pk).first()
+    context = {'product': Product.objects.filter(pk=pk).first()}
 
-    return render(
-        request, 'items/product_detail.html',
-        {'product': product})
+    return render(request, 'items/product_detail.html', context)
 
 
 @login_required(login_url='/login/')
@@ -49,14 +51,11 @@ def create(request):
             return redirect('product_list')
 
         else:
-            return render(
-                request,
-                'items/product_create.html',
-                {'items': items, 'form': form})
+            context = {'items': items, 'form': form}
+            return render(request, 'items/product_create.html', context)
 
-    return render(
-        request, 'items/product_create.html',
-        {'items': items, 'form': form})
+    context = {'items': items, 'form': form}
+    return render(request, 'items/product_create.html', context)
 
 
 @login_required(login_url='/login/')
@@ -84,13 +83,11 @@ def create_std_cable(request):
 
             return redirect('product_list')
 
-        return render(
-            request, 'items/product_create_std_cable.html',
-            {'form': form})
+        context = {'form': form}
+        return render(request, 'items/product_create_std_cable.html', context)
 
-    return render(
-        request, 'items/product_create_std_cable.html',
-        {'form': form})
+    context = {'form': form}
+    return render(request, 'items/product_create_std_cable.html', context)
 
 
 @login_required(login_url='/login/')
@@ -108,13 +105,11 @@ def create_tza_cable(request):
 
             return redirect('product_list')
 
-        return render(
-            request, 'items/product_create_tza_cable.html',
-            {'form': form})
+        context = {'form': form}
+        return render(request, 'items/product_create_tza_cable.html', context)
 
-    return render(
-        request, 'items/product_create_tza_cable.html',
-        {'form': form})
+    context = {'form': form}
+    return render(request, 'items/product_create_tza_cable.html', context)
 
 
 @login_required(login_url='/login/')
@@ -134,13 +129,11 @@ def create_b_cable(request):
 
             return redirect('product_list')
 
-        return render(
-            request, 'items/product_create_b_cable.html',
-            {'form': form})
+        context = {'form': form}
+        return render(request, 'items/product_create_b_cable.html', context)
 
-    return render(
-        request, 'items/product_create_b_cable.html',
-        {'form': form})
+    context = {'form': form}
+    return render(request, 'items/product_create_b_cable.html', context)
 
 
 @login_required(login_url='/login/')

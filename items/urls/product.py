@@ -1,11 +1,14 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from ..views import product
 
 
 urlpatterns = [
 
-    url(r'^list/', product.list_, name='product_list'),
+    url(r'^list/',
+        login_required(product.ProductList.as_view()),
+        name='product_list'),
 
     url(r'^detail/(?P<pk>\d+)/',
         product.detail,

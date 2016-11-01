@@ -1,17 +1,20 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from ..views import order
 
 
 urlpatterns = [
 
-    url(r'^list/', order.list_, name='order_list'),
+    url(r'^list/',
+        login_required(order.OrderList.as_view()),
+        name='order_list'),
 
     url(r'^create/',
-        order.create,
+        login_required(order.OrderCreate.as_view()),
         name='order_create'),
 
     url(r'^delete/(?P<pk>\d+)/',
-        order.delete,
+        login_required(order.OrderDelete.as_view()),
         name='order_delete'),
 ]

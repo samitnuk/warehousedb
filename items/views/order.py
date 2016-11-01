@@ -1,45 +1,28 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
+from django.views.generic import DeleteView
 
-from ..models import Product, Order
+from ..models import Order
 from ..forms import AddOrderForm
 
 
-@login_required(login_url='/login/')
-def list_(request):
-    orders_ = Order.objects.all()
-
-    return render(
-        request, 'items/order_list.html',
-        {'orders': orders_})
+class OrderList(ListView):
+    model = Order
+    context_object_name = 'orders'
 
 
-@login_required(login_url='/login/')
-def create(request):
+class OrderCreate(FormView):
+    template_name = 'items/order_create.html'
+    form_class = AddOrderForm
+    success_url = reverse_lazy('order_list')
 
-    form = AddOrderForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            Order.objects.create(
-                customer=form.cleaned_data['customer'],
-                product=Product.objects.filter(
-                    pk=form.cleaned_data['product']).first(),
-                quantity=form.cleaned_data['quantity'])
-
-            return redirect('order_list')
-
-        return render(
-            request,
-            'items/order_create.html',
-            {'form': form})
-
-    return render(
-        request,
-        'items/order_create.html',
-        {'form': form})
+    def form_valid(self, form):
+        form.create_order()
+        return super(OrderCreate, self).form_valid(form)
 
 
-@login_required(login_url='/login/')
-def delete(request):
-    pass
+class OrderDelete(DeleteView):
+    model = Order
+    success_url = reverse_lazy('order_list')
+    template_name = "items/object_confirm_delete.html"

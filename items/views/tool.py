@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy, reverse
 
@@ -12,10 +13,9 @@ from ..forms import DateRangeForm
 from ..helpers import get_date_range, get_objects_list
 
 
-@login_required(login_url='/login/')
-def list_(request):
-    context = {'tools': Tool.objects.all()}
-    return render(request, 'items/tool_list.html', context)
+class ToolList(ListView):
+    model = Tool
+    context_object_name = 'tools'
 
 
 @login_required(login_url='/login/')
