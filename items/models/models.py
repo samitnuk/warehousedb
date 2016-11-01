@@ -82,6 +82,9 @@ class Product(Base):
             return '{} - {}'.format(self.part_number, self.title)
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'pk': self.pk})
+
     @property
     def components(self):
         return self.component.all()
@@ -150,6 +153,9 @@ class Order(models.Model):
     def __str__(self):
         return '{} / {}'.format(self.order_date, self.customer)
 
+    def get_absolute_url(self):
+        return reverse('order_detail', kwargs={'pk': self.pk})
+
 
 class Material(Base):
     """Material Model
@@ -163,15 +169,15 @@ class Material(Base):
         verbose_name_plural = "Матеріали"
         ordering = ['title']
 
+    def get_absolute_url(self):
+        return reverse('material_detail', kwargs={'pk': self.pk})
+
     @property
     def current_total(self):
         total = self.m_quantity.aggregate(models.Sum('additional_quantity'))
         if total['additional_quantity__sum'] is not None:
             return total['additional_quantity__sum']
         return ""
-
-    def get_absolute_url(self):
-        return reverse('material_detail', kwargs={'pk': self.pk})
 
 
 class Tool(Base):
