@@ -28,7 +28,8 @@ class BaseChange(models.Model):
 
     """
 
-    additional_quantity = models.FloatField(blank=False)
+    additional_quantity = models.FloatField(blank=False,
+                                            verbose_name="Зміна кількості")
 
     changed_at = models.DateField(blank=False,
                                   default=date.today,
