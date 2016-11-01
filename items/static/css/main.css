@@ -78,6 +78,7 @@ ul.nav-menu a {
 
 li.nav-active a {
     color: #444;
+    border-bottom: 1px dotted #666;
 }
 
 
