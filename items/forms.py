@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .models import Item, Category, Product, Order
 
 from .helpers import get_choices
+from . import utils
 
 
 class LoginForm(forms.Form):
@@ -143,6 +144,18 @@ class AddStdCableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
+    def create_std_cable(self):
+        utils.create_std_cable(
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            serie=self.cleaned_data['serie'],
+            travel=self.cleaned_data['travel'],
+            mounting=self.cleaned_data['mounting'],
+            is_st_rods=self.cleaned_data['is_st_rods'],
+            is_st_sleeves=self.cleaned_data['is_st_sleeves'],
+            is_plastic_sleeves=self.cleaned_data['is_plastic_sleeves'],
+            length=self.cleaned_data['length'])
+
 
 class AddTZACableForm(forms.Form):
 
@@ -164,6 +177,13 @@ class AddTZACableForm(forms.Form):
         cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
+
+    def create_tza_cable(self):
+        utils.create_tza_cable(
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            is_st_rods=self.cleaned_data['is_st_rods'],
+            length=self.cleaned_data['length'])
 
 
 class AddBCableForm(forms.Form):
@@ -197,6 +217,19 @@ class AddBCableForm(forms.Form):
         cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
+
+    def create_b_cable(self):
+        utils.create_b_cable(
+            cable_type=self.cleaned_data['cable_type'],
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            is_st_rods=self.cleaned_data['is_st_rods'],
+            is_st_sleeves=self.cleaned_data['is_st_sleeves'],
+            length=self.cleaned_data['length'])
+
+
+class AddHCableForm(forms.Form):
+    pass
 
 
 class DateRangeForm(forms.Form):
