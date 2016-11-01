@@ -171,10 +171,10 @@ class ProductTests(TestCase):
 
     def test_H4_cable_creation(self):
 
-        create_H4_cable(
+        create_h4_cable(
             core_id=self.core.id,
             conduit_id=self.conduit.id,
-            is_st_rod_E=False,
+            is_st_rod_e=False,
             length=int(self.length * 1000))
 
         cable = Product.objects.all().first()
@@ -187,19 +187,19 @@ class ProductTests(TestCase):
         self.assertEqual(core.quantity, self.length - 0.067)
         self.assertEqual(conduit.quantity, self.length - 0.174)
 
-    def test_H2_cable_creation(self):
+    def test_h2_cable_creation(self):
 
-        create_H2_cable(
+        create_h2_cable(
             core_id=self.core.id,
             conduit_id=self.conduit.id,
-            is_st_rod_E=True,
+            is_st_rod_e=True,
             with_01=False,
             length=int(self.length * 1000))
 
-        create_H2_cable(     # with -01
+        create_h2_cable(     # with -01
             core_id=self.core.id,
             conduit_id=self.conduit.id,
-            is_st_rod_E=False,
+            is_st_rod_e=False,
             with_01=True,
             length=int(self.length * 1000))
 
@@ -216,27 +216,27 @@ class ProductTests(TestCase):
         self.assertEqual(core.quantity, self.length - 0.135)
         self.assertEqual(conduit.quantity, self.length - 0.233)
 
-    def test_H5_cable_creation(self):
+    def test_h5_cable_creation(self):
 
-        create_H5_cable(
+        create_h5_cable(
             cable_type=0,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
-            is_st_rod_E=True,
+            is_st_rod_e=True,
             length=int(self.length * 1000))
 
-        create_H5_cable(
+        create_h5_cable(
             cable_type=2,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
-            is_st_rod_E=False,
+            is_st_rod_e=False,
             length=int(self.length * 1000))
 
-        create_H5_cable(     # with -01
+        create_h5_cable(     # with -01
             cable_type=5,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
-            is_st_rod_E=False,
+            is_st_rod_e=False,
             length=int(self.length * 1000))
 
         cables = Product.objects.all()
@@ -253,9 +253,9 @@ class ProductTests(TestCase):
         self.assertEqual(core.quantity, self.length - 0.132)
         self.assertEqual(conduit.quantity, self.length - 0.275)
 
-    def test_B_cable_creation(self):
+    def test_b_cable_creation(self):
 
-        create_B_cable(
+        create_b_cable(
             cable_type=0,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -263,7 +263,7 @@ class ProductTests(TestCase):
             is_st_sleeves=True,
             length=3008)
 
-        create_B_cable(
+        create_b_cable(
             cable_type=1,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -271,7 +271,7 @@ class ProductTests(TestCase):
             is_st_sleeves=False,
             length=3008)
 
-        create_B_cable(
+        create_b_cable(
             cable_type=2,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -279,7 +279,7 @@ class ProductTests(TestCase):
             is_st_sleeves=True,
             length=3024)
 
-        create_B_cable(
+        create_b_cable(
             cable_type=3,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -287,7 +287,7 @@ class ProductTests(TestCase):
             is_st_sleeves=False,
             length=3130)
 
-        create_B_cable(
+        create_b_cable(
             cable_type=4,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
