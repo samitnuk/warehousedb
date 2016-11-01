@@ -2,7 +2,7 @@ from django import forms
 
 from django.contrib.auth.models import User
 
-from .models import Item, Category, Product
+from .models import Item, Category, Product, Order
 
 from .helpers import get_choices
 
@@ -74,17 +74,22 @@ class AddOrderForm(forms.Form):
 
     quantity = forms.FloatField(label="Кількість")
 
-    product = forms.ChoiceField(label="Виріб", choices=[])
+    product_id = forms.ChoiceField(label="Виріб", choices=[])
 
-    # product field takes data from DB so it should
-    # be updated each time when form requsted
     def __init__(self, *args, **kwargs):
         super(AddOrderForm, self).__init__(*args, **kwargs)
         products = Product.objects.order_by('-id')
-        self.fields['product'].choices = [(product.id, "{} {} / {}".format(
+        self.fields['product_id'].choices = [(product.id, "{} {} / {}".format(
             product.part_number,
             product.title,
             product.notes)) for product in products]
+
+    def create_order(self):
+        product_id = self.cleaned_data['product_id']
+        Order.objects.create(
+            customer=self.cleaned_data['customer'],
+            product=Product.objects.filter(pk=product_id).first(),
+            quantity=self.cleaned_data['quantity'])
 
 
 class AddStdCableForm(forms.Form):
