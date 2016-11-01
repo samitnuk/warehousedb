@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
 
 from ..models import Item, Product, Component
 from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
-                     AddBCableForm)
-from items import utils
+                     AddBCableForm, AddHCableForm)
 
 
 class ProductList(ListView):
@@ -63,80 +64,47 @@ def delete(request, pk):
     pass
 
 
-@login_required(login_url='/login/')
-def create_std_cable(request):
+class StdCableCreate(FormView):
+    template_name = 'items/product_create_std_cable.html'
+    form_class = AddStdCableForm
+    success_url = reverse_lazy('product_list')
 
-    form = AddStdCableForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            utils.create_std_cable(
-                conduit_id=form.cleaned_data['conduit'],
-                core_id=form.cleaned_data['core'],
-                serie=form.cleaned_data['serie'],
-                travel=form.cleaned_data['travel'],
-                mounting=form.cleaned_data['mounting'],
-                is_st_rods=form.cleaned_data['is_st_rods'],
-                is_st_sleeves=form.cleaned_data['is_st_sleeves'],
-                is_plastic_sleeves=form.cleaned_data['is_plastic_sleeves'],
-                length=form.cleaned_data['length'])
-
-            return redirect('product_list')
-
-        context = {'form': form}
-        return render(request, 'items/product_create_std_cable.html', context)
-
-    context = {'form': form}
-    return render(request, 'items/product_create_std_cable.html', context)
+    def form_valid(self, form):
+        form.create_std_cable()
+        return super(StdCableCreate, self).form_valid(form)
 
 
-@login_required(login_url='/login/')
-def create_tza_cable(request):
+class TZACableCreate(FormView):
+    template_name = 'items/product_create_tza_cable.html'
+    form_class = AddTZACableForm
+    success_url = reverse_lazy('product_list')
 
-    form = AddTZACableForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            utils.create_tza_cable(
-                conduit_id=form.cleaned_data['conduit'],
-                core_id=form.cleaned_data['core'],
-                is_st_rods=form.cleaned_data['is_st_rods'],
-                length=form.cleaned_data['length'])
-
-            return redirect('product_list')
-
-        context = {'form': form}
-        return render(request, 'items/product_create_tza_cable.html', context)
-
-    context = {'form': form}
-    return render(request, 'items/product_create_tza_cable.html', context)
+    def form_valid(self, form):
+        form.create_tza_cable()
+        return super(TZACableCreate, self).form_valid(form)
 
 
-@login_required(login_url='/login/')
-def create_b_cable(request):
+class BCableCreate(FormView):
+    template_name = 'items/product_create_b_cable.html'
+    form_class = AddBCableForm
+    success_url = reverse_lazy('product_list')
 
-    form = AddBCableForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            utils.create_B_cable(
-                cable_type=form.cleaned_data['cable_type'],
-                conduit_id=form.cleaned_data['conduit'],
-                core_id=form.cleaned_data['core'],
-                is_st_rods=form.cleaned_data['is_st_rods'],
-                is_st_sleeves=form.cleaned_data['is_st_sleeves'],
-                length=form.cleaned_data['length'])
-
-            return redirect('product_list')
-
-        context = {'form': form}
-        return render(request, 'items/product_create_b_cable.html', context)
-
-    context = {'form': form}
-    return render(request, 'items/product_create_b_cable.html', context)
+    def form_valid(self, form):
+        form.create_b_cable()
+        return super(BCableCreate, self).form_valid(form)
 
 
 @login_required(login_url='/login/')
 def create_h_cable(request):
     # utils.create_h_cable()
     pass
+
+
+class HCableCreate(FormView):
+    template_name = 'items/product_create_h_cable.html'
+    form_class = AddHCableForm
+    success_url = reverse_lazy('product_list')
+
+    def form_valid(self, form):
+        form.create_h_cable()
+        return super(HCableCreate, self).form_valid(form)
