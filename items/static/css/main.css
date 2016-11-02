@@ -59,10 +59,10 @@ input[type="submit"].button-danger:hover {
 /* navigation styles */
 #navigation {
     border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 5px;
 }
 
 ul.nav-menu {
-    /*border-bottom: 1px solid #e1e1e1;*/
     font-size: 18px;
     margin-bottom: 0;
 }
@@ -77,8 +77,8 @@ ul.nav-menu a {
 }
 
 li.nav-active a {
-    color: #444;
-    border-bottom: 1px dotted #666;
+    color: #888;
+    border-bottom: 4px solid #e1e1e1;
 }
 
 
