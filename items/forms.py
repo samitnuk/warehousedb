@@ -34,13 +34,6 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
-class ItemCreateForm(forms.ModelForm):
-    class Meta:
-        model = Item
-        fields = ['title', 'part_number', 'part_number2', 'picture',
-                  'category', 'rate', 'weight', 'notes']
-
-
 class AddProductForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
