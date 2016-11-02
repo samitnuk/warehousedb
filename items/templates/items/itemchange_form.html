@@ -4,17 +4,17 @@
 
 {% load items_filters %}
 
-{% block meta_title %}Додати нову позицію на склад{% endblock meta_title %}
+{% block meta_title %}Зміна кількості{% endblock meta_title %}
 
 {% block header %}
 <div class="row" id="header">
-  <div class="nine columns"><h5>Додати нову позицію на склад</h5></div>
+  <div class="nine columns"><h5>{{ view.get_initial.item }}</h5></div>
 </div>
 {% endblock header %}
 
 {% block content %}
 
-<form  action="{% url 'item_create' %}" method="post">
+<form action="" method="post">
 
   {% csrf_token %}
 

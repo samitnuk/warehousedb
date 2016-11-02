@@ -6,7 +6,7 @@
 
 {% block subnavigation %}
   <div class="row" id="navigation">
-    <div class="u-full-width">
+    <div class="eight columns">
       <ul class="nav-menu">
         <li role="presentation">
           <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
@@ -15,6 +15,12 @@
           <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
         </li>
       </ul>
+    </div>
+    <div class="two columns u-pull-right">
+      <a class="button button-primary u-full-width"
+         href="{% url 'item_create' %}">
+        Додати
+      </a>
     </div>
   </div>
 {% endblock subnavigation %}

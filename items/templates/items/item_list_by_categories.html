@@ -6,7 +6,7 @@
 
 {% block subnavigation %}
   <div class="row" id="navigation">
-    <div class="u-full-width">
+    <div class="eight columns">
       <ul class="nav-menu">
         <li role="presentation">
           <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
@@ -16,20 +16,27 @@
         </li>
       </ul>
     </div>
+    <div class="two columns u-pull-right">
+      <a class="button button-primary u-full-width"
+         href="{% url 'item_create' %}">
+        Додати
+      </a>
+    </div>
   </div>
 {% endblock subnavigation %}
 
 {% block content %}
-{% for row in rows %}
 <div class="row">
-  {% for category in row %}
-  <div class="two columns">
-    <a class="button{% if category.id != active_category_id %} button-primary{% endif %} u-full-width"
-       href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
+  <div class="u-full-width">
+    <ul class="nav-menu">
+      {% for category in categories %}
+      <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
+        <a href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
-  {% endfor %}
 </div>
-{% endfor %}
 <div class="row">
   <table class="u-full-width">
     <thead>
