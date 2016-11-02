@@ -76,8 +76,7 @@ class MaterialCreate(CreateView):
     template_name = 'items/object_form.html'
     success_url = reverse_lazy('material_list')
 
-    @staticmethod
-    def page_name():
+    def page_name(self):
         return "Створити матеріал"
 
 
@@ -86,8 +85,7 @@ class MaterialUpdate(UpdateView):
     fields = ['title', 'notes']
     template_name = 'items/object_form.html'
 
-    @staticmethod
-    def page_name():
+    def page_name(self):
         return "Редагувати матеріал"
 
 
@@ -113,11 +111,10 @@ class MaterialChangeCreate(CreateView):
     success_url = reverse_lazy('material_list')
 
     def post(self, request, *args, **kwargs):
-        self.object = None
+        # self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
 
-        # the actual modification of the form
         form.instance.material = Material.objects.filter(
             pk=self.kwargs['material_pk']).first()
 
