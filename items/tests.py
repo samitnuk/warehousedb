@@ -1,42 +1,19 @@
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from .models import Category, Item, ItemChange, Order
+from .models import (Category, Item, ItemChange, Order,
+                     Material, MaterialChange, Tool, ToolChange)
 
 from .utils import *
-
-
-def create_user(username, password):
-    return User.objects.create(
-        username=username,
-        password=password)
-
-
-def create_category(title, notes):
-    return Category.objects.create(
-        title=title,
-        notes=notes)
-
-
-def create_item(
-    title, part_number, part_number2, picture, category, rate, weight, notes
-):
-    return Item.objects.create(
-        title=title,
-        part_number=part_number,
-        part_number2=part_number2,
-        picture=picture,
-        category=category,
-        rate=rate,
-        weight=weight,
-        notes=notes)
 
 
 class UserTests(TestCase):
 
     def test_user_creation(self):
 
-        user = create_user('test_user', 'test_password')
+        user = User.objects.create(
+            username='test_user',
+            password='test_password')
         self.assertEqual(user.username, 'test_user')
 
 
@@ -44,7 +21,7 @@ class LoginTests(TestCase):
 
     def test_login(self):
 
-        create_user('test_user', 'test_password')
+        User.objects.create(username='test_user', password='test_password')
         c = Client()
         responce = c.post(
             '/login/',
@@ -56,7 +33,7 @@ class ItemTests(TestCase):
 
     def test_category_creation(self):
 
-        category = create_category(
+        category = Category.objects.create(
             title="Тестова категорія",
             notes="Тестова нотатка")
         self.assertEqual(category.title, "Тестова категорія")
@@ -64,12 +41,12 @@ class ItemTests(TestCase):
 
     def test_item_creation(self):
 
-        item = create_item(
+        item = Item.objects.create(
             title="Деталь 1",
             part_number="00_123",
             part_number2="",
             picture="",
-            category=create_category(
+            category=Category.objects.create(
                 title="Тестова категорія",
                 notes="Тестова нотатка"),
             rate=0,
@@ -116,8 +93,91 @@ class ItemChangeTests(TestCase):
             quantity=10,
             ready=True)
 
-        itemchanges = ItemChange.objects.all()
-        self.assertEqual(len(itemchanges), 1)
+        itemchange = ItemChange.objects.first()
+
+        self.assertEqual(itemchange.additional_quantity, -100)
+
+
+class MaterialTests(TestCase):
+
+    def test_material_creation(self):
+
+        material = Material.objects.create(
+            title="Матеріал",
+            notes="Тестова нотатка матеріалу")
+        self.assertEqual(material.title, "Матеріал")
+        self.assertEqual(material.notes, "Тестова нотатка матеріалу")
+
+
+class MaterialChangeTests(TestCase):
+
+    fixtures = ['items/load_data.json']
+
+    item = Item.objects.first()
+
+    def test_materialchange_creation(self):
+
+        material = Material.objects.create(
+            title="Матеріал",
+            notes="Тестова нотатка матеріалу")
+
+        materialchange = MaterialChange.objects.create(
+            additional_quantity=13,
+            material=material,
+            notes="Тестова нотатка")
+
+        self.assertEqual(materialchange.material.title, "Матеріал")
+        self.assertEqual(materialchange.material.notes,
+                         "Тестова нотатка матеріалу")
+        self.assertEqual(materialchange.additional_quantity, 13)
+        self.assertEqual(materialchange.notes, "Тестова нотатка")
+
+    def test_materialchange_auto_creation(self):
+
+        material = Material.objects.create(
+            title="Матеріал",
+            notes="Тестова нотатка матеріалу")
+
+        ItemChange.objects.create(
+            additional_quantity=100,
+            item=self.item,
+            material=material,
+            notes="Тестова нотатка")
+
+        materialchange = MaterialChange.objects.first()
+
+        self.assertEqual(materialchange.additional_quantity, -5.5)
+
+
+class ToolTests(TestCase):
+
+    def test_tool_creation(self):
+
+        tool = Tool.objects.create(
+            title="Інструмент",
+            notes="Тестова нотатка інструменту")
+        self.assertEqual(tool.title, "Інструмент")
+        self.assertEqual(tool.notes, "Тестова нотатка інструменту")
+
+
+class ToolChangeTests(TestCase):
+
+    def test_toolchange_creation(self):
+
+        tool = Tool.objects.create(
+            title="Інструмент",
+            notes="Тестова нотатка інструменту")
+
+        toolchange = ToolChange.objects.create(
+            additional_quantity=13,
+            tool=tool,
+            notes="Тестова нотатка")
+
+        self.assertEqual(toolchange.tool.title, "Інструмент")
+        self.assertEqual(toolchange.tool.notes, "Тестова нотатка інструменту")
+        self.assertEqual(toolchange.additional_quantity, 13)
+        self.assertEqual(str(toolchange.tool), "Інструмент")
+        self.assertEqual(toolchange.notes, "Тестова нотатка")
 
 
 class ProductTests(TestCase):
