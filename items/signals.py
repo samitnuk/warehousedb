@@ -39,9 +39,9 @@ def materialchange_auto_create(instance, **kwargs):
     # additional_quantity is positive and material selected
     if itemchange.additional_quantity > 0 and itemchange.material:
 
-        MaterialChange.object.create(
+        MaterialChange.objects.create(
             additional_quantity=(
-                itemchange.additional_quantity * itemchange.item.rate),
+                itemchange.additional_quantity * itemchange.item.rate * -1),
             material=itemchange.material,
             notes="{} {} / {} шт.".format(
                 itemchange.item.title,
