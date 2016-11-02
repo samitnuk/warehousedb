@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 
 from ..models import Item, ItemChange, Category
 from ..forms import DateRangeForm, ItemCreateForm
@@ -9,14 +10,12 @@ from ..forms import DateRangeForm, ItemCreateForm
 from ..helpers import get_date_range, get_objects_list
 
 
-@login_required(login_url='/login/')
-def list_(request):
+class ItemList(ListView):
+    model = Item
+    context_object_name = 'items'
 
-    context = {
-        'items': Item.objects.all(),
-        'categories': Category.objects.all()}
-
-    return render(request, 'items/main.html', context)
+    def categories(self):
+        return Category.objects.all()
 
 
 @login_required(login_url='/login/')

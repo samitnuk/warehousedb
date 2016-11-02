@@ -1,11 +1,14 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from ..views import item
 
 
 urlpatterns = [
 
-    url(r'^$', item.list_, name='item_list'),
+    url(r'^$',
+        login_required(item.ItemList.as_view()),
+        name='item_list'),
 
     url(r'^item/list_by_dates/',
         item.list_by_dates,
