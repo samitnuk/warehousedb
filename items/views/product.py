@@ -94,12 +94,6 @@ class BCableCreate(FormView):
         return super(BCableCreate, self).form_valid(form)
 
 
-@login_required(login_url='/login/')
-def create_h_cable(request):
-    # utils.create_h_cable()
-    pass
-
-
 class HCableCreate(FormView):
     template_name = 'items/product_create_h_cable.html'
     form_class = AddHCableForm
