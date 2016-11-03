@@ -20,41 +20,19 @@
 
 {{ form.non_field_errors }}
 
+  {% for field in form.visible_fields %}
   <div class="row">
-    <div class="two columns">{{ form.cable_type.label_tag }}</div>
-    <div class="ten columns">{{ form.cable_type|addclass:"u-full-width" }}</div>
-    {{ form.cable_type.errors }}
+    <div class="two columns">{{ field.label_tag }}</div>
+    <div class="seven columns">
+      {% if field is not form.is_st_rods and field is not form.is_st_sleeves %}
+        {{ field|addclass:"u-full-width" }}
+      {% else %}
+        {{ field }}
+      {% endif %}
+    </div>
+    <div class="three columns error">{{ field.errors }}</div>
   </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.conduit.label_tag }}</div>
-    <div class="ten columns">{{ form.conduit|addclass:"u-full-width" }}</div>
-    {{ form.conduit.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.core.label_tag }}</div>
-    <div class="ten columns">{{ form.core|addclass:"u-full-width" }}</div>
-    {{ form.core.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.is_st_rods.label_tag }}</div>
-    <div class="ten columns">{{ form.is_st_rods }}</div>
-    {{ form.is_st_rods.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.is_st_sleeves.label_tag }}</div>
-    <div class="ten columns">{{ form.is_st_sleeves }}</div>
-    {{ form.is_st_sleeves.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.length.label_tag }}</div>
-    <div class="ten columns">{{ form.length|addclass:"u-full-width" }}</div>
-    {{ form.length.errors }}
-  </div>
+  {% endfor %}
 
   <div class="row">
     <div class="two columns">.</div>
@@ -68,6 +46,6 @@
 {% endblock content %}
 
 {% block extra_js %}
-  <script   src="https://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
   <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
 {% endblock extra_js %}

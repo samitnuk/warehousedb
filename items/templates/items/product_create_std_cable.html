@@ -20,59 +20,19 @@
 
 {{ form.non_field_errors }}
 
-  <div class="row">
-    <div class="two columns">{{ form.conduit.label_tag }}</div>
-    <div class="ten columns">{{ form.conduit|addclass:"u-full-width" }}</div>
-    {{ form.conduit.errors }}
+  {% for field in form.visible_fields %}
+  <div class="row {% if field is form.is_plastic_sleeves %}hidden_at_start{% endif %}">
+    <div class="two columns">{{ field.label_tag }}</div>
+    <div class="seven columns">
+      {% if field is not form.is_st_rods and field is not form.is_st_sleeves and field is not form.is_plastic_sleeves %}
+        {{ field|addclass:"u-full-width" }}
+      {% else %}
+        {{ field }}
+      {% endif %}
+    </div>
+    <div class="three columns error">{{ field.errors }}</div>
   </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.core.label_tag }}</div>
-    <div class="ten columns">{{ form.core|addclass:"u-full-width" }}</div>
-    {{ form.core.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.serie.label_tag }}</div>
-    <div class="ten columns">{{ form.serie|addclass:"u-full-width" }}</div>
-    {{ form.serie.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.travel.label_tag }}</div>
-    <div class="ten columns">{{ form.travel|addclass:"u-full-width" }}</div>
-    {{ form.travel.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.mounting.label_tag }}</div>
-    <div class="ten columns">{{ form.mounting|addclass:"u-full-width" }}</div>
-    {{ form.mounting.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.is_st_rods.label_tag }}</div>
-    <div class="ten columns">{{ form.is_st_rods }}</div>
-    {{ form.is_st_rods.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.is_st_sleeves.label_tag }}</div>
-    <div class="ten columns">{{ form.is_st_sleeves }}</div>
-    {{ form.is_st_sleeves.errors }}
-  </div>
-
-  <div class="row hidden_at_start">
-    <div class="two columns">{{ form.is_plastic_sleeves.label_tag }}</div>
-    <div class="ten columns">{{ form.is_plastic_sleeves }}</div>
-    {{ form.is_plastic_sleeves.errors }}
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.length.label_tag }}</div>
-    <div class="ten columns">{{ form.length|addclass:"u-full-width" }}</div>
-    {{ form.length.errors }}
-  </div>
+  {% endfor %}
 
   <div class="row">
     <div class="two columns">.</div>
