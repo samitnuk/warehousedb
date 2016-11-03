@@ -28,7 +28,8 @@ function getBCableLength() {
 
 function getHCableLength() {
 
-    var lengths = [];
+    var lengths = ["1500", "2250", "1500", "2250", "1140", "1500",
+                   "1534", "1534", "1540"];
 
     getCableLength( lengths );
 }
