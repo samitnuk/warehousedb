@@ -100,6 +100,14 @@ th:first-child, td:first-child {
     padding-left: 15px;
 }
 
+tr.order_ready {
+    background-color: #CEECF5;
+}
+
+tr.order_ready:hover {
+    background-color: #A9E2F3;
+}
+
 thead {
     background-color: #444;
     color: #fff;
