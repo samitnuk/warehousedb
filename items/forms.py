@@ -107,17 +107,15 @@ class AddStdCableForm(forms.Form):
         ("23", "23 (різьба-клемп)"),
         ("33", "33 (клемп-клемп)"),)
 
+    conduit = forms.ChoiceField(label="Кожух", choices=[])
+
+    core = forms.ChoiceField(label="Сердечник", choices=[])
+
     serie = forms.ChoiceField(label="Серія", choices=SERIES)
 
     travel = forms.ChoiceField(label="Хід", choices=TRAVELS)
 
     mounting = forms.ChoiceField(label="Кріплення", choices=MOUNTINGS)
-
-    length = forms.IntegerField(label="Довжина, мм")
-
-    conduit = forms.ChoiceField(label="Кожух", choices=[])
-
-    core = forms.ChoiceField(label="Сердечник", choices=[])
 
     is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
@@ -125,6 +123,8 @@ class AddStdCableForm(forms.Form):
 
     is_plastic_sleeves = forms.BooleanField(label="Пластмасові трубки",
                                             required=False)
+
+    length = forms.IntegerField(label="Довжина, мм")
 
     def __init__(self, *args, **kwargs):
         super(AddStdCableForm, self).__init__(*args, **kwargs)
@@ -156,9 +156,9 @@ class AddTZACableForm(forms.Form):
 
     core = forms.ChoiceField(label="Сердечник", choices=[])
 
-    length = forms.IntegerField(label="Довжина, мм")
-
     is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
+
+    length = forms.IntegerField(label="Довжина, мм")
 
     def __init__(self, *args, **kwargs):
         super(AddTZACableForm, self).__init__(*args, **kwargs)
@@ -181,16 +181,7 @@ class AddTZACableForm(forms.Form):
 
 class AddBCableForm(forms.Form):
 
-    CABLES = (
-        (0, "БП-М6323.03008"),
-        (1, "БП-М6323.03008-01"),
-        (2, "БВ-М6323.03024"),
-        (3, "БП-М6323.03130"),
-        (4, "БВ-М6323.03160"),)
-
-    cable_type = forms.ChoiceField(label="Трос", choices=CABLES)
-
-    length = forms.IntegerField(label="Довжина, мм", initial=3008)
+    cable_type = forms.ChoiceField(label="Трос", choices=utils.B_CABLES)
 
     conduit = forms.ChoiceField(label="Кожух", choices=[])
 
@@ -199,6 +190,8 @@ class AddBCableForm(forms.Form):
     is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
     is_st_sleeves = forms.BooleanField(label="Чорні трубки", required=False)
+
+    length = forms.IntegerField(label="Довжина, мм", initial=3008)
 
     def __init__(self, *args, **kwargs):
         super(AddBCableForm, self).__init__(*args, **kwargs)
@@ -222,7 +215,35 @@ class AddBCableForm(forms.Form):
 
 
 class AddHCableForm(forms.Form):
-    pass
+
+    cable_type = forms.ChoiceField(label="Трос", choices=utils.H_CABLES)
+
+    conduit = forms.ChoiceField(label="Кожух", choices=[])
+
+    core = forms.ChoiceField(label="Сердечник", choices=[])
+
+    is_st_rod_e = forms.BooleanField(label="Чорний пруток Е", required=False)
+
+    length = forms.IntegerField(label="Довжина, мм", initial=1500)
+
+    def __init__(self, *args, **kwargs):
+        super(AddHCableForm, self).__init__(*args, **kwargs)
+
+        conduits_category = Category.objects.filter(title="Кожух")
+        conduits = Item.objects.filter(category=conduits_category)
+        self.fields['conduit'].choices = get_choices(conduits)
+
+        cores_category = Category.objects.filter(title="Сердечник")
+        cores = Item.objects.filter(category=cores_category)
+        self.fields['core'].choices = get_choices(cores)
+
+    def create_h_cable(self):
+        utils.create_h_cable(
+            cable_type=self.cleaned_data['cable_type'],
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            is_st_rod_e=self.cleaned_data['is_st_rod_e'],
+            length=self.cleaned_data['length'])
 
 
 class DateRangeForm(forms.Form):
