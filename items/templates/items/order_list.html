@@ -31,7 +31,7 @@
         {% for order in orders %}
           <tr>
             <td>{{ order.customer }}</td>
-            <td>{{ order.order_date|date:'d . m . Y' }}</td>
+            <td>{{ order.order_date|date:'d.m.Y / D' }}</td>
             <td>
               <abbr title="{{ order.product.notes }}">
                 <a class="item_link" href="{% url 'product_detail' order.product.id %}">
