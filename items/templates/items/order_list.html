@@ -29,8 +29,12 @@
       </thead>
       <tbody>
         {% for order in orders %}
-          <tr>
-            <td>{{ order.customer }}</td>
+          <tr {% if order.ready %}class="order_ready"{% endif %}>
+            <td>
+              <a class="item_link" href="{% url 'order_detail' order.id %}">
+                   {{ order.customer }}
+              </a>
+            </td>
             <td>{{ order.order_date|date:'d.m.Y / D' }}</td>
             <td>
               <abbr title="{{ order.product.notes }}">

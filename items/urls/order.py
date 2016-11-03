@@ -17,4 +17,12 @@ urlpatterns = [
     url(r'^delete/(?P<pk>\d+)/',
         login_required(order.OrderDelete.as_view()),
         name='order_delete'),
+
+    url(r'^detail/(?P<pk>\d+)/',
+        login_required(order.OrderDetail.as_view()),
+        name='order_detail'),
+
+    url(r'^ready_confirmation/(?P<pk>\d+)/',
+        order.ready_confirmation,
+        name='order_ready_confirmation'),
 ]

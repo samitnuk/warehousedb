@@ -1,0 +1,50 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Загальна інформація - Замовлення{{ category.name }}{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+  <div class="eight columns"><h5>{{ order.customer }}</h5></div>
+  {% if not order.ready %}
+  <div class="two columns">
+    <a class="button button-primary u-full-width"
+       href="{% url 'order_ready_confirmation' order.id %}">
+      Підтвердити
+    </a>
+  </div>
+  {% endif %}
+  <div class="two columns">
+    <a class="button button-danger u-full-width"
+       href="{% url 'order_delete' order.id %}">
+      Видалити
+    </a>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row">
+  <div class="two columns">Дата замовлення</div>
+  <div class="ten columns"><h5>{{ order.order_date|date:'d.m.Y / F d (l)' }}</h5></div>
+</div>
+
+<div class="row">
+  <div class="two columns">Виріб</div>
+  <div class="ten columns"><h5>{{ order.product }}</h5></div>
+</div>
+
+<div class="row">
+  <div class="two columns">Кількість</div>
+  <div class="ten columns"><h5>{{ order.quantity|floatformat }}</h5></div>
+</div>
+
+<div class="row">
+  <div class="two columns">Готовність</div>
+  <div class="ten columns">
+    <h5>{% if order.ready %}Готовий{% else %}НЕ ГОТОВИЙ{% endif %}</h5>
+  </div>
+</div>
+
+{% endblock content %}
