@@ -250,17 +250,17 @@ class ProductTests(TestCase):
     def test_h2_cable_creation(self):
 
         create_h2_cable(
+            cable_type=6,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
             is_st_rod_e=True,
-            with_01=False,
             length=int(self.length * 1000))
 
         create_h2_cable(     # with -01
+            cable_type=7,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
             is_st_rod_e=False,
-            with_01=True,
             length=int(self.length * 1000))
 
         cable = Product.objects.all().first()
