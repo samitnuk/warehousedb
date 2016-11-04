@@ -2,7 +2,7 @@ from django import forms
 
 from django.contrib.auth.models import User
 
-from .models import Item, Category, Product, Order
+from .models import Item, Category, Product, Order, Component
 
 from .helpers import get_choices
 from . import utils
@@ -60,6 +60,18 @@ class AddProductForm(forms.Form):
         for item in items:
             fields.append([item, {'name': self['item_{}'.format(item.id)]}])
         return fields
+
+    def create_product(self):
+        product = Product.objects.create(
+            title=self.cleaned_data['title'],
+            part_number=self.cleaned_data['part_number'],
+            notes=self.cleaned_data['notes'])
+        for item in Item.objects.all():
+            quantity = self.cleaned_data['item_{}'.format(item.id)]
+            if quantity is not None and float(quantity) > 0:
+                Component.objects.create(product=product,
+                                         item=item,
+                                         quantity=quantity)
 
 
 class AddOrderForm(forms.Form):
