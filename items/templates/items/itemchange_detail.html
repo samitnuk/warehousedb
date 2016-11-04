@@ -4,41 +4,42 @@
 
 {% block meta_title %}Інформація по зміні кількості{% endblock meta_title %}
 
-{% block header %}{{ item.title }}{% endblock header %}
+{% block header %}.{% endblock header %}
 
 {% block content %}
 
 <div class="row">
-  <div class="two columns">
-    <h6>Зміна кількості</h6>
+  <div class="two columns"><h6>Компонент</h6></div>
+  <div class="ten columns">
+    <h5>{{ item_change.item.title }} {{ item_change.item.part_number }}</h5>
   </div>
+</div>
+
+<div class="row">
+  <div class="two columns"><h6>Зміна кількості</h6></div>
   <div class="ten columns">
     <h5>{{ item_change.additional_quantity|floatformat }}</h5>
   </div>
 </div>
 
 <div class="row">
-  <div class="two columns">
-    <h6>Компонент</h6>
-  </div>
+  <div class="two columns"><h6>Дата</h6></div>
   <div class="ten columns">
-    <h5>{{ item_change.item.title }} {{ item_change.item.part_number }}</h5>
-  </div>
-</div>  
-
-<div class="row">
-  <div class="two columns">
-    <h6>Дата</h6>
-  </div>
-  <div class="ten columns">
-    <h5>{{ item_change.changed_at |date:'Y-m-d' }}</h5>
+    <h5>{{ item_change.changed_at|date:'d.m.Y / F d (l)' }}</h5>
   </div>
 </div>
 
+{% if item_change.material %}
 <div class="row">
-  <div class="two columns">
-    <h6>Коментар</h6>
+  <div class="two columns"><h6>Матеріал</h6></div>
+  <div class="ten columns">
+    <h5>{{ item_change.material }}</h5>
   </div>
+</div>
+{% endif %}
+
+<div class="row">
+  <div class="two columns"><h6>Коментар</h6></div>
   <div class="ten columns">
     <h5>{{ item_change.notes|linebreaks }}</h5>
   </div>

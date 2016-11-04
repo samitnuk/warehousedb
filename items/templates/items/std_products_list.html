@@ -1,0 +1,38 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Стандартні вироби{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+  <div class="eight columns"><h5>Стандартні вироби</h5></div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row">
+  <div class="three columns">
+      <a class="button button-primary u-full-width"
+         href="{% url 'product_create_std_cable' %}">Додати стандартний трос</a>
+  </div>
+</div>
+<div class="row">
+  <div class="three columns">
+      <a class="button button-primary u-full-width"
+         href="{% url 'product_create_b_cable' %}">Додати трос Богдан</a>
+  </div>
+</div>
+<div class="row">
+  <div class="three columns">
+      <a class="button button-primary u-full-width"
+         href="{% url 'product_create_tza_cable' %}">Додати трос ТЗА </a>
+  </div>
+</div>
+<div class="row">
+  <div class="three columns">
+      <a class="button button-primary u-full-width"
+         href="{% url 'product_create_h_cable' %}">Додати трос ТЗА </a>
+  </div>
+</div>
+{% endblock content %}
