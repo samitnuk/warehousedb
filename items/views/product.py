@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
+from django.views.generic import DeleteView
+from django.views.generic import TemplateView
 
-from ..models import Item, Product, Component
+from ..models import Product
 from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
                      AddBCableForm, AddHCableForm)
 
@@ -14,54 +15,28 @@ class ProductList(ListView):
     context_object_name = 'products'
 
 
-@login_required(login_url='/login/')
-def list_(request):
-    context = {'products': Product.objects.all()}
-
-    return render(request, 'items/product_list.html', context)
+class ProductDetail(DetailView):
+    model = Product
 
 
-@login_required(login_url='/login/')
-def detail(request, pk):
-    context = {'product': Product.objects.filter(pk=pk).first()}
+class ProductCreate(FormView):
+    template_name = 'items/product_form.html'
+    form_class = AddProductForm
+    success_url = reverse_lazy('product_list')
 
-    return render(request, 'items/product_detail.html', context)
-
-
-@login_required(login_url='/login/')
-def create(request):
-
-    form = AddProductForm(request.POST or None)
-
-    items = Item.objects.all()
-
-    if request.method == 'POST':
-        if form.is_valid():
-            product = Product.objects.create(
-                title=form.cleaned_data['title'],
-                part_number=form.cleaned_data['part_number'],
-                notes=form.cleaned_data['notes'])
-
-            for item in items:
-                quantity = form.cleaned_data['item_{}'.format(item.id)]
-                if quantity is not None and float(quantity) > 0:
-                    Component.objects.create(product=product,
-                                             item=item,
-                                             quantity=quantity,)
-
-            return redirect('product_list')
-
-        else:
-            context = {'items': items, 'form': form}
-            return render(request, 'items/product_create.html', context)
-
-    context = {'items': items, 'form': form}
-    return render(request, 'items/product_create.html', context)
+    def form_valid(self, form):
+        form.create_product()
+        return super(ProductCreate, self).form_valid(form)
 
 
-@login_required(login_url='/login/')
-def delete(request, pk):
-    pass
+class ProductDelete(DeleteView):
+    model = Product
+    success_url = reverse_lazy('order_list')
+    template_name = "items/object_confirm_delete.html"
+
+
+class StdProductsList(TemplateView):
+    template_name = 'items/std_products_list.html'
 
 
 class StdCableCreate(FormView):

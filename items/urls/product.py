@@ -11,16 +11,20 @@ urlpatterns = [
         name='product_list'),
 
     url(r'^detail/(?P<pk>\d+)/',
-        product.detail,
+        login_required(product.ProductDetail.as_view()),
         name='product_detail'),
 
     url(r'^create/',
-        product.create,
+        login_required(product.ProductCreate.as_view()),
         name='product_create'),
 
     url(r'^delete/(?P<pk>\d+)/',
-        product.delete,
+        login_required(product.ProductDelete.as_view()),
         name='product_delete'),
+
+    url(r'^std_products_list/',
+        login_required(product.StdProductsList.as_view()),
+        name='std_products_list'),
 
     url(r'^create_std_cable/',
         login_required(product.StdCableCreate.as_view()),

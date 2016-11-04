@@ -15,7 +15,7 @@ class OrderList(ListView):
 
 
 class OrderCreate(FormView):
-    template_name = 'items/order_create.html'
+    template_name = 'items/order_form.html'
     form_class = AddOrderForm
     success_url = reverse_lazy('order_list')
 
