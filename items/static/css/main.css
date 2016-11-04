@@ -6,6 +6,11 @@ body {
     font-family: 'Scada', 'Ubuntu Condensed', sans-serif;
 }
 
+p.clarifying {
+    margin-bottom: 0;
+    color: #bbb;
+}
+
 a {
     text-decoration: none;
 }
