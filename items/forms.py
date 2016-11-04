@@ -21,16 +21,12 @@ class LoginForm(forms.Form):
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
-            self.add_error(
-                'username',
-                forms.ValidationError('Неправильний логін'),
-            )
+            self.add_error('username',
+                           forms.ValidationError('Неправильний логін'))
         else:
-            if not user.check_password(password) and password:
-                self.add_error(
-                    'password',
-                    forms.ValidationError('Неправильний пароль'),
-                )
+            if password and not user.check_password(password):
+                self.add_error('password',
+                               forms.ValidationError('Неправильний пароль'))
         return cleaned_data
 
 
