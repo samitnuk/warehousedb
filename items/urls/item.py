@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
+from django.views.generic.base import RedirectView
 
 from ..views import item
 
@@ -7,16 +8,15 @@ from ..views import item
 urlpatterns = [
 
     url(r'^$',
+        RedirectView.as_view(pattern_name='item_list', permanent=False)),
+
+    url(r'^item/list/(?P<category_pk>\d+)?/?',
         login_required(item.ItemList.as_view()),
         name='item_list'),
 
     url(r'^item/list_by_dates/',
         item.list_by_dates,
         name='item_list_by_dates'),
-
-    url(r'^item/list_by_categories/(?P<category_pk>\d+)?/?',
-        item.list_by_categories,
-        name='item_list_by_categories'),
 
     url(r'^item/detail/(?P<pk>\d+)/',
         login_required(item.ItemDetail.as_view()),

@@ -17,9 +17,6 @@
         <li role="presentation" class="nav-active">
           <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
         </li>
-        <li role="presentation">
-          <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
-        </li>
       </ul>
     </div>
     <div class="two columns u-pull-right">
@@ -34,11 +31,11 @@
 {% block content %}
 
 <form  action="{% url 'item_list_by_dates' %}" method="post">
-  
+
   {% csrf_token %}
 
   {{ form.non_field_errors }}
-  
+
   <div class="row">
     <div class="one column">
       <label for="range_start" class="u-pull-right">від:</label>
@@ -51,7 +48,7 @@
     </div>
     <div class="three columns">{{ form.range_stop|addclass:"u-full-width" }}</div>
     <span class="error">{{ form.range_stop.errors }}</span>
-    
+
     <div class="four columns">
       <input class="button-primary" type="submit" value="Показати">
     </div>

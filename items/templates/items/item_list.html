@@ -2,7 +2,7 @@
 
 {% load static from staticfiles %}
 
-{% block meta_title %}Загальна інформація{% endblock meta_title %}
+{% block meta_title %}Склад по категоріях{% endblock meta_title %}
 
 {% block subnavigation %}
   <div class="row" id="navigation">
@@ -10,9 +10,6 @@
       <ul class="nav-menu">
         <li role="presentation">
           <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
-        </li>
-        <li role="presentation">
-          <a href="{% url 'item_list_by_categories' %}">Склад по категоріях</a>
         </li>
       </ul>
     </div>
@@ -26,51 +23,55 @@
 {% endblock subnavigation %}
 
 {% block content %}
-{% for category in view.categories %}
 <div class="row">
-  <div class="two columns">
-    <a class="button button-primary u-full-width"
-       href="{% url 'item_list_by_categories' category.id %}">{{ category.title }}</a>
-  </div>
-  <div class="ten columns">
-    <table class="u-full-width">
-      <thead>
-        <tr>
-          <th>-</th>
-          <th>Найменування</th>
-          <th>Індекс</th>
-          <th>Наш індекс</th>
-          <th>Примітка</th>
-          <th>К-сть</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in items %}
-          {% if item.category == category %}
-          <tr>
-            <td>
-              <a class="item_link"
-                 href="{% url 'itemchange_create' item.id %}">
-                &plusmn;
-              </a>
-            </td>
-            <td>
-              <abbr title="{{ item.notes }}">
-                <a class="item_link" href="{% url 'item_detail' item.id %}">
-                  {{ item.title }}
-                </a>
-              </abbr>
-            </td>
-            <td>{{ item.part_number }}</td>
-            <td>{{ item.part_number2 }}</td>
-            <td class="notes">{{ item.notes }}</td>
-            <td>{{ item.current_total|floatformat }}</td>
-          </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
+  <div class="u-full-width">
+    <ul class="nav-menu">
+      {% for category in categories %}
+      <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
+        <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
 </div>
-{% endfor %}
+<div class="row">
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>-</th>
+        <th>Найменування</th>
+        <th>Індекс</th>
+        <th>Наш індекс</th>
+        <th>Норма витрати, м</th>
+        <th>Вага, кг</th>
+        <th>К-сть</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>
+          <a class="item_link"
+             href="{% url 'itemchange_create' item.id %}">
+            &plusmn;
+          </a>
+        </td>
+        <td>
+          <abbr title="{{ item.notes }}">
+            <a class="item_link"
+               href="{% url 'item_detail' item.id %}">
+              {{ item.title }}
+            </a>
+          </abbr>
+        </td>
+        <td>{{ item.part_number }}</td>
+        <td>{{ item.part_number2 }}</td>
+        <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
+        <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
+        <td>{{ item.current_total|floatformat }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock content %}
