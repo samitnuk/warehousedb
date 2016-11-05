@@ -1,4 +1,4 @@
-a{% extends 'items/base.html' %}
+{% extends 'items/base.html' %}
 
 {% load static from staticfiles %}
 
@@ -6,11 +6,11 @@ a{% extends 'items/base.html' %}
 
 {% block meta_title %}Логін{% endblock meta_title %}
 
-{% block navigation %} {% endblock navigation %}
+{% block navigation %}{% endblock navigation %}
 
 {% block content %}
 
-<form  action="{% url 'login' %}" method="post" style="padding-top: 15px;">
+<form  action="{% url 'login' %}" method="post">
 
   {% csrf_token %}
 
@@ -29,8 +29,9 @@ a{% extends 'items/base.html' %}
   </div>
 
   <div class="row">
+    <div class="two columns">.</div>
     <div class="three columns">
-      <input class="button-primary" type="submit" value="Логін">
+      <input class="button-primary" type="submit" value="Увійти">
     </div>
   </div>
 
