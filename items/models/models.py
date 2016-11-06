@@ -41,6 +41,9 @@ class Item(Base):
             return '{} - {}'.format(self.part_number, self.title,)
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('item_detail', kwargs={'pk': self.pk})
+
     @property
     def current_total(self):
         total = self.i_quantity.aggregate(models.Sum('additional_quantity'))
