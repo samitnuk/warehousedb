@@ -91,13 +91,9 @@ class ToolDelete(DeleteView):
     template_name = "items/object_confirm_delete.html"
 
 
-@login_required(login_url='/login/')
-def toolchange_detail(request, pk):
-
-    return render(
-        request, 'items/toolchange_detail.html',
-        {'toolchange': ToolChange.objects.filter(pk=pk).first()}
-    )
+class ToolChangeDetail(DetailView):
+    model = ToolChange
+    context_object_name = 'toolchange'
 
 
 class ToolChangeCreate(CreateView):

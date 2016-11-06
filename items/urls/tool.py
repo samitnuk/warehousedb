@@ -31,7 +31,7 @@ urlpatterns = [
         name='tool_delete'),
 
     url(r'^toolchange_detail/(?P<pk>\d+)/',
-        tool.toolchange_detail,
+        login_required(tool.ToolChangeDetail.as_view()),
         name='toolchange_detail'),
 
     url(r'^toolchange_create/(?P<tool_pk>\d+)/',

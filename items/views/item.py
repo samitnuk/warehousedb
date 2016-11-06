@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView  # DeleteView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
@@ -29,24 +29,6 @@ class ItemList(ListView):
         context['categories'] = categories
         context['items'] = Item.objects.filter(category=active_category)
         return context
-
-
-# @login_required(login_url='/login/')
-# def list_by_categories(request, category_pk):
-#
-#     categories = Category.objects.all()
-#
-#     if category_pk is None:
-#         active_category = categories.first()
-#     else:
-#         active_category = categories.filter(pk=category_pk).first()
-#
-#     context = {
-#         'items': Item.objects.filter(category=active_category),
-#         'active_category_id': active_category.id,
-#         'categories': categories}
-#
-#     return render(request, 'items/item_list_by_categories.html', context)
 
 
 @login_required(login_url='/login/')
@@ -101,7 +83,18 @@ class ItemCreate(CreateView):
     model = Item
     fields = ['title', 'part_number', 'part_number2', 'picture', 'category',
               'rate', 'weight', 'notes']
+
+
+class ItemUpdate(UpdateView):
+    model = Item
+    fields = ['title', 'part_number', 'part_number2', 'picture', 'category',
+              'rate', 'weight', 'notes']
+
+
+class ItemDelete(DeleteView):
+    model = Item
     success_url = reverse_lazy('item_list')
+    template_name = "items/object_confirm_delete.html"
 
 
 class ItemChangeDetail(DetailView):

@@ -26,6 +26,14 @@ urlpatterns = [
         login_required(item.ItemCreate.as_view()),
         name='item_create'),
 
+    url(r'^item/update/(?P<pk>\d+)/',
+        login_required(item.ItemUpdate.as_view()),
+        name='item_update'),
+
+    url(r'^item/delete/(?P<pk>\d+)/',
+        login_required(item.ItemDelete.as_view()),
+        name='item_delete'),
+
     url(r'^item/itemchange_detail/(?P<pk>\d+)/',
         login_required(item.ItemChangeDetail.as_view()),
         name='itemchange_detail'),

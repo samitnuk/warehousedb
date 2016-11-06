@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -95,13 +95,9 @@ class MaterialDelete(DeleteView):
     template_name = "items/object_confirm_delete.html"
 
 
-@login_required(login_url='/login/')
-def materialchange_detail(request, pk):
-
-    return render(
-        request, 'items/materialchange_detail.html',
-        {'materialchange': MaterialChange.objects.filter(pk=pk).first()}
-    )
+class MaterialChangeDetail(DetailView):
+    model = MaterialChange
+    context_object_name = 'materialchange'
 
 
 class MaterialChangeCreate(CreateView):
@@ -132,4 +128,3 @@ class MaterialChangeDelete(DeleteView):
     model = MaterialChange
     success_url = reverse_lazy('material_list')
     template_name = "items/object_confirm_delete.html"
-

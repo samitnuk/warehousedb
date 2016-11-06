@@ -31,7 +31,7 @@ urlpatterns = [
         name='material_delete'),
 
     url(r'^materialchange_detail/(?P<pk>\d+)/',
-        material.materialchange_detail,
+        login_required(material.MaterialChangeDetail.as_view()),
         name='materialchange_detail'),
 
     url(r'^materialchange_create/(?P<material_pk>\d+)',
