@@ -1,0 +1,39 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Інформація по зміні кількості{% endblock meta_title %}
+
+{% block header %}.{% endblock header %}
+
+{% block content %}
+
+<div class="row">
+  <div class="two columns"><h6>Компонент</h6></div>
+  <div class="ten columns">
+    <h5>{{ materialchange.material.title }}</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="two columns"><h6>Зміна кількості</h6></div>
+  <div class="ten columns">
+    <h5>{{ materialchange.additional_quantity }}</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="two columns"><h6>Дата</h6></div>
+  <div class="ten columns">
+    <h5>{{ materialchange.changed_at|date:'d.m.Y / F d (l)' }}</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="two columns"><h6>Коментар</h6></div>
+  <div class="ten columns">
+    <h5>{{ materialchange.notes|linebreaks }}</h5>
+  </div>
+</div>
+
+{% endblock content %}
