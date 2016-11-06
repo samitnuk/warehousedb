@@ -113,6 +113,10 @@ tr.order_ready:hover {
     background-color: #A9E2F3;
 }
 
+td.alert {
+    background-color: #da611e;
+}
+
 thead {
     background-color: #444;
     color: #fff;
