@@ -42,14 +42,14 @@ h5 {
 .button.button-danger,
 input[type="submit"].button-danger {
     color: #FFF;
-    background-color: #c2561a;
-    border-color: #c2561a;
+    background-color: #FF0000;
+    border-color: #FF0000;
 }
 .button.button-danger:hover,
 input[type="submit"].button-danger:hover {
     color: #FFF;
-    background-color: #da611e;
-    border-color: #da611e;
+    background-color: #DF0101;
+    border-color: #DF0101;
 }
 
 .button {
@@ -114,7 +114,7 @@ tr.order_ready:hover {
 }
 
 td.alert {
-    background-color: #da611e;
+    background-color: #FF0000;
 }
 
 thead {
