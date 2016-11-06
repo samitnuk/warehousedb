@@ -50,7 +50,9 @@
           </a>
         </td>
         <td class="notes">{{ tool.notes }}</td>
-        <td>{{ tool.current_total|floatformat }}</td>
+        <td {% if tool.current_total < 0 %}class="alert"{% endif %}>
+          {{ tool.current_total|floatformat }}
+        </td>
       </tr>
       {% endfor %}
     </tbody>
