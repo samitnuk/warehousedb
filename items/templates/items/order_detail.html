@@ -6,7 +6,8 @@
 
 {% block header %}
 <div class="row" id="header">
-  <div class="eight columns"><h5>{{ order.customer }}</h5></div>
+  <div class="{% if order.ready %}ten{% else %}eight{% endif %} columns">
+      <h5>{{ order.customer }}</h5></div>
   {% if not order.ready %}
   <div class="two columns">
     <a class="button button-primary u-full-width"
