@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 
 from items.views import login, logout
@@ -33,5 +34,11 @@ urlpatterns = [
 
     url(r'^login/', login, name='login'),
     url(r'^logout/', logout, name='logout'),
+
+    url(r'^robots.txt$',
+        TemplateView.as_view(
+            template_name="items/robots.txt",
+            content_type="text/plain"),
+        name="robots_file")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
