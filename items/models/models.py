@@ -59,6 +59,9 @@ class Category(Base):
 
     """
 
+    special = models.BooleanField(default=False,
+                                  verbose_name="Спеціальна категорія")
+
     class Meta:
         verbose_name = "Категорія"
         verbose_name_plural = "Категорії"
@@ -282,9 +285,10 @@ class ToolChange(BaseChange):
         verbose_name_plural = "Інструменти (зміна кількості)"
 
     def __str__(self):
-        return '{} / {} / {} шт.'.format(self.tool,
-                                         self.changed_at.strftime('%Y-%m-%d'),
-                                         int(self.additional_quantity))
+        return '{} / {} / {} шт.'.format(
+            self.tool,
+            self.changed_at.strftime('%Y-%m-%d'),
+            int(self.additional_quantity))
 
     def get_absolute_url(self):
         return reverse('toolchange_detail', kwargs={'pk': self.pk})

@@ -23,17 +23,35 @@
 {% endblock subnavigation %}
 
 {% block content %}
-<div class="row">
+
+<div class="row"> <!-- for categories -->
   <div class="u-full-width">
     <ul class="nav-menu">
       {% for category in categories %}
-      <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
-        <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
-      </li>
+        {% if not category.special %}
+        <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
+          <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
+        </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
 </div>
+
+<div class="row"> <!-- for special categories -->
+  <div class="u-full-width">
+    <ul class="nav-menu">
+      {% for category in categories %}
+        {% if category.special %}
+        <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
+          <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
 <div class="row">
   <table class="u-full-width">
     <thead>
