@@ -29,7 +29,7 @@
     <ul class="nav-menu">
       {% for category in categories %}
         {% if not category.special %}
-        <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
+        <li role="presentation" {% if category.id == active_category.id %}class="nav-active"{% endif %}>
           <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
         </li>
         {% endif %}
@@ -43,7 +43,7 @@
     <ul class="nav-menu">
       {% for category in categories %}
         {% if category.special %}
-        <li role="presentation" {% if category.id == active_category_id %}class="nav-active"{% endif %}>
+        <li role="presentation" {% if category.id == active_category.id %}class="nav-active"{% endif %}>
           <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
         </li>
         {% endif %}
@@ -61,7 +61,9 @@
         <th>Індекс</th>
         <th>Наш індекс</th>
         <th>Примітка</th>
+        {% if not active_category.special %}
         <th>Норма витрати, м</th>
+        {% endif %}
         <th>Вага, кг</th>
         <th>К-сть</th>
       </tr>
@@ -88,7 +90,9 @@
         <td class="notes">
           {{ item.notes }}
         </td>
+        {% if not item.category.special %}
         <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
+        {% endif %}
         <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
         <td {% if item.current_total < 0 %}class="alert"{% endif %}>
           {{ item.current_total|floatformat }}

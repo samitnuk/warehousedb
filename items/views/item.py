@@ -25,7 +25,7 @@ class ItemList(ListView):
             active_category = categories.filter(special=False).first()
         else:
             active_category = categories.filter(pk=category_pk).first()
-        context['active_category_id'] = active_category.id
+        context['active_category'] = active_category
         context['categories'] = categories
         context['items'] = Item.objects.filter(category=active_category)
         return context
