@@ -102,6 +102,11 @@ class Product(Base):
             weight += component.item.weight * component.quantity
         return weight
 
+    @property
+    def weight_is_correct(self):
+        # return True if for all components indicated item.weight
+        return all([component.item.weight for component in self.components])
+
 
 class Component(models.Model):
     """Component Model

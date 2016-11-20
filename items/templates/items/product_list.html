@@ -41,7 +41,8 @@
             <td>{{ product.part_number }}</td>
             </td>
             <td class="notes">{{ product.notes }}</td>
-            <td>{{ product.weight }}</td>
+            <td {% if not product.weight_is_correct and product.weight %}class="alert"{% endif %}>
+              {% if product.weight %}{{ product.weight }}{% endif %}</td>
           </tr>
         {% endfor %}
       </tbody>
