@@ -31,7 +31,7 @@ class ProductCreate(FormView):
 
 class ProductDelete(DeleteView):
     model = Product
-    success_url = reverse_lazy('order_list')
+    success_url = reverse_lazy('product_list')
     template_name = "items/object_confirm_delete.html"
 
 
