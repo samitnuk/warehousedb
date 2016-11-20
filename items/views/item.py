@@ -22,7 +22,7 @@ class ItemList(ListView):
         categories = Category.objects.all()
         category_pk = self.kwargs.get('category_pk', None)
         if category_pk is None:
-            active_category = categories.first()
+            active_category = categories.filter(special=False).first()
         else:
             active_category = categories.filter(pk=category_pk).first()
         context['active_category_id'] = active_category.id
