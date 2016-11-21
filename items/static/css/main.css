@@ -62,8 +62,7 @@ input[type="submit"].button-danger:hover {
 
 svg {
     vertical-align: middle;
-    margin-left: 15px;
-    top: -5px;
+    float: right;
 }
 
 
