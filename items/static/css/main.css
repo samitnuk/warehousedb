@@ -60,6 +60,12 @@ input[type="submit"].button-danger:hover {
     display: none;
 }
 
+svg {
+    vertical-align: middle;
+    margin-left: 15px;
+    top: -5px;
+}
+
 
 /* navigation styles */
 #navigation {
@@ -114,7 +120,8 @@ tr.order_ready:hover {
 }
 
 td.alert {
-    background-color: #FF0000;
+    /*background-color: #FF0000;*/
+    color: #FF0000;
 }
 
 thead {
