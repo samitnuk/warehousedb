@@ -44,7 +44,13 @@
 {% if item.weight %}
 <div class="row">
   <div class="two columns">Вага, кг</div>
-  <div class="ten columns"><h5>{{ item.weight}}</h5></div>
+  <div class="ten columns"><h5>{{ item.weight }}</h5></div>
+</div>
+{% endif %}
+{% if item.critical_qty %}
+<div class="row">
+  <div class="two columns">Критична кількість</div>
+  <div class="ten columns"><h5>{{ item.critical_qty|floatformat }}</h5></div>
 </div>
 {% endif %}
 {% if item.notes %}

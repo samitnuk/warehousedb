@@ -68,7 +68,7 @@ class ToolDetail(DetailView):
 
 class ToolCreate(CreateView):
     model = Tool
-    fields = ['title', 'notes']
+    fields = ['title', 'critical_qty', 'notes']
     template_name = 'items/object_form.html'
     success_url = reverse_lazy('tool_list')
 
@@ -78,7 +78,7 @@ class ToolCreate(CreateView):
 
 class ToolUpdate(UpdateView):
     model = Tool
-    fields = ['title', 'notes']
+    fields = ['title', 'critical_qty', 'notes']
     template_name = 'items/object_form.html'
 
     def page_name(self):

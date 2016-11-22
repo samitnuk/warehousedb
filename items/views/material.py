@@ -72,7 +72,7 @@ class MaterialDetail(DetailView):
 
 class MaterialCreate(CreateView):
     model = Material
-    fields = ['title', 'notes']
+    fields = ['title', 'critical_qty', 'notes']
     template_name = 'items/object_form.html'
     success_url = reverse_lazy('material_list')
 
@@ -82,7 +82,7 @@ class MaterialCreate(CreateView):
 
 class MaterialUpdate(UpdateView):
     model = Material
-    fields = ['title', 'notes']
+    fields = ['title', 'critical_qty', 'notes']
     template_name = 'items/object_form.html'
 
     def page_name(self):

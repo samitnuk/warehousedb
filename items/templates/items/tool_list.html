@@ -51,7 +51,7 @@
           </a>
         </td>
         <td class="notes">{{ tool.notes }}</td>
-        {% if tool.current_total < 0 %}
+        {% if tool.current_total < tool.critical_qty %}
         <td class="alert">{{ tool.current_total|floatformat }}</td>
         <td>
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 32 32" width="25">

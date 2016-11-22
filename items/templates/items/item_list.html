@@ -95,7 +95,7 @@
         <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
         {% endif %}
         <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
-        {% if item.current_total < 0 %}
+        {% if item.current_total < item.critical_qty %}
         <td class="alert">{{ item.current_total|floatformat }}</td>
         <td>
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 32 32" width="25">

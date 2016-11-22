@@ -82,13 +82,13 @@ class ItemDetail(DetailView):
 class ItemCreate(CreateView):
     model = Item
     fields = ['title', 'part_number', 'part_number2', 'picture', 'category',
-              'rate', 'weight', 'notes']
+              'rate', 'weight', 'critical_qty', 'notes']
 
 
 class ItemUpdate(UpdateView):
     model = Item
     fields = ['title', 'part_number', 'part_number2', 'picture', 'category',
-              'rate', 'weight', 'notes']
+              'rate', 'weight', 'critical_qty', 'notes']
 
 
 class ItemDelete(DeleteView):

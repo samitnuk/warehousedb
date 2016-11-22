@@ -6,8 +6,8 @@
 
 {% block header %}
 <div class="row" id="navigation">
-    <div class="eight columns">
-    	 <h5>{{ object.title }}</h5>
+  <div class="eight columns">
+    <h5>{{ object.title }}</h5>
     </div>
     <div class="two columns">
       <a class="button button-primary u-full-width"
@@ -26,9 +26,14 @@
 
 {% block content %}
 
+<div class="row">
+  <div class="two columns">Критична кількість</div>
+  <div class="ten columns"><h5>{{ object.critical_qty|floatformat }}</h5></div>
+</div>
 {% if object.notes %}
 <div class="row">
-  <div class="u-full-width"><p>{{ object.notes }}</p></div>
+  <div class="two columns">Примітка</div>
+  <div class="ten columns"><h5>{{ object.notes }}</h5></div>
 </div>
 {% endif %}
 

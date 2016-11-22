@@ -27,6 +27,12 @@
   </div>
 
   <div class="row">
+    <div class="two columns">{{ form.critical_qty.label_tag }}</div>
+    <div class="seven columns">{{ form.critical_qty|addclass:"u-full-width" }}</div>
+    <div class="three columns error">{{ form.critical_qty.errors }}</div>
+  </div>
+
+  <div class="row">
     <div class="two columns">{{ form.notes.label_tag }}</div>
     <div class="seven columns">{{ form.notes|addclass:"u-full-width" }}</div>
     <div class="three columns error">{{ form.notes.errors }}</div>
