@@ -6,8 +6,8 @@ from django.views.generic import DeleteView
 from django.views.generic import TemplateView
 
 from ..models import Product
-from ..forms import (AddProductForm, AddStdCableForm, AddTZACableForm,
-                     AddBCableForm, AddHCableForm)
+from ..forms import (AddProductForm, AddStdCableForm, AddStdTCableForm,
+                     AddTZACableForm, AddBCableForm, AddHCableForm)
 
 
 class ProductList(ListView):
@@ -47,6 +47,16 @@ class StdCableCreate(FormView):
     def form_valid(self, form):
         form.create_std_cable()
         return super(StdCableCreate, self).form_valid(form)
+
+
+class StdTCableCreate(FormView):
+    template_name = 'items/product_create_std_t_cable.html'
+    form_class = AddStdTCableForm
+    success_url = reverse_lazy('product_list')
+
+    def form_valid(self, form):
+        form.create_std_t_cable()
+        return super(StdTCableCreate, self).form_valid(form)
 
 
 class TZACableCreate(FormView):

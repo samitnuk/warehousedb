@@ -30,6 +30,10 @@ urlpatterns = [
         login_required(product.StdCableCreate.as_view()),
         name='product_create_std_cable'),
 
+    url(r'^create_std_t_cable/',
+        login_required(product.StdTCableCreate.as_view()),
+        name='product_create_std_t_cable'),
+
     url(r'^create_tza_cable/',
         login_required(product.TZACableCreate.as_view()),
         name='product_create_tza_cable'),

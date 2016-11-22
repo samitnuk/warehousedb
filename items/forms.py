@@ -158,6 +158,63 @@ class AddStdCableForm(forms.Form):
             length=self.cleaned_data['length'])
 
 
+class AddStdTCableForm(forms.Form):
+
+    SERIES = (
+        # (3, "#3 серія"),
+        (4, "#4 серія"),
+        # (6, "#6 серія"),
+        # (8, "#8 серія"),
+    )
+
+    TRAVELS = (
+        (1, "1й хід (25 мм)"),
+        (2, "2й хід (50 мм)"),
+        (3, "3й хід (75 мм)"),
+        (4, "4й хід (100 мм)"),
+        (5, "5й хід (125 мм)"),)
+
+    MOUNTINGS = (
+        ("22", "22 (різьба-різьба)"),
+        ("23", "23 (різьба-клемп)"),
+        ("33", "33 (клемп-клемп)"),)
+
+    conduit = forms.ChoiceField(label="Кожух", choices=[])
+
+    core = forms.ChoiceField(label="Сердечник", choices=[])
+
+    serie = forms.ChoiceField(label="Серія", choices=SERIES)
+
+    travel = forms.ChoiceField(label="Хід", choices=TRAVELS)
+
+    mounting = forms.ChoiceField(label="Кріплення", choices=MOUNTINGS)
+
+    is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
+
+    length = forms.IntegerField(label="Довжина, мм")
+
+    def __init__(self, *args, **kwargs):
+        super(AddStdTCableForm, self).__init__(*args, **kwargs)
+
+        conduits_category = Category.objects.filter(title="Кожух")
+        conduits = Item.objects.filter(category=conduits_category)
+        self.fields['conduit'].choices = get_choices(conduits)
+
+        cores_category = Category.objects.filter(title="Сердечник")
+        cores = Item.objects.filter(category=cores_category)
+        self.fields['core'].choices = get_choices(cores)
+
+    def create_std_t_cable(self):
+        utils.create_std_t_cable(
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            serie=self.cleaned_data['serie'],
+            travel=self.cleaned_data['travel'],
+            mounting=self.cleaned_data['mounting'],
+            is_st_rods=self.cleaned_data['is_st_rods'],
+            length=self.cleaned_data['length'])
+
+
 class AddTZACableForm(forms.Form):
 
     conduit = forms.ChoiceField(label="Кожух", choices=[])
