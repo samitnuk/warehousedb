@@ -25,10 +25,10 @@ class Item(Base):
     category = models.ForeignKey('Category', blank=True, null=True,
                                  verbose_name="Категорія")
 
-    rate = models.FloatField(blank=True,
+    rate = models.FloatField(default=0,
                              verbose_name="Норма витрати, м")
 
-    weight = models.FloatField(blank=True,
+    weight = models.FloatField(default=0,
                                verbose_name="Вага, кг")
 
     critical_qty = models.FloatField(default=0,
@@ -52,7 +52,7 @@ class Item(Base):
         total = self.i_quantity.aggregate(models.Sum('additional_quantity'))
         if total['additional_quantity__sum'] is not None:
             return total['additional_quantity__sum']
-        return ""
+        return 0
 
 
 class Category(Base):
@@ -194,7 +194,7 @@ class Material(Base):
         total = self.m_quantity.aggregate(models.Sum('additional_quantity'))
         if total['additional_quantity__sum'] is not None:
             return total['additional_quantity__sum']
-        return ""
+        return 0
 
 
 class Tool(Base):
@@ -217,7 +217,7 @@ class Tool(Base):
         total = self.t_quantity.aggregate(models.Sum('additional_quantity'))
         if total['additional_quantity__sum'] is not None:
             return total['additional_quantity__sum']
-        return ""
+        return 0
 
     def get_absolute_url(self):
         return reverse('tool_detail', kwargs={'pk': self.pk})

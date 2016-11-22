@@ -63,7 +63,7 @@
             </svg>
         </td>
         {% else %}
-        <td>{{ tool.current_total|floatformat }}</td>
+        <td>{% if tool.current_total %}{{ tool.current_total|floatformat }}{% endif %}</td>
         <td></td>
         {% endif %}
       </tr>
