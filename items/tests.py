@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from .models import (Category, Item, ItemChange, Order,
+from .models import (Category, Item, ItemChange, Order, Component, Product,
                      Material, MaterialChange, Tool, ToolChange)
 
-from .utils import *
+# from .utils import *
+from . import utils
 
 
 class UserTests(TestCase):
@@ -191,7 +192,7 @@ class ProductTests(TestCase):
 
     def test_std_cable_creation(self):
 
-        create_std_cable(
+        utils.create_std_cable(
             conduit_id=self.conduit.id,
             core_id=self.core.id,
             serie=4,
@@ -211,9 +212,51 @@ class ProductTests(TestCase):
         self.assertEqual(core.quantity, self.length - 0.209)
         self.assertEqual(conduit.quantity, self.length - 0.391)
 
+    def test_std_t_cable_creation(self):
+
+        utils.create_std_t_cable(
+            conduit_id=self.conduit.id,
+            core_id=self.core.id,
+            serie=4,
+            travel=1,
+            mounting="22",
+            is_st_rods=True,
+            length=int(self.length * 1000))
+
+        utils.create_std_t_cable(
+            conduit_id=self.conduit.id,
+            core_id=self.core.id,
+            serie=4,
+            travel=3,
+            mounting="23",
+            is_st_rods=True,
+            length=int(self.length * 1000))
+
+        utils.create_std_t_cable(
+            conduit_id=self.conduit.id,
+            core_id=self.core.id,
+            serie=4,
+            travel=2,
+            mounting="33",
+            is_st_rods=False,
+            length=int(self.length * 1000))
+
+        cables = Product.objects.all()
+        self.assertEqual(cables[0].part_number, "100.4M233.02500")
+        self.assertEqual(len(cables[0].components), 6)
+        self.assertEqual(cables[1].part_number, "100.4M323.02500")
+        self.assertEqual(len(cables[1].components), 9)
+        self.assertEqual(cables[2].part_number, "100.4M122.02500")
+        self.assertEqual(len(cables[2].components), 8)
+
+        core = cables[1].components.filter(item__title="Сердечник").first()
+        conduit = cables[1].components.filter(item__title="Кожух").first()
+        self.assertEqual(core.quantity, self.length - 0.057)
+        self.assertEqual(conduit.quantity, self.length - 0.406)
+
     def test_tza_cable_creation(self):
 
-        create_tza_cable(
+        utils.create_tza_cable(
             conduit_id=self.conduit.id,
             core_id=self.core.id,
             is_st_rods=True,
@@ -231,7 +274,7 @@ class ProductTests(TestCase):
 
     def test_H4_cable_creation(self):
 
-        create_h4_cable(
+        utils.create_h4_cable(
             core_id=self.core.id,
             conduit_id=self.conduit.id,
             is_st_rod_e=False,
@@ -249,14 +292,14 @@ class ProductTests(TestCase):
 
     def test_h2_cable_creation(self):
 
-        create_h2_cable(
+        utils.create_h2_cable(
             cable_type=6,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
             is_st_rod_e=True,
             length=int(self.length * 1000))
 
-        create_h2_cable(     # with -01
+        utils.create_h2_cable(     # with -01
             cable_type=7,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -278,21 +321,21 @@ class ProductTests(TestCase):
 
     def test_h5_cable_creation(self):
 
-        create_h5_cable(
+        utils.create_h5_cable(
             cable_type=0,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
             is_st_rod_e=True,
             length=int(self.length * 1000))
 
-        create_h5_cable(
+        utils.create_h5_cable(
             cable_type=2,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
             is_st_rod_e=False,
             length=int(self.length * 1000))
 
-        create_h5_cable(     # with -01
+        utils.create_h5_cable(     # with -01
             cable_type=5,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -315,7 +358,7 @@ class ProductTests(TestCase):
 
     def test_b_cable_creation(self):
 
-        create_b_cable(
+        utils.create_b_cable(
             cable_type=0,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -323,7 +366,7 @@ class ProductTests(TestCase):
             is_st_sleeves=True,
             length=3008)
 
-        create_b_cable(
+        utils.create_b_cable(
             cable_type=1,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -331,7 +374,7 @@ class ProductTests(TestCase):
             is_st_sleeves=False,
             length=3008)
 
-        create_b_cable(
+        utils.create_b_cable(
             cable_type=2,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -339,7 +382,7 @@ class ProductTests(TestCase):
             is_st_sleeves=True,
             length=3024)
 
-        create_b_cable(
+        utils.create_b_cable(
             cable_type=3,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
@@ -347,7 +390,7 @@ class ProductTests(TestCase):
             is_st_sleeves=False,
             length=3130)
 
-        create_b_cable(
+        utils.create_b_cable(
             cable_type=4,
             core_id=self.core.id,
             conduit_id=self.conduit.id,
