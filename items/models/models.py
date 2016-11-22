@@ -31,6 +31,9 @@ class Item(Base):
     weight = models.FloatField(blank=True,
                                verbose_name="Вага, кг")
 
+    critical_qty = models.FloatField(default=0,
+                                     verbose_name="Критична кількість")
+
     class Meta:
         verbose_name = "Позиція на складі"
         verbose_name_plural = "Позиції на складі"
@@ -175,6 +178,9 @@ class Material(Base):
 
     """
 
+    critical_qty = models.FloatField(default=0,
+                                     verbose_name="Критична кількість")
+
     class Meta:
         verbose_name = "Матеріал"
         verbose_name_plural = "Матеріали"
@@ -197,6 +203,9 @@ class Tool(Base):
     Describes separate tool in warehouse.
 
     """
+
+    critical_qty = models.FloatField(default=0,
+                                     verbose_name="Критична кількість")
 
     class Meta(object):
         verbose_name = "Інструмент"
