@@ -39,51 +39,34 @@ class StdProductsList(TemplateView):
     template_name = 'items/std_products_list.html'
 
 
-class StdCableCreate(FormView):
-    template_name = 'items/product_create_std_cable.html'
-    form_class = AddStdCableForm
+class StdProductCreate(FormView):
+    STD_PRODUCTS = {
+        0: {
+            'template_name': 'items/std_products/create_std_cable.html',
+            'form_class': AddStdCableForm},
+        1: {
+            'template_name': 'items/std_products/create_std_t_cable.html',
+            'form_class': AddStdTCableForm},
+        2: {
+            'template_name': 'items/std_products/create_tza_cable.html',
+            'form_class': AddTZACableForm},
+        3: {
+            'template_name': 'items/std_products/create_b_cable.html',
+            'form_class': AddBCableForm},
+        4: {
+            'template_name': 'items/std_products/create_h_cable.html',
+            'form_class': AddHCableForm},
+    }
+
     success_url = reverse_lazy('product_list')
 
-    def form_valid(self, form):
-        form.create_std_cable()
-        return super(StdCableCreate, self).form_valid(form)
+    def dispatch(self, request, *args, **kwargs):
+        product = self.STD_PRODUCTS[int(self.kwargs['product_num'])]
+        self.template_name = product['template_name']
+        self.form_class = product['form_class']
 
-
-class StdTCableCreate(FormView):
-    template_name = 'items/product_create_std_t_cable.html'
-    form_class = AddStdTCableForm
-    success_url = reverse_lazy('product_list')
+        return super(StdProductCreate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.create_std_t_cable()
-        return super(StdTCableCreate, self).form_valid(form)
-
-
-class TZACableCreate(FormView):
-    template_name = 'items/product_create_tza_cable.html'
-    form_class = AddTZACableForm
-    success_url = reverse_lazy('product_list')
-
-    def form_valid(self, form):
-        form.create_tza_cable()
-        return super(TZACableCreate, self).form_valid(form)
-
-
-class BCableCreate(FormView):
-    template_name = 'items/product_create_b_cable.html'
-    form_class = AddBCableForm
-    success_url = reverse_lazy('product_list')
-
-    def form_valid(self, form):
-        form.create_b_cable()
-        return super(BCableCreate, self).form_valid(form)
-
-
-class HCableCreate(FormView):
-    template_name = 'items/product_create_h_cable.html'
-    form_class = AddHCableForm
-    success_url = reverse_lazy('product_list')
-
-    def form_valid(self, form):
-        form.create_h_cable()
-        return super(HCableCreate, self).form_valid(form)
+        form.create_product()
+        return super(StdProductCreate, self).form_valid(form)
