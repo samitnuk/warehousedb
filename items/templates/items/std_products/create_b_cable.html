@@ -4,17 +4,17 @@
 
 {% load items_filters %}
 
-{% block meta_title %}Додати трос ТЗА{% endblock meta_title %}
+{% block meta_title %}Додати трос Богдан{% endblock meta_title %}
 
 {% block header %}
 <div class="row" id="header">
-  <div class="nine columns"><h5>Додати трос ТЗА</h5></div>
+  <div class="nine columns"><h5>Додати трос Богдан</h5></div>
 </div>
 {% endblock header %}
 
 {% block content %}
 
-<form  action="{% url 'product_create_tza_cable' %}" method="post">
+<form  action="" method="post">
 
 {% csrf_token %}
 
@@ -24,7 +24,7 @@
   <div class="row">
     <div class="two columns">{{ field.label_tag }}</div>
     <div class="seven columns">
-      {% if field is not form.is_st_rods %}
+      {% if field is not form.is_st_rods and field is not form.is_st_sleeves %}
         {{ field|addclass:"u-full-width" }}
       {% else %}
         {{ field }}
@@ -37,10 +37,15 @@
   <div class="row">
     <div class="two columns">.</div>
     <div class="three columns">
-      <input class="button-primary" type="submit" value="Підтвердити">
+      <input class="button-primary" type="submit" value="Створити">
     </div>
   </div>
 
 </form>
 
 {% endblock content %}
+
+{% block extra_js %}
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+  <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
+{% endblock extra_js %}
