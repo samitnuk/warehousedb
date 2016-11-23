@@ -145,7 +145,7 @@ class AddStdCableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
-    def create_std_cable(self):
+    def create_product(self):
         utils.create_std_cable(
             conduit_id=self.cleaned_data['conduit'],
             core_id=self.cleaned_data['core'],
@@ -204,7 +204,7 @@ class AddStdTCableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
-    def create_std_t_cable(self):
+    def create_product(self):
         utils.create_std_t_cable(
             conduit_id=self.cleaned_data['conduit'],
             core_id=self.cleaned_data['core'],
@@ -236,7 +236,7 @@ class AddTZACableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
-    def create_tza_cable(self):
+    def create_product(self):
         utils.create_tza_cable(
             conduit_id=self.cleaned_data['conduit'],
             core_id=self.cleaned_data['core'],
@@ -269,7 +269,7 @@ class AddBCableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
-    def create_b_cable(self):
+    def create_product(self):
         utils.create_b_cable(
             cable_type=self.cleaned_data['cable_type'],
             conduit_id=self.cleaned_data['conduit'],
@@ -302,7 +302,7 @@ class AddHCableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
-    def create_h_cable(self):
+    def create_product(self):
         utils.create_h_cable(
             cable_type=self.cleaned_data['cable_type'],
             conduit_id=self.cleaned_data['conduit'],
