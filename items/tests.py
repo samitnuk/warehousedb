@@ -139,15 +139,15 @@ class MaterialChangeTests(TestCase):
             title="Матеріал",
             notes="Тестова нотатка матеріалу")
 
-        ItemChange.objects.create(
+        item_change = ItemChange.objects.create(
             additional_quantity=100,
             item=self.item,
             material=material,
             notes="Тестова нотатка")
 
         materialchange = MaterialChange.objects.first()
-
-        self.assertEqual(materialchange.additional_quantity, -5.5)
+        add_qty = item_change.additional_quantity * self.item.rate * -1
+        self.assertEqual(materialchange.additional_quantity, add_qty)
 
 
 class ToolTests(TestCase):
