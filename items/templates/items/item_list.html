@@ -73,17 +73,11 @@
       {% for item in items %}
       <tr>
         <td>
-          <a class="item_link"
-             href="{% url 'itemchange_create' item.id %}">
-            &plusmn;
-          </a>
+          <ahref="{% url 'itemchange_create' item.id %}">&plusmn;</a>
         </td>
         <td>
           <abbr title="{{ item.notes }}">
-            <a class="item_link"
-               href="{% url 'item_detail' item.id %}">
-              {{ item.title }}
-            </a>
+            <a href="{% url 'item_detail' item.id %}">{{ item.title }}</a>
           </abbr>
         </td>
         <td>{{ item.part_number }}</td>

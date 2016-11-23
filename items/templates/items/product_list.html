@@ -35,10 +35,7 @@
         {% for product in products %}
           <tr>
             <td>
-              <a class="item_link"
-                 href="{% url 'product_detail' product.id %}">
-                {{ product.title }}
-              </a>
+              <a href="{% url 'product_detail' product.id %}">{{ product.title }}</a>
             <td>{{ product.part_number }}</td>
             </td>
             <td class="notes">{{ product.notes }}</td>

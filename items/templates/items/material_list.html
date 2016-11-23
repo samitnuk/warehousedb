@@ -39,16 +39,10 @@
       {% for material in materials %}
       <tr>
         <td>
-          <a class="item_link"
-             href="{% url 'materialchange_create' material.id %}">
-            &plusmn;
-          </a>
+          <a href="{% url 'materialchange_create' material.id %}">&plusmn;</a>
         </td>
         <td>
-          <a class="item_link"
-             href="{% url 'material_detail' material.id %}">
-            {{ material.title }}
-          </a>
+          <a href="{% url 'material_detail' material.id %}">{{ material.title }}</a>
         </td>
         <td class="notes">{{ material.notes }}</td>
         {% if material.current_total < material.critical_qty %}

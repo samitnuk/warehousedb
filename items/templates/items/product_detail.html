@@ -36,8 +36,7 @@
       {% for component in product.components %}
         <tr>
           <td>
-            <a class="item_link"
-               href="{% url 'item_detail' component.item.id %}">
+            <a href="{% url 'item_detail' component.item.id %}">
               {{ component.item.title }}
             </a>
           </td>

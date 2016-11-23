@@ -31,11 +31,11 @@
 {% block content %}
 
 <form  action="{% url 'tool_list_by_dates' %}" method="post">
-  
+
   {% csrf_token %}
 
   {{ form.non_field_errors }}
-  
+
   <div class="row">
     <div class="one column">
       <label for="range_start" class="u-pull-right">від:</label>
@@ -48,7 +48,7 @@
     </div>
     <div class="three columns">{{ form.range_stop|addclass:"u-full-width" }}</div>
     <span class="error">{{ form.range_stop.errors }}</span>
-    
+
     <div class="four columns">
       <input class="button-primary" type="submit" value="Показати">
     </div>
@@ -72,14 +72,10 @@
       {% for tool, tool_changes in tools_list %}
       <tr>
         <td>
-          <a class="item_link"
-             href="{% url 'toolchange_create' tool.id %}">
-            &plusmn;
-          </a>
+          <a href="{% url 'toolchange_create' tool.id %}">&plusmn;</a>
         </td>
         <td>
-          <a class="item_link"
-             href="{% url 'tool_detail' tool.id %}">
+          <a href="{% url 'tool_detail' tool.id %}">
             {{ tool.title }}
           </a>
         </td>
@@ -88,8 +84,7 @@
           {% for change in tool_changes %}
           {% if change.changed_at|date == date|date %}
           <abbr title="{{ change.notes }}">
-            <a class="item_link"
-               href="{% url 'toolchange_detail' change.id %}">
+            <a href="{% url 'toolchange_detail' change.id %}">
               {{ change.additional_quantity|floatformat }}
             </a>&nbsp;
           </abbr>

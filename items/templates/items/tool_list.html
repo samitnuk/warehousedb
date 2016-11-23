@@ -39,16 +39,10 @@
       {% for tool in tools %}
       <tr>
         <td>
-          <a class="item_link"
-             href="{% url 'toolchange_create' tool.id %}">
-            &plusmn;
-          </a>
+          <a href="{% url 'toolchange_create' tool.id %}">&plusmn;</a>
         </td>
         <td>
-          <a class="item_link"
-             href="{% url 'tool_detail' tool.id %}">
-            {{ tool.title }}
-          </a>
+          <a href="{% url 'tool_detail' tool.id %}">{{ tool.title }}</a>
         </td>
         <td class="notes">{{ tool.notes }}</td>
         {% if tool.current_total < tool.critical_qty %}
