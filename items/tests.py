@@ -185,8 +185,8 @@ class ProductTests(TestCase):
 
     fixtures = ['items/load_data.json']
 
-    conduit = Item.objects.filter(title="Кожух").first()
-    core = Item.objects.filter(title="Сердечник").first()
+    conduit = Item.objects.filter(category__title="Кожух").first()
+    core = Item.objects.filter(category__title="Сердечник").first()
 
     length = 2.500   # random number
 
