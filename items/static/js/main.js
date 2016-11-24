@@ -35,18 +35,11 @@ function getHCableLength() {
 }
 
 
-
 $(document).ready( function() {
 
-    if ($(location).attr('pathname') == '/product/create_std_product/0/') {
-        showChecker();
-    }
+    if ($( "form" ).hasClass( "std-cable" )) { showChecker(); }
 
-    if ($(location).attr('pathname') == '/product/create_std_product/3/') {
-        getBCableLength();
-    }
+    if ($( "form" ).hasClass( "b-cable" )) { getBCableLength(); }
 
-    if ($(location).attr('pathname') == '/product/create_std_product/4/') {
-        getHCableLength();
-    }
+    if ($( "form" ).hasClass( "h-cable" )) { getHCableLength(); }
 });
