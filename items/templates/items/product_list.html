@@ -26,6 +26,7 @@
         <tr>
           <th>Найменування</th>
           <th>Індекс</th>
+          <th>#</th>
           <th>Примітка</th>
           <th>Вага, кг</th>
           <th></th>
@@ -36,8 +37,9 @@
           <tr>
             <td>
               <a href="{% url 'product_detail' product.id %}">{{ product.title }}</a>
-            <td>{{ product.part_number }}</td>
             </td>
+            <td>{{ product.part_number }}</td>
+            <td class="notes">{{ product.id }}</td>
             <td class="notes">{{ product.notes }}</td>
             {% if not product.weight_is_correct and product.weight %}
             <td class="alert">
