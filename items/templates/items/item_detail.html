@@ -7,7 +7,8 @@
 {% block header %}
 <div class="row" id="header">
   <div class="eight columns">
-    <h5>{{ item.title }} / (<a href="{% url 'item_list' item.category.id %}">{{ item.category.title }}</a>)
+    <h5>{{ item.title }} /
+      <a href="{% url 'item_list' item.category.id %}">{{ item.category.title }}</a>
     </h5>
   </div>
   <div class="two columns">
