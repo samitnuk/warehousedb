@@ -81,10 +81,12 @@ class AddOrderForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AddOrderForm, self).__init__(*args, **kwargs)
         products = Product.objects.order_by('-id')
-        self.fields['product_id'].choices = [(product.id, "{} {} / {}".format(
+        choices = [(product.id, "{} {} / {} | {}".format(
             product.part_number,
             product.title,
-            product.notes)) for product in products]
+            product.notes,
+            product.id)) for product in products]
+        self.fields['product_id'].choices = choices
 
     def create_order(self):
         product_id = self.cleaned_data['product_id']
