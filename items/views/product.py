@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView
 from django.views.generic import DeleteView
 from django.views.generic import TemplateView
 
-from ..models import Product
+from ..models import Product, Category
 from ..forms import (AddProductForm, AddStdCableForm, AddStdTCableForm,
                      AddTZACableForm, AddBCableForm, AddHCableForm)
 
@@ -27,6 +27,9 @@ class ProductCreate(FormView):
     def form_valid(self, form):
         form.create_product()
         return super(ProductCreate, self).form_valid(form)
+
+    def categories(self):
+        return Category.objects.all()
 
 
 class ProductDelete(DeleteView):

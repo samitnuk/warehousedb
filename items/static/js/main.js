@@ -12,7 +12,6 @@ function showChecker() {
 }
 
 function getCableLength( lengths ) {
-
     $( '#id_cable_type' ).change( function(event) {
         var cable_type = $( this ).val();
         $( '#id_length' ).val( lengths[ cable_type ] );
@@ -20,26 +19,27 @@ function getCableLength( lengths ) {
 }
 
 function getBCableLength() {
-
     var lengths = ["3008", "3008", "3024", "3130", "3160"];
-
     getCableLength( lengths );
 }
 
 function getHCableLength() {
-
     var lengths = ["1500", "2250", "1500", "2250", "1140", "1500",
                    "1534", "1534", "1540"];
-
     getCableLength( lengths );
+}
+
+function showCategoryFields() {
+    $( '.category' ).click( function() {
+        table = $( this ).next();
+        table.toggle();
+    });
 }
 
 
 $(document).ready( function() {
-
     if ($( "form" ).hasClass( "std-cable" )) { showChecker(); }
-
     if ($( "form" ).hasClass( "b-cable" )) { getBCableLength(); }
-
     if ($( "form" ).hasClass( "h-cable" )) { getHCableLength(); }
+    if ($( "form" ).hasClass( "create-product" )) { showCategoryFields(); }
 });

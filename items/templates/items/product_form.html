@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<form  action="{% url 'product_create' %}" method="post">
+<form  action="{% url 'product_create' %}" method="post" class="create-product">
 
   {% csrf_token %}
 
@@ -38,8 +38,10 @@
     <div class="three columns error">{{ form.notes.errors }}</div>
   </div>
 
+  {% for category in view.categories %}
   <div class="row">
-    <table class="u-full-width">
+    <div class="u-full-width category">{{ category }}</div>
+    <table class="u-full-width hidden_at_start">
       <thead>
         <tr>
           <th>Найменування</th>
@@ -50,6 +52,7 @@
       </thead>
       <tbody>
         {% for item, field in form.fields_items %}
+        {% if category == item.category %}
         <tr>
           <td>
             <a href="{% url 'item_detail' item.id %}">{{ item.title }}</a>
@@ -64,10 +67,12 @@
             {{ field.name|addclass:"table-input" }}
           </td>
         </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
     </table>
   </div>
+  {% endfor %}
 
   <div class="row">
     <div class="three columns">
@@ -78,3 +83,8 @@
 </form>
 
 {% endblock content %}
+
+{% block extra_js %}
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+  <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
+{% endblock extra_js %}
