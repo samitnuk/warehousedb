@@ -50,12 +50,19 @@ class AddProductForm(forms.Form):
 
     notes = forms.CharField(label="Примітка", required=False)
 
-    def fields_items(self):
+    def get_form_data(self):
         items = Item.objects.all()
-        fields = []
-        for item in items:
-            fields.append([item, {'name': self['item_{}'.format(item.id)]}])
-        return fields
+        categories = Category.objects.all()
+        data = dict()
+        for category in categories:
+            if category not in data:
+                data[category] = []
+            items_q = items.filter(category=category)
+            for item in items_q:
+                data[category].append(
+                    [item, {'name': self['item_{}'.format(item.id)]}])
+        print(data)
+        return data
 
     def create_product(self):
         product = Product.objects.create(

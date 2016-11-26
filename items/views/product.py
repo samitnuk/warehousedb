@@ -28,9 +28,6 @@ class ProductCreate(FormView):
         form.create_product()
         return super(ProductCreate, self).form_valid(form)
 
-    def categories(self):
-        return Category.objects.all()
-
 
 class ProductDelete(DeleteView):
     model = Product
