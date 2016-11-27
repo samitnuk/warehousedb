@@ -6,11 +6,6 @@ body {
     font-family: 'Scada', 'Ubuntu Condensed', sans-serif;
 }
 
-p.clarifying {
-    margin-bottom: 0;
-    color: #bbb;
-}
-
 a {
     text-decoration: none;
 }
@@ -114,14 +109,6 @@ th, td {
 
 th:first-child, td:first-child {
     padding-left: 15px;
-}
-
-tr.order_ready {
-    background-color: #CEECF5;
-}
-
-tr.order_ready:hover {
-    background-color: #A9E2F3;
 }
 
 td.alert {
