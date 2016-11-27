@@ -6,22 +6,33 @@
 
 {% block header %}
 <div class="row" id="header">
-  <div class="{% if order.ready %}ten{% else %}eight{% endif %} columns">
+  <div class="{% if order.is_sent %}ten{% else %}eight{% endif %} columns">
       <h5>{{ order.customer }}</h5></div>
-  {% if not order.ready %}
+  {% if order.is_ready %}
+    {% if not order.is_sent %}
+    <div class="two columns">
+      <a class="button button-primary u-full-width"
+         href="{% url 'order_sent_confirmation' order.id %}">
+        Відправлено
+      </a>
+    </div>
+    {% endif %}
+  {% else %}
   <div class="two columns">
     <a class="button button-primary u-full-width"
        href="{% url 'order_ready_confirmation' order.id %}">
-      Підтвердити
+      Готово
     </a>
   </div>
   {% endif %}
+
   <div class="two columns">
     <a class="button button-danger u-full-width"
        href="{% url 'order_delete' order.id %}">
       Видалити
     </a>
   </div>
+
 </div>
 {% endblock header %}
 
@@ -39,13 +50,6 @@
 <div class="row">
   <div class="two columns">Кількість</div>
   <div class="ten columns"><h5>{{ order.quantity|floatformat }}</h5></div>
-</div>
-
-<div class="row">
-  <div class="two columns">Готовність</div>
-  <div class="ten columns">
-    <h5>{% if order.ready %}Готовий{% else %}НЕ ГОТОВИЙ{% endif %}</h5>
-  </div>
 </div>
 
 {% endblock content %}

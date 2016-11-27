@@ -5,9 +5,24 @@
 {% block meta_title %}Перелік замовлень{% endblock meta_title %}
 
 {% block header %}
-<div class="row" id="header">
-  <div class="nine columns"><h5>Перелік замовлень</h5></div>
-  <div class="three columns">
+<div class="row" id="navigation">
+  <div class="eight columns">
+    <ul class="nav-menu">
+      {% url 'order_list' as order_list_active %}
+      <li role="presentation" {% if order_list_active == request.path %}class="nav-active"{% endif %}>
+        <a href="{% url 'order_list' %}">Активні</a>
+      </li>
+      {% url 'order_list' 'ready' as order_list_ready %}
+      <li role="presentation" {% if order_list_ready in request.path %}class="nav-active"{% endif %}>
+        <a href="{% url 'order_list' 'ready' %}">Готові</a>
+      </li>
+      {% url 'order_list' 'sent' as order_list_sent %}
+      <li role="presentation" {% if order_list_sent in request.path %}class="nav-active"{% endif %}>
+        <a href="{% url 'order_list' 'sent' %}">Відправлені</a>
+      </li>
+    </ul>
+  </div>
+  <div class="three columns u-pull-right">
     <a class="button button-primary u-full-width"
        href="{% url 'order_create' %}">Додати новe замовлення</a>
   </div>
@@ -15,8 +30,6 @@
 {% endblock header %}
 
 {% block content %}
- <p class="clarifying">* Для замовлень на синьому фоні відповідні позиції
-     списані зі складу автоматично.</p>
 <div class="row">
   <div class="u-full-width">
     <table class="u-full-width">
@@ -31,7 +44,7 @@
       </thead>
       <tbody>
         {% for order in orders %}
-          <tr {% if order.ready %}class="order_ready"{% endif %}>
+          <tr>
             <td>
               <a href="{% url 'order_detail' order.id %}">
                 {{ order.customer }}

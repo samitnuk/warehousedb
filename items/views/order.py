@@ -11,7 +11,17 @@ from ..forms import AddOrderForm
 
 class OrderList(ListView):
     model = Order
-    context_object_name = 'orders'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderList, self).get_context_data(**kwargs)
+        if self.kwargs['status'] == 'sent':
+            context['orders'] = Order.objects.filter(is_sent=True)
+        elif self.kwargs['status'] == 'ready':
+            context['orders'] = Order.objects.filter(is_ready=True,
+                                                     is_sent=False)
+        else:
+            context['orders'] = Order.objects.filter(is_ready=False)
+        return context
 
 
 class OrderCreate(FormView):
@@ -38,7 +48,16 @@ class OrderDetail(DetailView):
 def ready_confirmation(request, pk):
 
     order = Order.objects.filter(pk=pk).first()
-    order.ready = True
+    order.is_ready = True
     order.save()
 
-    return redirect('order_list')
+    return redirect('order_list', status='ready')
+
+
+def sent_confirmation(request, pk):
+
+    order = Order.objects.filter(pk=pk).first()
+    order.is_sent = True
+    order.save()
+
+    return redirect('order_list', status='sent')
