@@ -92,7 +92,7 @@ class ItemChangeTests(TestCase):
             customer="Test ORDER",
             product=product,
             quantity=10,
-            ready=True)
+            is_ready=True)
 
         itemchange = ItemChange.objects.first()
 

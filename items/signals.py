@@ -8,7 +8,7 @@ from .models import ItemChange, MaterialChange, Order
 def itemchange_auto_create(instance, **kwargs):
 
     order = instance
-    if order.ready:
+    if order.is_ready:
         order_quantity = order.quantity
         if order_quantity == int(order_quantity):
             order_quantity = int(order_quantity)
