@@ -61,7 +61,6 @@ class AddProductForm(forms.Form):
             for item in items_q:
                 data[category].append(
                     [item, {'name': self['item_{}'.format(item.id)]}])
-        print(data)
         return data
 
     def create_product(self):
