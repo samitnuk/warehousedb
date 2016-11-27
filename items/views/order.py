@@ -11,17 +11,16 @@ from ..forms import AddOrderForm
 
 class OrderList(ListView):
     model = Order
+    context_object_name = 'orders'
 
-    def get_context_data(self, **kwargs):
-        context = super(OrderList, self).get_context_data(**kwargs)
+    def get_queryset(self):
+        queryset = super(OrderList, self).get_queryset()
         if self.kwargs['status'] == 'sent':
-            context['orders'] = Order.objects.filter(is_sent=True)
+            return queryset.filter(is_sent=True)
         elif self.kwargs['status'] == 'ready':
-            context['orders'] = Order.objects.filter(is_ready=True,
-                                                     is_sent=False)
+            return queryset.filter(is_ready=True, is_sent=False)
         else:
-            context['orders'] = Order.objects.filter(is_ready=False)
-        return context
+            return queryset.filter(is_ready=False)
 
 
 class OrderCreate(FormView):
