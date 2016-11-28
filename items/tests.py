@@ -1,11 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
+from django.urls import reverse
 
 from .models import (Category, Item, ItemChange, Order, Component, Product,
                      Material, MaterialChange, Tool, ToolChange)
 
-# from .utils import *
 from . import utils
+
+from django_webtest import WebTest
 
 
 class UserTests(TestCase):
@@ -430,3 +432,87 @@ class ProductTests(TestCase):
         self.assertEqual(core.quantity, 2.815)
         self.assertEqual(conduit.quantity, 2.613)
         self.assertEqual(len(cables[0].components), 16)
+
+
+# =============================================================================
+class MaterialTest(WebTest):
+
+    fixtures = ['items/load_data.json']
+
+    user, _ = User.objects.get_or_create(username='username',
+                                         password="drowssap")
+
+    def test_item_creation(self):
+        form = self.app.get(reverse('item_create'), user=self.user).form
+        form['title'] = 'Тестова позиція на складі'
+        form['part_number'] = '123RT-34'
+        form['critical_qty'] = '42'
+        form['notes'] = 'Проста тестова нотатка 3'
+        form.submit()
+
+        item = Item.objects.filter(part_number='123RT-34').first()
+        self.assertEqual(item.title, 'Тестова позиція на складі')
+        self.assertEqual(item.critical_qty, 42)
+        self.assertEqual(item.notes, 'Проста тестова нотатка 3')
+
+    def test_itemchange_creation(self):
+        item = Item.objects.all()[5]
+        form = self.app.get(reverse('itemchange_create',
+                                    kwargs={'item_pk': item.pk}),
+                            user=self.user).form
+        form['additional_quantity'] = 42
+        form['notes'] = 'Проста тестова нотатка 34544'
+        form.submit()
+
+        itemchange = ItemChange.objects.first()
+        self.assertEqual(itemchange.item, item)
+        self.assertEqual(itemchange.additional_quantity, 42)
+        self.assertEqual(itemchange.notes, 'Проста тестова нотатка 34544')
+
+    def test_material_and_materialchange_creation(self):
+        form = self.app.get(reverse('material_create'), user=self.user).form
+        form['title'] = 'Тестовий матеріал'
+        form['critical_qty'] = 13
+        form['notes'] = 'Проста тестова нотатка'
+        form.submit()
+
+        material = Material.objects.first()
+        self.assertEqual(material.title, 'Тестовий матеріал')
+        self.assertEqual(material.critical_qty, 13)
+        self.assertEqual(material.notes, 'Проста тестова нотатка')
+
+        form = self.app.get(reverse('materialchange_create',
+                                    kwargs={'material_pk': material.pk}),
+                            user=self.user).form
+        form['additional_quantity'] = 9
+        form['notes'] = 'Проста тестова нотатка 345'
+        form.submit()
+
+        materialchange = MaterialChange.objects.first()
+        self.assertEqual(materialchange.material, material)
+        self.assertEqual(materialchange.additional_quantity, 9)
+        self.assertEqual(materialchange.notes, 'Проста тестова нотатка 345')
+
+    def test_tool_and_toolchange_creation(self):
+        form = self.app.get(reverse('tool_create'), user=self.user).form
+        form['title'] = 'Тестовий інструмент'
+        form['critical_qty'] = 23
+        form['notes'] = 'Проста тестова нотатка 1'
+        form.submit()
+
+        tool = Tool.objects.first()
+        self.assertEqual(tool.title, 'Тестовий інструмент')
+        self.assertEqual(tool.critical_qty, 23)
+        self.assertEqual(tool.notes, 'Проста тестова нотатка 1')
+
+        form = self.app.get(reverse('toolchange_create',
+                                    kwargs={'tool_pk': tool.pk}),
+                            user=self.user).form
+        form['additional_quantity'] = 9
+        form['notes'] = 'Проста тестова нотатка 10'
+        form.submit()
+
+        toolchange = ToolChange.objects.first()
+        self.assertEqual(toolchange.tool, tool)
+        self.assertEqual(toolchange.additional_quantity, 9)
+        self.assertEqual(toolchange.notes, 'Проста тестова нотатка 10')
