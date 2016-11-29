@@ -5,3 +5,4 @@ __pycache__/
 
 load_data.json
 utils.py
+tests.py
