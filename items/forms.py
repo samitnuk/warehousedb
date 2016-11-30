@@ -33,7 +33,7 @@ class LoginForm(forms.Form):
 class AddProductForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
-        super(forms.Form, self).__init__(*args, **kwargs)
+        super(AddProductForm, self).__init__(*args, **kwargs)
 
         # quantity of additional fields depends of items quantity
         items = Item.objects.all()
@@ -102,48 +102,17 @@ class AddOrderForm(forms.Form):
             quantity=self.cleaned_data['quantity'])
 
 
-class AddStdCableForm(forms.Form):
-
-    SERIES = (
-        # (3, "#3 серія"),
-        (4, "#4 серія"),
-        (6, "#6 серія"),
-        # (8, "#8 серія"),
-    )
-
-    TRAVELS = (
-        (1, "1й хід (25 мм)"),
-        (2, "2й хід (50 мм)"),
-        (3, "3й хід (75 мм)"),
-        (4, "4й хід (100 мм)"),
-        (5, "5й хід (125 мм)"),)
-
-    MOUNTINGS = (
-        ("22", "22 (різьба-різьба)"),
-        ("23", "23 (різьба-клемп)"),
-        ("33", "33 (клемп-клемп)"),)
+class AbstractCableForm(forms.Form):
+    """Base form for all cables"""
 
     conduit = forms.ChoiceField(label="Кожух", choices=[])
 
     core = forms.ChoiceField(label="Сердечник", choices=[])
 
-    serie = forms.ChoiceField(label="Серія", choices=SERIES)
-
-    travel = forms.ChoiceField(label="Хід", choices=TRAVELS)
-
-    mounting = forms.ChoiceField(label="Кріплення", choices=MOUNTINGS)
-
-    is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
-
-    is_st_sleeves = forms.BooleanField(label="Чорні трубки", required=False)
-
-    is_plastic_sleeves = forms.BooleanField(label="Пластмасові трубки",
-                                            required=False)
-
     length = forms.IntegerField(label="Довжина, мм")
 
     def __init__(self, *args, **kwargs):
-        super(AddStdCableForm, self).__init__(*args, **kwargs)
+        super(AbstractCableForm, self).__init__(*args, **kwargs)
 
         conduits_category = Category.objects.filter(title="Кожух")
         conduits = Item.objects.filter(category=conduits_category)
@@ -152,6 +121,32 @@ class AddStdCableForm(forms.Form):
         cores_category = Category.objects.filter(title="Сердечник")
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
+
+    class Meta:
+        abstract = True
+
+
+class AddStdCableForm(AbstractCableForm):
+
+    SERIES = ((4, "#4 серія"),
+              (6, "#6 серія"),)
+
+    serie = forms.ChoiceField(label="Серія", choices=SERIES)
+
+    travel = forms.ChoiceField(label="Хід", choices=utils.TRAVELS)
+
+    mounting = forms.ChoiceField(label="Кріплення", choices=utils.MOUNTINGS)
+
+    is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
+
+    is_st_sleeves = forms.BooleanField(label="Чорні трубки", required=False)
+
+    is_plastic_sleeves = forms.BooleanField(label="Пластмасові трубки",
+                                            required=False)
+
+    field_order = [
+            'conduit', 'core', 'serie', 'travel', 'mounting', 'is_st_rods',
+            'is_st_sleeves', 'is_plastic_sleeves', 'length']
 
     def create_product(self):
         utils.create_std_cable(
@@ -166,51 +161,20 @@ class AddStdCableForm(forms.Form):
             length=self.cleaned_data['length'])
 
 
-class AddStdTCableForm(forms.Form):
+class AddStdTCableForm(AbstractCableForm):
 
-    SERIES = (
-        # (3, "#3 серія"),
-        (4, "#4 серія"),
-        # (6, "#6 серія"),
-        # (8, "#8 серія"),
-    )
-
-    TRAVELS = (
-        (1, "1й хід (25 мм)"),
-        (2, "2й хід (50 мм)"),
-        (3, "3й хід (75 мм)"),
-        (4, "4й хід (100 мм)"),
-        (5, "5й хід (125 мм)"),)
-
-    MOUNTINGS = (
-        ("22", "22 (різьба-різьба)"),
-        ("23", "23 (різьба-клемп)"),
-        ("33", "33 (клемп-клемп)"),)
-
-    conduit = forms.ChoiceField(label="Кожух", choices=[])
-
-    core = forms.ChoiceField(label="Сердечник", choices=[])
+    SERIES = ((4, "#4 серія"),)
 
     serie = forms.ChoiceField(label="Серія", choices=SERIES)
 
-    travel = forms.ChoiceField(label="Хід", choices=TRAVELS)
+    travel = forms.ChoiceField(label="Хід", choices=utils.TRAVELS)
 
-    mounting = forms.ChoiceField(label="Кріплення", choices=MOUNTINGS)
+    mounting = forms.ChoiceField(label="Кріплення", choices=utils.MOUNTINGS)
 
     is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
-    length = forms.IntegerField(label="Довжина, мм")
-
-    def __init__(self, *args, **kwargs):
-        super(AddStdTCableForm, self).__init__(*args, **kwargs)
-
-        conduits_category = Category.objects.filter(title="Кожух")
-        conduits = Item.objects.filter(category=conduits_category)
-        self.fields['conduit'].choices = get_choices(conduits)
-
-        cores_category = Category.objects.filter(title="Сердечник")
-        cores = Item.objects.filter(category=cores_category)
-        self.fields['core'].choices = get_choices(cores)
+    field_order = ['conduit', 'core', 'serie', 'travel', 'mounting',
+                   'is_st_rods', 'length']
 
     def create_product(self):
         utils.create_std_t_cable(
@@ -223,26 +187,11 @@ class AddStdTCableForm(forms.Form):
             length=self.cleaned_data['length'])
 
 
-class AddTZACableForm(forms.Form):
-
-    conduit = forms.ChoiceField(label="Кожух", choices=[])
-
-    core = forms.ChoiceField(label="Сердечник", choices=[])
+class AddTZACableForm(AbstractCableForm):
 
     is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
-    length = forms.IntegerField(label="Довжина, мм")
-
-    def __init__(self, *args, **kwargs):
-        super(AddTZACableForm, self).__init__(*args, **kwargs)
-
-        conduits_category = Category.objects.filter(title="Кожух")
-        conduits = Item.objects.filter(category=conduits_category)
-        self.fields['conduit'].choices = get_choices(conduits)
-
-        cores_category = Category.objects.filter(title="Сердечник")
-        cores = Item.objects.filter(category=cores_category)
-        self.fields['core'].choices = get_choices(cores)
+    field_order = ['conduit', 'core', 'is_st_rods', 'length']
 
     def create_product(self):
         utils.create_tza_cable(
@@ -252,13 +201,9 @@ class AddTZACableForm(forms.Form):
             length=self.cleaned_data['length'])
 
 
-class AddBCableForm(forms.Form):
+class AddBCableForm(AbstractCableForm):
 
     cable_type = forms.ChoiceField(label="Трос", choices=utils.B_CABLES)
-
-    conduit = forms.ChoiceField(label="Кожух", choices=[])
-
-    core = forms.ChoiceField(label="Сердечник", choices=[])
 
     is_st_rods = forms.BooleanField(label="Чорні прутки", required=False)
 
@@ -266,16 +211,8 @@ class AddBCableForm(forms.Form):
 
     length = forms.IntegerField(label="Довжина, мм", initial=3008)
 
-    def __init__(self, *args, **kwargs):
-        super(AddBCableForm, self).__init__(*args, **kwargs)
-
-        conduits_category = Category.objects.filter(title="Кожух")
-        conduits = Item.objects.filter(category=conduits_category)
-        self.fields['conduit'].choices = get_choices(conduits)
-
-        cores_category = Category.objects.filter(title="Сердечник")
-        cores = Item.objects.filter(category=cores_category)
-        self.fields['core'].choices = get_choices(cores)
+    field_order = ['cable_type', 'conduit', 'core', 'is_st_rods',
+                   'is_st_sleeves', 'length']
 
     def create_product(self):
         utils.create_b_cable(
@@ -287,28 +224,15 @@ class AddBCableForm(forms.Form):
             length=self.cleaned_data['length'])
 
 
-class AddHCableForm(forms.Form):
+class AddHCableForm(AbstractCableForm):
 
     cable_type = forms.ChoiceField(label="Трос", choices=utils.H_CABLES)
-
-    conduit = forms.ChoiceField(label="Кожух", choices=[])
-
-    core = forms.ChoiceField(label="Сердечник", choices=[])
 
     is_st_rod_e = forms.BooleanField(label="Чорний пруток Е", required=False)
 
     length = forms.IntegerField(label="Довжина, мм", initial=1500)
 
-    def __init__(self, *args, **kwargs):
-        super(AddHCableForm, self).__init__(*args, **kwargs)
-
-        conduits_category = Category.objects.filter(title="Кожух")
-        conduits = Item.objects.filter(category=conduits_category)
-        self.fields['conduit'].choices = get_choices(conduits)
-
-        cores_category = Category.objects.filter(title="Сердечник")
-        cores = Item.objects.filter(category=cores_category)
-        self.fields['core'].choices = get_choices(cores)
+    field_order = ['cable_type', 'conduit', 'core', 'is_st_rod_e', 'length']
 
     def create_product(self):
         utils.create_h_cable(
