@@ -122,9 +122,6 @@ class AbstractCableForm(forms.Form):
         cores = Item.objects.filter(category=cores_category)
         self.fields['core'].choices = get_choices(cores)
 
-    class Meta:
-        abstract = True
-
 
 class AddStdCableForm(AbstractCableForm):
 
