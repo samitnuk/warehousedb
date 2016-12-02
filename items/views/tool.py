@@ -72,7 +72,8 @@ class ToolCreate(CreateView):
     template_name = 'items/object_form.html'
     success_url = reverse_lazy('tool_list')
 
-    def page_name(self):
+    @staticmethod
+    def page_name():
         return "Створити інструмент"
 
 
@@ -81,7 +82,8 @@ class ToolUpdate(UpdateView):
     fields = ['title', 'critical_qty', 'notes']
     template_name = 'items/object_form.html'
 
-    def page_name(self):
+    @staticmethod
+    def page_name():
         return "Редагувати інструмент"
 
 

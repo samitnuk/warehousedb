@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView
 from django.views.generic import DeleteView
 from django.views.generic import TemplateView
 
-from ..models import Product, Category
+from ..models import Product
 from ..forms import (AddProductForm, AddStdCableForm, AddStdTCableForm,
                      AddTZACableForm, AddBCableForm, AddHCableForm)
 
