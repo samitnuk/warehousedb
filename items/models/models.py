@@ -156,11 +156,13 @@ class Order(models.Model):
 
     quantity = models.FloatField(blank=False, verbose_name="Кількість")
 
+    notes = models.TextField(blank=True, verbose_name="Примітка")
+
     is_ready = models.BooleanField(default=False,
-                                   verbose_name="Готовність замовлення")
+                                   verbose_name="Замовлення готове")
 
     is_sent = models.BooleanField(default=False,
-                                  verbose_name="Готовність замовлення")
+                                  verbose_name="Замовлення відправлено")
 
     sent_notes = models.TextField(null=True,
                                   verbose_name="Дані про відправлення")
