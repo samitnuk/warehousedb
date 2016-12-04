@@ -48,7 +48,8 @@ class AddProductForm(forms.Form):
 
     part_number = forms.CharField(label="Індекс", required=False)
 
-    notes = forms.CharField(label="Примітка", required=False)
+    notes = forms.CharField(label="Примітка", required=False,
+                            widget=forms.Textarea)
 
     def get_form_data(self):
         items = Item.objects.all()
@@ -80,9 +81,12 @@ class AddOrderForm(forms.Form):
 
     customer = forms.CharField(label="Замовник")
 
+    product_id = forms.ChoiceField(label="Виріб", choices=[])
+
     quantity = forms.FloatField(label="Кількість")
 
-    product_id = forms.ChoiceField(label="Виріб", choices=[])
+    notes = forms.CharField(label="Примітка", required=False,
+                            widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):
         super(AddOrderForm, self).__init__(*args, **kwargs)
@@ -99,7 +103,20 @@ class AddOrderForm(forms.Form):
         Order.objects.create(
             customer=self.cleaned_data['customer'],
             product=Product.objects.filter(pk=product_id).first(),
-            quantity=self.cleaned_data['quantity'])
+            quantity=self.cleaned_data['quantity'],
+            notes=self.cleaned_data['notes'])
+
+
+class AddSentNotesToOrderForm(forms.Form):
+
+    sent_notes = forms.CharField(label="Примітка", required=False,
+                                 widget=forms.Textarea)
+
+    def add_sent_notes(self):
+        order = Order.objects.filter(pk=self.kwargs['pk'])
+        order.update(
+            is_sent=True,
+            sent_notes=self.cleaned_data['sent_notes'])
 
 
 class AbstractCableForm(forms.Form):
