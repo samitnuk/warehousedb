@@ -33,7 +33,7 @@
 {% if object.notes %}
 <div class="row">
   <div class="two columns">Примітка</div>
-  <div class="ten columns"><h5>{{ object.notes }}</h5></div>
+  <div class="ten columns"><h5>{{ object.notes|linebreaks }}</h5></div>
 </div>
 {% endif %}
 

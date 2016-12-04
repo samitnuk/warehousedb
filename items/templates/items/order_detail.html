@@ -52,4 +52,16 @@
   <div class="ten columns"><h5>{{ order.quantity|floatformat }}</h5></div>
 </div>
 
+<div class="row">
+  <div class="two columns">Примітка</div>
+  <div class="ten columns"><h5>{{ order.notes }}</h5></div>
+</div>
+
+{% if order.is_sent %}
+<div class="row">
+  <div class="two columns">Дані про відправлення</div>
+  <div class="ten columns"><h5>{{ order.sent_notes|linebreaks }}</h5></div>
+</div>
+{% endif %}
+
 {% endblock content %}
