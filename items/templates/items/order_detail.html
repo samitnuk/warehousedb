@@ -38,28 +38,30 @@
 
 {% block content %}
 <div class="row">
-  <div class="two columns">Дата замовлення</div>
+  <div class="two columns">Дата замовлення:</div>
   <div class="ten columns"><h5>{{ order.order_date|date:'d.m.Y / F d (l)' }}</h5></div>
 </div>
 
 <div class="row">
-  <div class="two columns">Виріб</div>
+  <div class="two columns">Виріб:</div>
   <div class="ten columns"><h5>{{ order.product }}</h5></div>
 </div>
 
 <div class="row">
-  <div class="two columns">Кількість</div>
+  <div class="two columns">Кількість:</div>
   <div class="ten columns"><h5>{{ order.quantity|floatformat }}</h5></div>
 </div>
 
+{% if order.notes %}
 <div class="row">
-  <div class="two columns">Примітка</div>
+  <div class="two columns">Примітка:</div>
   <div class="ten columns"><h5>{{ order.notes }}</h5></div>
 </div>
+{% endif %}
 
 {% if order.is_sent %}
 <div class="row">
-  <div class="two columns">Дані про відправлення</div>
+  <div class="two columns">Дані про відправлення:</div>
   <div class="ten columns"><h5>{{ order.sent_notes|linebreaks }}</h5></div>
 </div>
 {% endif %}
