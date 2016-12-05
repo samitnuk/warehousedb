@@ -6,7 +6,7 @@ from django.views.generic import DeleteView
 from django.views.generic.detail import DetailView
 
 from ..models import Order
-from ..forms import AddOrderForm
+from ..forms import AddOrderForm, AddSentNotesToOrderForm
 
 
 class OrderList(ListView):
@@ -53,10 +53,18 @@ def ready_confirmation(request, pk):
     return redirect('order_list', status='ready')
 
 
-def sent_confirmation(request, pk):
+class AddSentNotesToOrder(FormView):
+    template_name = 'items/order_add_sent_notes_form.html'
+    form_class = AddSentNotesToOrderForm
+    success_url = reverse_lazy('order_list', kwargs={'status': 'sent'})
 
-    order = Order.objects.filter(pk=pk).first()
-    order.is_sent = True
-    order.save()
+    def form_valid(self, form):
+        pk = self.kwargs.get('pk')
+        form.add_sent_notes(pk)
+        return super(AddSentNotesToOrder, self).form_valid(form)
 
-    return redirect('order_list', status='sent')
+    def get_context_data(self, **kwargs):
+        context = super(AddSentNotesToOrder, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['order'] = Order.objects.filter(pk=pk).first()
+        return context

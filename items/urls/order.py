@@ -26,7 +26,7 @@ urlpatterns = [
         order.ready_confirmation,
         name='order_ready_confirmation'),
 
-url(r'^sent_confirmation/(?P<pk>\d+)/',
-        order.sent_confirmation,
+    url(r'^sent_confirmation/(?P<pk>\d+)/',
+        login_required(order.AddSentNotesToOrder.as_view()),
         name='order_sent_confirmation'),
 ]
