@@ -109,11 +109,12 @@ class AddOrderForm(forms.Form):
 
 class AddSentNotesToOrderForm(forms.Form):
 
-    sent_notes = forms.CharField(label="Примітка", required=False,
+    sent_notes = forms.CharField(label="Дані про відправлення",
+                                 required=False,
                                  widget=forms.Textarea)
 
-    def add_sent_notes(self):
-        order = Order.objects.filter(pk=self.kwargs['pk'])
+    def add_sent_notes(self, pk):
+        order = Order.objects.filter(pk=pk)
         order.update(
             is_sent=True,
             sent_notes=self.cleaned_data['sent_notes'])
