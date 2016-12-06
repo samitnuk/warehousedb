@@ -1,0 +1,28 @@
+<div class="row" id="navigation">
+      <div class="u-full-width">
+        <ul class="nav-menu">
+          {% url 'item_list' as item_list_path %}
+          <li role="presentation" {% if item_list_path in request.path %}class="nav-active"{% endif %}>
+            <a href="{% url 'item_list' %}">Склад</a>
+          </li>
+          {% url 'material_list' as materials_path %}
+          <li role="presentation" {% if materials_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'material_list' %}">Матеріали</a>
+          </li>
+          {% url 'tool_list' as tool_path %}
+          <li role="presentation" {% if tool_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'tool_list' %}">Інструменти</a>
+          </li>
+          <li>|</li>
+          {% url 'product_list' as products_path %}
+          <li role="presentation" {% if products_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'product_list' %}">Вироби</a>
+          </li>
+          <li>|</li>
+          {% url 'order_list' as orders_path %}
+          <li role="presentation" {% if orders_path in request.path %}class="nav-active"{% endif%}>
+            <a href="{% url 'order_list' %}">Замовлення</a>
+          </li>
+        </ul>
+      </div>
+    </div>
