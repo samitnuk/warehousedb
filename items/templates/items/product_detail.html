@@ -41,7 +41,7 @@
             </a>
           </td>
           <td>{{ component.item.part_number }}</td>
-          <td class="notes">{{ component.item.notes|linebreaks }}</td>
+          <td class="notes">{{ component.item.notes }}</td>
           {% with component.item.weight as weight %}
           <td>{% if weight %}{{ weight }}{% endif %}</td>
           {% endwith %}
