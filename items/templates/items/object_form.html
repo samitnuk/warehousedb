@@ -2,8 +2,6 @@
 
 {% load static from staticfiles %}
 
-{% load items_filters %}
-
 {% block meta_title %}Додати{% endblock meta_title %}
 
 {% block header %}
@@ -13,38 +11,9 @@
 {% endblock header %}
 
 {% block content %}
-
-<form  action="" method="post">
-
-{% csrf_token %}
-
-{{ form.non_field_errors }}
-
-  <div class="row">
-    <div class="two columns">{{ form.title.label_tag }}</div>
-    <div class="seven columns">{{ form.title|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ form.title.errors }}</div>
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.critical_qty.label_tag }}</div>
-    <div class="seven columns">{{ form.critical_qty|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ form.critical_qty.errors }}</div>
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.notes.label_tag }}</div>
-    <div class="seven columns">{{ form.notes|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ form.notes.errors }}</div>
-  </div>
-
-  <div class="row">
-    <div class="two columns">.</div>
-    <div class="three columns">
-      <input class="button-primary" type="submit" value="Підтвердити">
-    </div>
-  </div>
-
+<form action="" method="post">
+  {% csrf_token %}
+  {% include "items/includes/render_fields.html" %}
+  {% include "items/includes/button.html" with button_value="Підтвердити" %}
 </form>
-
 {% endblock content %}

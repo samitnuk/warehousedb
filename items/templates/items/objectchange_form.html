@@ -2,8 +2,6 @@
 
 {% load static from staticfiles %}
 
-{% load items_filters %}
-
 {% block meta_title %}Додати зміну кількості{% endblock meta_title %}
 
 {% block header %}
@@ -13,32 +11,9 @@
 {% endblock header %}
 
 {% block content %}
-
-<form  action="" method="post">
-
-{% csrf_token %}
-
-{{ form.non_field_errors }}
-
-  <div class="row">
-    <div class="two columns">{{ form.additional_quantity.label_tag }}</div>
-    <div class="seven columns">{{ form.additional_quantity|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ form.additional_quantity.errors }}</div>
-  </div>
-
-  <div class="row">
-    <div class="two columns">{{ form.notes.label_tag }}</div>
-    <div class="seven columns">{{ form.notes|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ form.notes.errors }}</div>
-  </div>
-
-  <div class="row">
-    <div class="two columns">.</div>
-    <div class="three columns">
-      <input class="button-primary" type="submit" value="Підтвердити">
-    </div>
-  </div>
-
+<form action="" method="post">
+  {% csrf_token %}
+  {% include "items/includes/render_fields.html" %}
+  {% include "items/includes/button.html" with button_value="Підтвердити" %}
 </form>
-
 {% endblock content %}

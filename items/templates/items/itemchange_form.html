@@ -13,28 +13,9 @@
 {% endblock header %}
 
 {% block content %}
-
 <form action="" method="post">
-
   {% csrf_token %}
-
-  {{ form.non_field_errors }}
-
-  {% for field in form.visible_fields %}
-  <div class="row">
-    <div class="two columns">{{ field.label_tag }}</div>
-    <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ field.errors }}</div>
-  </div>
-  {% endfor %}
-
-  <div class="row">
-    <div class="two columns">.</div>
-    <div class="three columns">
-      <input class="button-primary" type="submit" value="Додати">
-    </div>
-  </div>
-
+  {% include "items/includes/render_fields.html" %}
+  {% include "items/includes/button.html" with button_value="Додати" %}
 </form>
-
 {% endblock content %}

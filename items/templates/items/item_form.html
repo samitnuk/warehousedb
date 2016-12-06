@@ -1,9 +1,5 @@
 {% extends 'items/base.html' %}
 
-{% load static from staticfiles %}
-
-{% load items_filters %}
-
 {% block meta_title %}Додати нову позицію на склад{% endblock meta_title %}
 
 {% block header %}
@@ -13,28 +9,9 @@
 {% endblock header %}
 
 {% block content %}
-
 <form enctype="multipart/form-data" action="" method="post">
-
   {% csrf_token %}
-
-  {{ form.non_field_errors }}
-
-  {% for field in form.visible_fields %}
-  <div class="row">
-    <div class="two columns">{{ field.label_tag }}</div>
-    <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ field.errors }}</div>
-  </div>
-  {% endfor %}
-
-  <div class="row">
-    <div class="two columns">.</div>
-    <div class="three columns">
-      <input class="button-primary" type="submit" value="Підтвердити">
-    </div>
-  </div>
-
+  {% include "items/includes/render_fields.html" %}
+  {% include "items/includes/button.html" with button_value="Підтвердити" %}
 </form>
-
 {% endblock content %}

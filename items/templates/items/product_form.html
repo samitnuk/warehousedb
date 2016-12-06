@@ -13,7 +13,6 @@
 {% endblock header %}
 
 {% block content %}
-
 <form  action="{% url 'product_create' %}" method="post" class="create-product">
 
   {% csrf_token %}
@@ -64,14 +63,9 @@
   </div>
   {% endfor %}
 
-  <div class="row">
-    <div class="three columns">
-      <input class="button-primary" type="submit" value="Додати новий виріб">
-    </div>
-  </div>
+  {% include "items/includes/button.html" with button_value="Додати новий виріб" %}
 
 </form>
-
 {% endblock content %}
 
 {% block extra_js %}
