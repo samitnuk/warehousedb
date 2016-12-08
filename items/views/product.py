@@ -7,7 +7,8 @@ from django.views.generic import TemplateView
 
 from ..models import Product
 from ..forms import (AddProductForm, AddStdCableForm, AddStdTCableForm,
-                     AddTZACableForm, AddBCableForm, AddHCableForm)
+                     AddTZACableForm, AddBCableForm, AddHCableForm,
+                     AddUVUH4CableForm)
 
 
 class ProductList(ListView):
@@ -42,31 +43,46 @@ class StdProductsList(TemplateView):
 class StdProductCreate(FormView):
     STD_PRODUCTS = {
         0: {
-            'template_name': 'items/std_products/create_std_cable.html',
-            'form_class': AddStdCableForm},
+            'form_class': AddStdCableForm,
+            'header': "Додати стандартний трос",
+            'form_type': "std-cable"},
         1: {
-            'template_name': 'items/std_products/create_std_t_cable.html',
-            'form_class': AddStdTCableForm},
+            'form_class': AddStdTCableForm,
+            'header': "Додати стандартний тянучий трос",
+            'form_type': ""},
         2: {
-            'template_name': 'items/std_products/create_tza_cable.html',
-            'form_class': AddTZACableForm},
+            'form_class': AddTZACableForm,
+            'header': "Додати трос ТЗА",
+            'form_type': ""},
         3: {
-            'template_name': 'items/std_products/create_b_cable.html',
-            'form_class': AddBCableForm},
+            'form_class': AddBCableForm,
+            'header': "Додати трос Богдан",
+            'form_type': "b-cable"},
         4: {
-            'template_name': 'items/std_products/create_h_cable.html',
-            'form_class': AddHCableForm},
+            'form_class': AddHCableForm,
+            'header': "Додати трос г/р (МТЗ)",
+            'form_type': "h-cable"},
+        5: {
+            'form_class': AddUVUH4CableForm,
+            'header': "Додати трос г/р (Успіх - Східна Україна)",
+            'form_type': ""},
     }
 
+    template_name = 'items/std_products/std_product_form.html'
     success_url = reverse_lazy('product_list')
 
     def dispatch(self, request, *args, **kwargs):
         product = self.STD_PRODUCTS[int(self.kwargs['product_num'])]
-        self.template_name = product['template_name']
         self.form_class = product['form_class']
-
         return super(StdProductCreate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.create_product()
         return super(StdProductCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(StdProductCreate, self).get_context_data(**kwargs)
+        product = self.STD_PRODUCTS[int(self.kwargs['product_num'])]
+        context['header'] = product['header']
+        context['form_type'] = product['form_type']
+        return context
