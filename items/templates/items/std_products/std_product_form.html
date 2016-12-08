@@ -1,0 +1,26 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% load items_filters %}
+
+{% block meta_title %}{{ header }}{% endblock meta_title %}
+
+{% block header %}
+<div class="row" id="header">
+  <div class="nine columns"><h5>{{ header }}</h5></div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<form  action="" method="post" class="{{ form_type }}">
+  {% csrf_token %}
+  {% include "items/includes/render_fields.html" %}
+  {% include "items/includes/button.html" with button_value="Створити" %}
+</form>
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+  <script src="{{ PORTAL_URL }}{% static 'js/main.js' %}"></script>
+{% endblock extra_js %}
