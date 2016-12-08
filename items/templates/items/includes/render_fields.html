@@ -3,9 +3,17 @@
 {{ form.non_field_errors }}
 
 {% for field in form.visible_fields %}
+<div class="row {% if field is form.is_plastic_sleeves %}hidden_at_start{% endif %}">
   <div class="row">
     <div class="two columns">{{ field.label_tag }}</div>
-    <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
+    <div class="seven columns">
+      {% if field|is_checkbox %}
+        {{ field }}
+      {% else %}
+        {{ field|addclass:"u-full-width" }}
+      {% endif %}
+    </div>
     <div class="three columns error">{{ field.errors }}</div>
   </div>
+</div>
 {% endfor %}
