@@ -30,6 +30,13 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
+class DateRangeForm(forms.Form):
+
+    range_start = forms.DateField(label="від")
+
+    range_stop = forms.DateField(label="до")
+
+
 class AddProductForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
@@ -258,8 +265,15 @@ class AddHCableForm(AbstractCableForm):
             length=self.cleaned_data['length'])
 
 
-class DateRangeForm(forms.Form):
+class AddUVUH4CableForm(AbstractCableForm):
 
-    range_start = forms.DateField(label="від")
+    is_st_rod_e = forms.BooleanField(label="Чорний пруток Е", required=False)
 
-    range_stop = forms.DateField(label="до")
+    field_order = ['conduit', 'core', 'is_st_rod_e', 'length']
+
+    def create_product(self):
+        utils.create_uvu_h4_cable(
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            is_st_rod_e=self.cleaned_data['is_st_rod_e'],
+            length=self.cleaned_data['length'])
