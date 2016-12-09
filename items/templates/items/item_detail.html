@@ -42,13 +42,13 @@
 {% if item.rate %}
 <div class="row">
   <div class="two columns">Норма витрати, м</div>
-  <div class="ten columns"><h5>{{ item.rate }}</h5></div>
+  <div class="ten columns"><h5>{{ item.rate|floatformat:3 }}</h5></div>
 </div>
 {% endif %}
 {% if item.weight %}
 <div class="row">
   <div class="two columns">Вага, кг</div>
-  <div class="ten columns"><h5>{{ item.weight }}</h5></div>
+  <div class="ten columns"><h5>{{ item.weight|floatformat:3 }}</h5></div>
 </div>
 {% endif %}
 {% if item.critical_qty %}
