@@ -21,6 +21,8 @@
 
 {% block content %}
 
+{% include "items/includes/svg_warning_icon.html" %}
+
 <div class="row">
   <table class="u-full-width">
     <thead>
@@ -43,11 +45,23 @@
           <td>{{ component.item.part_number }}</td>
           <td class="notes">{{ component.item.notes }}</td>
           {% with component.item.weight as weight %}
-          <td>{% if weight %}{{ weight }}{% endif %}</td>
+          <td>{% if weight %}{{ weight|floatformat:3 }}{% endif %}</td>
           {% endwith %}
           <td>{{ component.quantity|floatformat }}</td>
         </tr>
       {% endfor %}
+        <tr class="highlighted">
+          <td colspan="3">Загальна вага, кг</td>
+          {% if product.weight_is_correct %}
+          <td>{{ product.weight|floatformat:3 }}</td>
+          {% else %}
+          <td class="alert">
+            {{ product.weight|floatformat:3 }}
+            <svg height="24" width="25"><use xlink:href="#warning" /></svg>
+          </td>
+          {% endif %}
+          <td></td>
+        </tr>
     </tbody>
   </table>
 </div>
