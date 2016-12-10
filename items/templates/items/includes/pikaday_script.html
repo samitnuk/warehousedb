@@ -1,0 +1,26 @@
+{% load static from staticfiles %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script src="{{ PORTAL_URL }}{% static 'js/pikaday.js' %}"></script>
+<script>
+  var rangeStart = new Pikaday({
+    field: document.getElementById('id_range_start'),
+    firstDay: 1,
+    fomat: 'YYYY-MM-DD',
+    minDate: new Date(2016, 0, 1),
+    maxDate: new Date(2018, 12, 31),
+  });
+  {% if initial_range_start %}
+    rangeStart.setDate('{{ initial_range_start }}');
+  {% endif %}
+  var rangeStop = new Pikaday({
+    field: document.getElementById('id_range_stop'),
+    firstDay: 1,
+    fomat: 'YYYY-MM-DD',
+    minDate: new Date(2016, 0, 1),
+    maxDate: new Date(2018, 12, 31),
+  });
+  {% if initial_range_stop %}
+    rangeStop.setDate('{{ initial_range_stop }}');
+  {% endif %}
+</script>
