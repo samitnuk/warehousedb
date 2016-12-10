@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -10,7 +8,7 @@ from django.urls import reverse_lazy
 from ..models import Item, ItemChange, Category
 from ..forms import DateRangeForm
 
-from ..helpers import get_date_range, get_objects_list
+from ..helpers import get_context_for_list_by_dates
 
 
 class ItemList(ListView):
@@ -36,41 +34,19 @@ def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
+    range_start, range_stop = None, None
+
     if request.method == 'POST' and form.is_valid():
         range_start = form.cleaned_data['range_start']
         range_stop = form.cleaned_data['range_stop']
 
-        items_list = get_objects_list(
-            range_start=range_start,
-            range_stop=range_stop,
-            object_model=Item,
-            objectchange_model=ItemChange,
-            field_name='item')
-
-        context = {
-            'date_range': get_date_range(range_start, range_stop),
-            'items_list': items_list,
-            'form': form}
-
-        return render(request, 'items/item_list_by_dates.html', context)
-
-    range_stop = datetime.today()
-    range_start = range_stop - timedelta(days=7)  # 7 days before today
-
-    items_list = get_objects_list(
-        range_start=range_start,
-        range_stop=range_stop,
+    context = get_context_for_list_by_dates(
         object_model=Item,
         objectchange_model=ItemChange,
-        field_name='item')
-
-    context = {
-        'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
-        'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
-        'date_range': get_date_range(range_start, range_stop),
-        'items_list': items_list,
-        'form': form}
-
+        field_name='item',
+        range_start=range_start,
+        range_stop=range_stop)
+    context['form'] = form
     return render(request, 'items/item_list_by_dates.html', context)
 
 

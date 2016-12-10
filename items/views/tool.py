@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -10,7 +8,7 @@ from django.urls import reverse_lazy, reverse
 from ..models import Tool, ToolChange
 from ..forms import DateRangeForm
 
-from ..helpers import get_date_range, get_objects_list
+from ..helpers import get_context_for_list_by_dates
 
 
 class ToolList(ListView):
@@ -23,35 +21,19 @@ def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
+    range_start, range_stop = None, None
+
     if request.method == 'POST' and form.is_valid():
         range_start = form.cleaned_data['range_start']
         range_stop = form.cleaned_data['range_stop']
 
-        context = {
-            'form': form,
-            'date_range': get_date_range(range_start, range_stop),
-            'tools_list': get_objects_list(range_start=range_start,
-                                           range_stop=range_stop,
-                                           object_model=Tool,
-                                           objectchange_model=ToolChange,
-                                           field_name='tool')}
-
-        return render(request, 'items/tool_list_by_dates.html', context)
-
-    range_stop = datetime.today()
-    range_start = range_stop - timedelta(days=7)
-
-    context = {
-        'form': form,
-        'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
-        'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
-        'date_range': get_date_range(range_start, range_stop),
-        'tools_list': get_objects_list(range_start=range_start,
-                                       range_stop=range_stop,
-                                       object_model=Tool,
-                                       objectchange_model=ToolChange,
-                                       field_name='tool')}
-
+    context = get_context_for_list_by_dates(
+        object_model=Tool,
+        objectchange_model=ToolChange,
+        field_name='tool',
+        range_start=range_start,
+        range_stop=range_stop)
+    context['form'] = form
     return render(request, 'items/tool_list_by_dates.html', context)
 
 

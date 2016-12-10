@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -10,7 +8,7 @@ from django.urls import reverse_lazy, reverse
 from ..models import Material, MaterialChange
 from ..forms import DateRangeForm
 
-from ..helpers import get_date_range, get_objects_list
+from ..helpers import get_context_for_list_by_dates
 
 
 class MaterialList(ListView):
@@ -23,40 +21,20 @@ def list_by_dates(request):
 
     form = DateRangeForm(request.POST or None)
 
+    range_start, range_stop = None, None
+
     if request.method == 'POST' and form.is_valid():
         range_start = form.cleaned_data['range_start']
         range_stop = form.cleaned_data['range_stop']
 
-        materials_list = get_objects_list(
-            range_start=range_start,
-            range_stop=range_stop,
-            object_model=Material,
-            objectchange_model=MaterialChange,
-            field_name='material')
-
-        return render(
-            request, 'items/material_list_by_dates.html',
-            {'date_range': get_date_range(range_start, range_stop),
-             'material_list': materials_list,
-             'form': form})
-
-    range_stop = datetime.today()
-    range_start = range_stop - timedelta(days=7)
-
-    materials_list = get_objects_list(
-        range_start=range_start,
-        range_stop=range_stop,
+    context = get_context_for_list_by_dates(
         object_model=Material,
         objectchange_model=MaterialChange,
-        field_name='material')
-
-    return render(
-        request, 'items/material_list_by_dates.html',
-        {'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
-         'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
-         'date_range': get_date_range(range_start, range_stop),
-         'material_list': materials_list,
-         'form': form})
+        field_name='material',
+        range_start=range_start,
+        range_stop=range_stop)
+    context['form'] = form
+    return render(request, 'items/material_list_by_dates.html', context)
 
 
 class MaterialDetail(DetailView):
