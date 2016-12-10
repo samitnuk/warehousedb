@@ -158,6 +158,9 @@ class Order(models.Model):
 
     notes = models.TextField(blank=True, verbose_name="Примітка")
 
+    is_paid = models.BooleanField(default=False,
+                                  verbose_name="Замовлення оплачено")
+
     is_ready = models.BooleanField(default=False,
                                    verbose_name="Замовлення готове")
 
