@@ -13,7 +13,7 @@
 {% endblock header %}
 
 {% block content %}
-<form  action="" method="post" class="{{ form_type }}">
+<form action="" method="post" class="{{ form_type }}">
   {% csrf_token %}
   {% include "items/includes/render_fields.html" %}
   {% include "items/includes/button.html" with button_value="Створити" %}
