@@ -7,32 +7,22 @@
 {% block header %}
 <div class="row" id="header">
   <div class="{% if order.is_sent %}ten{% else %}eight{% endif %} columns">
-      <h5>{{ order.customer }}</h5></div>
+    <h5>{{ order.customer }}</h5></div>
+
   {% if order.is_ready %}
     {% if not order.is_sent %}
-    <div class="two columns">
-      <a class="button button-primary u-full-width"
-         href="{% url 'order_sent_confirmation' order.id %}">
-        Відправлено
-      </a>
-    </div>
+      {% url 'order_sent_confirmation' order.id as sent_url %}
+      {% include "items/includes/button_link.html" with button_url=sent_url button_value="Відправлено" only %}
     {% endif %}
   {% else %}
-  <div class="two columns">
-    <a class="button button-primary u-full-width"
-       href="{% url 'order_ready_confirmation' order.id %}">
-      Готово
-    </a>
-  </div>
+    {% url 'order_ready_confirmation' order.id as ready_url %}
+    {% include "items/includes/button_link.html" with button_url=ready_url button_value="Готово" only %}
   {% endif %}
 
-  <div class="two columns">
-    <a class="button button-danger u-full-width"
-       href="{% url 'order_delete' order.id %}">
-      Видалити
-    </a>
-  </div>
-
+  {% if request.user.is_staff %}
+    {% url 'order_delete' order.id as delete_url %}
+    {% include "items/includes/button_link.html" with button_url=delete_url button_value="Видалити" only %}
+  {% endif %}
 </div>
 {% endblock header %}
 

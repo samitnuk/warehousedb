@@ -6,22 +6,14 @@
 
 {% block header %}
 <div class="row" id="navigation">
-  <div class="eight columns">
+  <div class="{% if request.user.is_staff %}eight{% else %}ten{% endif %} columns">
     <h5>{{ object.title }}</h5>
-    </div>
-    <div class="two columns">
-      <a class="button button-primary u-full-width"
-         href="{{ view.url_for_update }}">
-        Редагувати
-      </a>
-    </div>
-    <div class="two columns">
-      <a class="button button-danger u-full-width"
-         href="{{ view.url_for_delete }}">
-        Видалити
-      </a>
-    </div>
   </div>
+  {% include "items/includes/button_link.html" with button_url=view.url_for_update button_value="Редагувати" only %}
+  {% if request.user.is_staff %}
+    {% include "items/includes/button_link.html" with delete_url=view.url_for_delete  button_value="Видалити" only %}
+  {% endif %}
+</div>
 {% endblock header %}
 
 {% block content %}

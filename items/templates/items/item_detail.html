@@ -6,23 +6,17 @@
 
 {% block header %}
 <div class="row" id="header">
-  <div class="eight columns">
+  <div class="{% if request.user.is_staff %}eight{% else %}ten{% endif %} columns">
     <h5>{{ item.title }} /
       <a href="{% url 'item_list' item.category.id %}">{{ item.category.title }}</a>
     </h5>
   </div>
-  <div class="two columns">
-    <a class="button button-primary u-full-width"
-       href="{% url 'item_update' item.id %}">
-      Редагувати
-    </a>
-  </div>
-  <div class="two columns">
-    <a class="button button-danger u-full-width"
-       href="{% url 'item_delete' item.id %}">
-      Видалити
-    </a>
-  </div>
+  {% url 'item_update' item.id as update_url %}
+  {% include "items/includes/button_link.html" with button_url=update_url button_value="Редагувати" only %}
+  {% if request.user.is_staff %}
+    {% url 'item_delete' item.id as delete_url %}
+    {% include "items/includes/button_link.html" with button_url=delete_url button_value="Видалити" only %}
+  {% endif %}
 </div>
 {% endblock header %}
 
