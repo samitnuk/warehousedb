@@ -110,6 +110,10 @@ class Product(Base):
         # return True if for all components indicated item.weight
         return all([component.item.weight for component in self.components])
 
+    @property
+    def related_to_any_order(self):
+        return any(self.order.all())
+
 
 class Component(models.Model):
     """Component Model
@@ -152,7 +156,7 @@ class Order(models.Model):
     order_date = models.DateField(blank=False, default=date.today,
                                   verbose_name="Дата зміни")
 
-    product = models.ForeignKey('Product')
+    product = models.ForeignKey('Product', related_name="order")
 
     quantity = models.FloatField(blank=False, verbose_name="Кількість")
 
