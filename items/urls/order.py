@@ -29,4 +29,8 @@ urlpatterns = [
     url(r'^sent_confirmation/(?P<pk>\d+)/',
         login_required(order.AddSentNotesToOrder.as_view()),
         name='order_sent_confirmation'),
+
+    url(r'^paid_confirmation/(?P<pk>\d+)/',
+        order.paid_confirmation,
+        name='order_paid_confirmation'),
 ]

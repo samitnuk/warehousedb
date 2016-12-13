@@ -68,3 +68,14 @@ class AddSentNotesToOrder(FormView):
         pk = self.kwargs.get('pk')
         context['order'] = Order.objects.filter(pk=pk).first()
         return context
+
+
+def paid_confirmation(request, pk):
+
+    Order.objects.filter(pk=pk).update(is_paid=True)
+    order = Order.objects.filter(pk=pk).first()
+    if order.is_sent:
+        return redirect('order_list', status='sent')
+    elif order.is_ready:
+        return redirect('order_list', status='ready')
+    return redirect('order_list')
