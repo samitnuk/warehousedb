@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for component in product.components %}
+      {% for component in components %}
         <tr>
           <td>
             <a href="{% url 'item_detail' component.item.id %}">

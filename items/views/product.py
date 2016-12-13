@@ -19,6 +19,12 @@ class ProductList(ListView):
 class ProductDetail(DetailView):
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        product = self.get_object()
+        context['components'] = product.components.order_by('item__title')
+        return context
+
 
 class ProductCreate(FormView):
     template_name = 'items/product_form.html'
