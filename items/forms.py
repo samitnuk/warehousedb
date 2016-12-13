@@ -117,7 +117,6 @@ class AddOrderForm(forms.Form):
 class AddSentNotesToOrderForm(forms.Form):
 
     sent_notes = forms.CharField(label="Дані про відправлення",
-                                 required=False,
                                  widget=forms.Textarea)
 
     def add_sent_notes(self, pk):
