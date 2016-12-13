@@ -130,6 +130,14 @@ tbody tr:hover {
     background-color: #eee;
 }
 
+tr.is-paid {
+    background-color: #ffffae;
+}
+
+tr.is-paid:hover {
+    background-color: #fdfd5d;
+}
+
 .table-input {
     margin-bottom: 0;
     float: right;
