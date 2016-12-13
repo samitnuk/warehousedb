@@ -44,7 +44,7 @@
       </thead>
       <tbody>
         {% for order in orders %}
-          <tr>
+          <tr class="{% if order.is_paid %}is-paid{% endif %}">
             <td>
               <a href="{% url 'order_detail' order.id %}">
                 {{ order.customer }}
