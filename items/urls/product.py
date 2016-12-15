@@ -29,4 +29,8 @@ urlpatterns = [
     url(r'^create_std_product/(?P<product_num>\d+)/',
         login_required(product.StdProductCreate.as_view()),
         name='create_std_product'),
+
+    url(r'^create_ptz_shifter/',
+        product.create_ptz_shifter,
+        name='create_ptz_shifter'),
 ]
