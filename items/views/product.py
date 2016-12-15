@@ -1,4 +1,6 @@
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
@@ -6,9 +8,9 @@ from django.views.generic import DeleteView
 from django.views.generic import TemplateView
 
 from ..models import Product
-from ..forms import (AddProductForm, AddStdCableForm, AddStdTCableForm,
-                     AddTZACableForm, AddBCableForm, AddHCableForm,
-                     AddUVUH4CableForm)
+from ..forms import AddProductForm
+from ..std_products import STD_PRODUCTS
+from ..utils import create_ptz_shifter
 
 
 class ProductList(ListView):
@@ -47,38 +49,11 @@ class StdProductsList(TemplateView):
 
 
 class StdProductCreate(FormView):
-    STD_PRODUCTS = {
-        0: {
-            'form_class': AddStdCableForm,
-            'header': "Додати стандартний трос",
-            'form_type': "std-cable"},
-        1: {
-            'form_class': AddStdTCableForm,
-            'header': "Додати стандартний тянучий трос",
-            'form_type': ""},
-        2: {
-            'form_class': AddTZACableForm,
-            'header': "Додати трос ТЗА",
-            'form_type': ""},
-        3: {
-            'form_class': AddBCableForm,
-            'header': "Додати трос Богдан",
-            'form_type': "b-cable"},
-        4: {
-            'form_class': AddHCableForm,
-            'header': "Додати трос г/р (МТЗ)",
-            'form_type': "h-cable"},
-        5: {
-            'form_class': AddUVUH4CableForm,
-            'header': "Додати трос г/р (Успіх - Східна Україна)",
-            'form_type': ""},
-    }
-
     template_name = 'items/std_products/std_product_form.html'
     success_url = reverse_lazy('product_list')
 
     def dispatch(self, request, *args, **kwargs):
-        product = self.STD_PRODUCTS[int(self.kwargs['product_num'])]
+        product = STD_PRODUCTS[int(self.kwargs['product_num'])]
         self.form_class = product['form_class']
         return super(StdProductCreate, self).dispatch(request, *args, **kwargs)
 
@@ -88,7 +63,13 @@ class StdProductCreate(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(StdProductCreate, self).get_context_data(**kwargs)
-        product = self.STD_PRODUCTS[int(self.kwargs['product_num'])]
+        product = STD_PRODUCTS[int(self.kwargs['product_num'])]
         context['header'] = product['header']
         context['form_type'] = product['form_type']
         return context
+
+
+@login_required(login_url='/login/')
+def create_ptz_shifter(request, pk):
+    create_ptz_shifter()
+    return redirect('products_list')
