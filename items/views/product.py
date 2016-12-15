@@ -70,6 +70,6 @@ class StdProductCreate(FormView):
 
 
 @login_required(login_url='/login/')
-def create_ptz_shifter(request, pk):
+def create_ptz_shifter(request):
     create_ptz_shifter()
     return redirect('products_list')
