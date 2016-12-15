@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 from django.views.generic import DeleteView
@@ -44,6 +45,7 @@ class OrderDetail(DetailView):
     context_object_name = 'order'
 
 
+@login_required(login_url='/login/')
 def ready_confirmation(request, pk):
 
     order = Order.objects.filter(pk=pk).first()
@@ -70,6 +72,7 @@ class AddSentNotesToOrder(FormView):
         return context
 
 
+@login_required(login_url='/login/')
 def paid_confirmation(request, pk):
 
     Order.objects.filter(pk=pk).update(is_paid=True)
