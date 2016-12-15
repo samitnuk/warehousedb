@@ -276,3 +276,12 @@ class AddUVUH4CableForm(AbstractCableForm):
             core_id=self.cleaned_data['core'],
             is_st_rod_e=self.cleaned_data['is_st_rod_e'],
             length=self.cleaned_data['length'])
+
+
+class AddPTZCableForm(AbstractCableForm):
+
+    def create_product(self):
+        utils.create_ptz_cable(
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            length=self.cleaned_data['length'])
