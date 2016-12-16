@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from ..models import Product
 from ..forms import AddProductForm
 from ..std_products import STD_PRODUCTS
-from ..utils import create_ptz_shifter
+from ..utils import create_ptz_shifter_
 
 
 class ProductList(ListView):
@@ -71,5 +71,5 @@ class StdProductCreate(FormView):
 
 @login_required(login_url='/login/')
 def create_ptz_shifter(request):
-    create_ptz_shifter()
-    return redirect('products_list')
+    create_ptz_shifter_()
+    return redirect('product_list')
