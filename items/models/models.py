@@ -22,7 +22,7 @@ class Item(Base):
     picture = models.ImageField(blank=True, null=True,
                                 verbose_name="Зображення")
 
-    category = models.ForeignKey('Category', blank=True, null=True,
+    category = models.ForeignKey('Category',
                                  verbose_name="Категорія")
 
     rate = models.FloatField(default=0,
