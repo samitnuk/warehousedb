@@ -1,14 +1,14 @@
 import os
 
+from . import local_settings as ls
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qm#xb=ea=w_70-wy0=#^$g=$@5!pbc7s3=$eupv2bpo7rf&u3k'
+SECRET_KEY = ls.SECRET_KEY
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = ls.DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -63,11 +63,11 @@ WSGI_APPLICATION = 'warehousedb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'warehousedb',
-        'USER': 'warehouseadmin',
-        'PASSWORD': 'secretpassword',
-        'HOST': 'localhost',
-        'PORT': ''
+        'NAME': ls.DB_NAME,
+        'USER': ls.DB_USER,
+        'PASSWORD': ls.DB_PASSWORD,
+        'HOST': ls.DB_HOST,
+        'PORT': ls.DB_PORT
     }
 }
 
