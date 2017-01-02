@@ -189,7 +189,7 @@ class Order(models.Model):
 class Material(Base):
     """Material Model
 
-    Describes separate material for item.
+    Describes separate material in warehouse.
 
     """
 
@@ -272,13 +272,11 @@ class MaterialChange(BaseChange):
     Describes each change in quantity of concrete material.
 
     When instance of ItemChange Model (with positive
-    additional_quantity) will be created, will be created
-    related instances of MaterialChange Model
-    throught post_save signal.
+    additional_quantity) be created, be created related instances
+    of MaterialChange Model throught post_save signal.
 
-    When instance of ItemChange Model will be deleted,
-    will be deleted related instances of MaterialChange Model
-    throught model manager.
+    When instance of ItemChange Model be deleted, be deleted related
+    instances of MaterialChange Model throught model manager.
 
     """
 
