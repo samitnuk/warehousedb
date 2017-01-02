@@ -6,19 +6,15 @@
 
 {% block subnavigation %}
   <div class="row" id="navigation">
-    <div class="eight columns">
+    <div class="ten columns">
       <ul class="nav-menu">
         <li role="presentation">
           <a href="{% url 'material_list_by_dates' %}">Матеріали по датах</a>
         </li>
       </ul>
     </div>
-    <div class="two columns u-pull-right">
-      <a class="button button-primary u-full-width"
-         href="{% url 'material_create' %}">
-        Додати
-      </a>
-    </div>
+    {% url 'material_create' as create_url %}
+    {% include "items/includes/button_link.html" with button_url=create_url button_value="Додати" only %}
   </div>
 {% endblock subnavigation %}
 
