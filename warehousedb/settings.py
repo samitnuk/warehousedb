@@ -10,7 +10,7 @@ SECRET_KEY = ls.SECRET_KEY
 
 DEBUG = ls.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ls.ALLOWED_HOSTS
 
 
 # Application definition
