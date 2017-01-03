@@ -2,37 +2,21 @@
 
 
 /* global styles */
-body {
-    font-family: 'Scada', 'Ubuntu Condensed', sans-serif;
-}
+body {font-family: 'Scada', 'Ubuntu Condensed', sans-serif;}
 
-a {
-    text-decoration: none;
-}
+a {text-decoration: none;}
 
-form {
-    margin-bottom: 0;
-}
+form {margin-bottom: 0;}
 
-abbr[title] {
-    border-bottom: none;
-}
+abbr[title] {border-bottom: none;}
 
-h5 {
-    margin-bottom: 10px;
-}
+h5 {margin-bottom: 10px;}
 
-.container {
-    max-width: 1200px;
-}
+.container {max-width: 1200px;}
 
-.row {
-    padding-top: 10px;
-}
+.row {padding-top: 10px;}
 
-.error, .errorlist {
-    color: red;
-}
+.error, .errorlist {color: red;}
 
 .category {
    background-color: #e1e1e1;
@@ -54,17 +38,11 @@ input[type="submit"].button-danger:hover {
     border-color: #DF0101;
 }
 
-.button {
-    padding: 0;
-}
+.button {padding: 0;}
 
-.hidden_at_start {
-    display: none;
-}
+.hidden_at_start {display: none;}
 
-.highlighted {
-    background-color: #eee;
-}
+.highlighted {background-color: #eee;}
 
 svg {
     vertical-align: middle;
@@ -88,10 +66,6 @@ ul.nav-menu li {
     margin-right: 25px;
 }
 
-ul.nav-menu a {
-    text-decoration: none;
-}
-
 li.nav-active a {
     color: #888;
     border-bottom: 4px solid #e1e1e1;
@@ -99,44 +73,26 @@ li.nav-active a {
 
 
 /* header styles */
-#header {
-    padding-top: 10px;
-}
+#header { padding-top: 10px;}
 
 /* tables styles */
-table {
-    font-size: 16px;
-}
+table {font-size: 16px;}
 
-th, td {
-    padding: 5px 10px;
-}
+th, td {padding: 5px 10px;}
 
-th:first-child, td:first-child {
-    padding-left: 15px;
-}
+th:first-child, td:first-child {padding-left: 15px;}
 
-td.alert {
-    /*background-color: #FF0000;*/
-    color: #FF0000;
-}
+td.alert {color: #FF0000;}
 
 thead {
     background-color: #444;
     color: #fff;
 }
 
-tbody tr:hover {
-    background-color: #eee;
-}
+tbody tr:hover {background-color: #eee;}
 
-tr.is-paid {
-    background-color: #ffffae;
-}
-
-tr.is-paid:hover {
-    background-color: #fdfd5d;
-}
+tr.is-paid {background-color: #ffffae;}
+tr.is-paid:hover {background-color: #fdfd5d;}
 
 .table-input {
     margin-bottom: 0;

@@ -11,11 +11,9 @@
 {% endblock header %}
 
 {% block content %}
-
 <form  action="" method="post">
 
 {% csrf_token %}
-
 {{ form.non_field_errors }}
 
 	<div class="row">
@@ -28,5 +26,4 @@
 	</div>
 
 </form>
-
 {% endblock content %}
