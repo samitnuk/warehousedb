@@ -140,13 +140,12 @@ class Component(models.Model):
 class Order(models.Model):
     """Order Model
 
-    When instance of Order Model will be created,
-    will be created related instances of ItemChange Model
-    throught post_save signal.
+    When for instance of Order Model is_ready be set to True,
+    be created related instances of ItemChange Model throught
+    post_save signal.
 
-    When instance of Order Model will be deleted,
-    will be deleted related instances of ItemChange Model
-    throught model manager.
+    When instance of Order Model be deleted, be deleted related
+    instances of ItemChange Model throught model manager.
 
     """
 
