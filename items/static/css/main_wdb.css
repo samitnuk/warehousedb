@@ -1,7 +1,8 @@
 @import 'https://fonts.googleapis.com/css?family=Scada';
 
 
-/* global styles */
+/* Global
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 body {font-family: 'Scada', 'Ubuntu Condensed', sans-serif;}
 
 a {text-decoration: none;}
@@ -22,21 +23,19 @@ h5 {margin-bottom: 10px;}
    background-color: #e1e1e1;
    padding: 5px 0 5px 15px;
    border-radius: 4px;
-   cursor: pointer;
-}
+   cursor: pointer; }
 
 .button.button-danger,
 input[type="submit"].button-danger {
     color: #FFF;
     background-color: #FF0000;
-    border-color: #FF0000;
-}
+    border-color: #FF0000; }
+
 .button.button-danger:hover,
 input[type="submit"].button-danger:hover {
     color: #FFF;
     background-color: #DF0101;
-    border-color: #DF0101;
-}
+    border-color: #DF0101; }
 
 .button {padding: 0;}
 
@@ -46,36 +45,35 @@ input[type="submit"].button-danger:hover {
 
 svg {
     vertical-align: middle;
-    float: right;
-}
+    float: right; }
 
 
-/* navigation styles */
+/* Navigation
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 #navigation {
     border-bottom: 1px solid #e1e1e1;
-    padding-bottom: 5px;
-}
+    padding-bottom: 5px; }
 
 ul.nav-menu {
     font-size: 18px;
-    margin-bottom: 0;
-}
+    margin-bottom: 0; }
 
 ul.nav-menu li {
     display: inline;
-    margin-right: 25px;
-}
+    margin-right: 25px; }
 
 li.nav-active a {
     color: #888;
-    border-bottom: 4px solid #e1e1e1;
-}
+    border-bottom: 4px solid #e1e1e1; }
 
 
-/* header styles */
+/* Header
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 #header { padding-top: 10px;}
 
-/* tables styles */
+
+/* Tables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 table {font-size: 16px;}
 
 th, td {padding: 5px 10px;}
@@ -86,8 +84,7 @@ td.alert {color: #FF0000;}
 
 thead {
     background-color: #444;
-    color: #fff;
-}
+    color: #fff; }
 
 tbody tr:hover {background-color: #eee;}
 
@@ -96,10 +93,21 @@ tr.is-paid:hover {background-color: #fdfd5d;}
 
 .table-input {
     margin-bottom: 0;
-    float: right;
-}
+    float: right; }
 
 .notes {
     font-size: 0.8em;
-    color: #bbb;
-}
+    color: #bbb; }
+
+
+/* Media Queries
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Larger than mobile */
+@media (min-width: 400px) {
+    .container {
+        width: 100%; }}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 550px) {
+    .container {
+        width: 100%; }}
