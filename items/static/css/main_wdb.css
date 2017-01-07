@@ -20,10 +20,10 @@ h5 {margin-bottom: 10px;}
 .error, .errorlist {color: red;}
 
 .category {
-   background-color: #e1e1e1;
-   padding: 5px 0 5px 15px;
-   border-radius: 4px;
-   cursor: pointer; }
+    background-color: #e1e1e1;
+    padding: 5px 0 5px 15px;
+    border-radius: 4px;
+    cursor: pointer; }
 
 .button.button-danger,
 input[type="submit"].button-danger {
@@ -69,7 +69,7 @@ li.nav-active a {
 
 /* Header
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-#header { padding-top: 10px;}
+#header {padding-top: 10px;}
 
 
 /* Tables
