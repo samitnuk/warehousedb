@@ -9,7 +9,7 @@ Short description of all Models used here:
 - __Product__ - describes separate *product* in warehouse. Generally, *product* represents set of components.
 - __Component__ - describes *component* and quantity of this *component* in separate *product*. Each *component* relates to some *product* and to at least one *item*.
 - __Order__ - describes separate *order*. Each *order* relates to some one *product*. When we create *order* and then confim that this *order* is ready - then will be created needed __ItemChange__ instances (see in items/signals.py).
-- __ItemChange__ - describes each change in quantity for specific *item*. Each *itemchange* relates to some *item* and to some *order* (if *itemchange* was created automaticaly). When we create *itemchange* manualy with positive quantity (means we add some item to warehouse) we can chuse material and related __MaterialChange__ be created automaticaly (if item.rate is not 0) - (see in items/signals.py).
+- __ItemChange__ - describes each change in quantity for specific *item*. Each *itemchange* relates to some *item* and to some *order* (if *itemchange* was created automaticaly). When we create *itemchange* manualy with positive quantity (means we add some item to warehouse) we can chose material and related __MaterialChange__ be created automaticaly (if item.rate is not 0) - (see in items/signals.py).
 - __Material__ - describes separate *material* in warehouse (title, etc.).
 - __MaterialChange__ - describes each change in quantity for specific *material*. Each *materialchange* relates to some *material* and to some *itemchange* (if *materialchange* was created automaticaly).
 - __Tool__ - describes separate *tool* in warehouse (title, etc.).
