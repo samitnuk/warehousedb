@@ -58,7 +58,6 @@
 
 {% if not order.is_paid and request.user.is_staff %}
 <div class="row">
-  <div class="two columns">.</div>
     {% url 'order_paid_confirmation' order.id as paid_url %}
     {% include "items/includes/button_link.html" with button_url=paid_url button_value="Оплачено" only %}
 </div>
