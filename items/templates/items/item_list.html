@@ -27,7 +27,7 @@
     <ul class="nav-menu">
       {% for category in categories %}
         {% if not category.special %}
-        <li role="presentation" {% if category.id == active_category.id %}class="nav-active"{% endif %}>
+        <li role="presentation" class="{% if category.id == active_category.id %}nav-active{% endif %}">
           <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
         </li>
         {% endif %}
@@ -41,7 +41,7 @@
     <ul class="nav-menu">
       {% for category in categories %}
         {% if category.special %}
-        <li role="presentation" {% if category.id == active_category.id %}class="nav-active"{% endif %}>
+        <li role="presentation" class="{% if category.id == active_category.id %}nav-active{% endif %}">
           <a href="{% url 'item_list' category.id %}">{{ category.title }}</a>
         </li>
         {% endif %}
