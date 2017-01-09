@@ -1,4 +1,5 @@
-<div class="two columns">
+<div class="{% if button_value == 'Оплачено' %}offset-by-two
+            {% endif %} two columns">
   <a class="button{% if button_value == 'Видалити' %} button-danger
                   {% else %} button-primary
                   {% endif %} u-full-width"
