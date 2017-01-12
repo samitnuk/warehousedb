@@ -182,6 +182,28 @@ class AddStdCableForm(AbstractCableForm):
             length=self.cleaned_data['length'])
 
 
+class Add3SrsStdCableForm(AbstractCableForm):
+
+    travel = forms.ChoiceField(label="Хід", choices=utils.TRAVELS)
+
+    mounting = forms.ChoiceField(label="Кріплення", choices=utils.MOUNTINGS)
+
+    is_7mm_sleeve = forms.BooleanField(label="Трубка діам. 7 мм.",
+                                       required=False)
+
+    field_order = [
+        'conduit', 'core', 'travel', 'mounting', 'is_7mm_sleeve', 'length']
+
+    def create_product(self):
+        utils.create_std_3srs_cable(
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            travel=self.cleaned_data['travel'],
+            mounting=self.cleaned_data['mounting'],
+            is_7mm_sleeve=self.cleaned_data['is_7mm_sleeve'],
+            length=self.cleaned_data['length'])
+
+
 class AddStdTCableForm(AbstractCableForm):
 
     SERIES = ((4, "#4 серія"),)
