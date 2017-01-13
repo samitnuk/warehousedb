@@ -37,7 +37,7 @@
     <div class="three columns error">{{ form.notes.errors }}</div>
   </div>
 
-  {% for category, items_fields in form.get_form_data.items %}
+  {% for category, items_fields in form.get_form_data %}
   <div class="row">
     <div class="u-full-width category">{{ category }}</div>
     <table class="u-full-width hidden_at_start">

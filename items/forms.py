@@ -1,5 +1,4 @@
 from django import forms
-
 from django.contrib.auth.models import User
 
 from .models import Item, Category, Product, Order, Component
@@ -63,13 +62,12 @@ class AddProductForm(forms.Form):
         categories = Category.objects.all()
         data = dict()
         for category in categories:
-            if category not in data:
-                data[category] = []
+            data[category.title] = []
             items_q = items.filter(category=category)
             for item in items_q:
-                data[category].append(
+                data[category.title].append(
                     [item, {'name': self['item_{}'.format(item.id)]}])
-        return data
+        return sorted(data.items())
 
     def create_product(self):
         product = Product.objects.create(
