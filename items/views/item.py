@@ -29,6 +29,20 @@ class ItemList(ListView):
         return context
 
 
+class ItemListPrint(ListView):
+    model = Item
+    template_name = "items/item_list_print.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ItemListPrint, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
+        data = dict()
+        for category in categories:
+            data[category.title] = Item.objects.filter(category=category)
+        context['data'] = sorted(data.items())
+        return context
+
+
 @login_required(login_url='/login/')
 def list_by_dates(request):
 
