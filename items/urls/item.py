@@ -14,6 +14,10 @@ urlpatterns = [
         login_required(item.ItemList.as_view()),
         name='item_list'),
 
+    url(r'^item/list_print/',
+        login_required(item.ItemListPrint.as_view()),
+        name='item_list_print'),
+
     url(r'^item/list_by_dates/',
         item.list_by_dates,
         name='item_list_by_dates'),
