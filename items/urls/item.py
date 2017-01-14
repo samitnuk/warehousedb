@@ -41,4 +41,12 @@ urlpatterns = [
     url(r'^item/itemchange_create/(?P<item_pk>\d+)/',
         login_required(item.ItemChangeCreate.as_view()),
         name='itemchange_create'),
+
+    url(r'^item/itemchange_update/(?P<pk>\d+)/',
+        login_required(item.ItemChangeUpdate.as_view()),
+        name='itemchange_update'),
+
+    url(r'^item/itemchange_delete/(?P<pk>\d+)/',
+        login_required(item.ItemChangeDelete.as_view()),
+        name='itemchange_delete'),
 ]

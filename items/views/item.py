@@ -99,3 +99,14 @@ class ItemChangeCreate(CreateView):
     def get_initial(self):
         item_pk = self.kwargs['item_pk']
         return {'item': Item.objects.filter(pk=item_pk).first()}
+
+
+class ItemChangeUpdate(UpdateView):
+    model = ItemChange
+    fields = ['additional_quantity', 'material', 'notes']
+
+
+class ItemChangeDelete(DeleteView):
+    model = ItemChange
+    success_url = reverse_lazy('item_list')
+    template_name = "items/object_confirm_delete.html"
