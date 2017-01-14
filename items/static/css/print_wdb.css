@@ -1,0 +1,15 @@
+@media print {
+    body, table {
+        font-size: 9px !important;
+        line-height: 1;}
+
+    table {margin-bottom: 0;}
+
+    thead {
+        background-color: transparent !important;
+        color: #000000 !important; }
+
+    .print-fixed-width {min-width: 60px;}
+
+    .no-print, .no-print * {display: none !important;}
+}
