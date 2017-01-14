@@ -11,6 +11,10 @@
         <li role="presentation">
           <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
         </li>
+        <li>|</li>
+        <li role="presentation">
+          <a href="{% url 'item_list_print' %}">Список для друку</a>
+        </li>
       </ul>
     </div>
     {% url 'item_create' as create_url %}
