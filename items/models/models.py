@@ -264,6 +264,9 @@ class ItemChange(BaseChange):
                                      self.changed_at.strftime('%Y-%m-%d'),
                                      a_q)
 
+    def get_absolute_url(self):
+        return reverse('itemchange_detail', kwargs={'pk': self.pk})
+
 
 class MaterialChange(BaseChange):
     """ItemChange Model
