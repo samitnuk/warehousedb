@@ -1,0 +1,62 @@
+{% extends 'items/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Список для друку{% endblock meta_title %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/print_wdb.css' %}" />
+{% endblock extra_css %}
+
+{% block subnavigation %}
+  <div class="row no-print" id="navigation">
+    <div class="ten columns">
+      <ul class="nav-menu">
+        <li role="presentation">
+          <a href="{% url 'item_list_by_dates' %}">Склад по датах</a>
+        </li>
+        <li>|</li>
+        <li role="presentation" class="nav-active">
+          <a href="{% url 'item_list_print' %}">Список для друку</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock subnavigation %}
+
+{% block content %}
+
+{% for category, items in data %}
+<div class="row">
+  <div class="u-full-width category">{{ category }}</div>
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Найменування</th>
+          <th>Індекс</th>
+          <th>Наш індекс</th>
+          <th>Примітка</th>
+          <th>Норма витрати, м</th>
+          <th>Вага, кг</th>
+          <th class="print-fixed-width">К-сть</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for item in items %}
+      <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.part_number }}</td>
+        <td>{{ item.part_number2 }}</td>
+        <td class="notes">{{ item.notes }}</td>
+        <td>{% if item.rate %}{{ item.rate }}{% endif %}</td>
+        <td>{% if item.weight %}{{ item.weight }}{% endif %}</td>
+        <td>{% if item.current_total %}{{ item.current_total|floatformat }}{% endif %}</td>
+      </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endfor %}
+
+
+{% endblock content %}
