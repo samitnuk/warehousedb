@@ -38,7 +38,8 @@ def materialchange_auto_create(instance, **kwargs):
 
     # instance of MaterialChange Model should be created if
     # additional_quantity is positive and material selected
-    if itemchange.additional_quantity > 0 and itemchange.material:
+    if itemchange.additional_quantity > 0 and itemchange.material and \
+            itemchange.item.rate:
 
         additional_quantity = itemchange.additional_quantity
         if additional_quantity == int(additional_quantity):
