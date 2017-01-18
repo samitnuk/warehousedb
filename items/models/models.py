@@ -34,6 +34,15 @@ class Item(Base):
     critical_qty = models.FloatField(default=0,
                                      verbose_name="Критична кількість")
 
+    # previous_qty = models.FloatField(
+    #     default=0,
+    #     verbose_name="К-сть за попередній період")
+    #
+    # last_qty_update = models.DateField(
+    #     blank=True,
+    #     null=True,
+    #     verbose_name="Дата останньої зміни к-сті")
+
     class Meta:
         verbose_name = "Позиція на складі"
         verbose_name_plural = "Позиції на складі"
@@ -49,10 +58,44 @@ class Item(Base):
 
     @property
     def current_total(self):
-        total = self.i_quantity.aggregate(models.Sum('additional_quantity'))
-        if total['additional_quantity__sum'] is not None:
-            return total['additional_quantity__sum']
+        total = self.i_quantity.aggregate(
+            qty=models.Sum('additional_quantity'))
+        if total['qty'] is not None:
+            return total['qty']
         return 0
+
+    # @property
+    # def total_qty(self):
+    #
+    #     today_total = self.i_quantity.filter(
+    #         changed_at=date.today()
+    #     ).aggregate(qty=models.Sum('additional_quantity'))
+    #     today_total_qty = 0
+    #     if today_total['qty'] is not None:
+    #         today_total_qty = today_total['qty']
+    #
+    #     yesterday = date.today() - timedelta(days=1)
+    #
+    #     if self.last_qty_update:
+    #         if self.last_qty_update == yesterday:
+    #             return self.previous_qty + today_total_qty
+    #         total = self.i_quantity.filter(
+    #             changed_at__gte=self.last_qty_update,
+    #             changed_at__lte=yesterday
+    #         ).aggregate(qty=models.Sum('additional_quantity'))
+    #         if total['qty'] is not None:
+    #             self.previous_qty += today_total['qty']
+    #         self.last_qty_update = yesterday
+    #         return self.previous_qty + today_total_qty
+    #     else:
+    #         self.previous_qty = 0
+    #         self.last_qty_update = yesterday
+    #         total = self.i_quantity.filter(
+    #             changed_at__lte=yesterday
+    #         ).aggregate(qty=models.Sum('additional_quantity'))
+    #         if total['qty'] is not None:
+    #             self.previous_qty += total['qty']
+    #         return self.previous_qty + today_total_qty
 
 
 class Category(Base):
