@@ -7,7 +7,7 @@
 {% block meta_title %}Інструменти по датах{% endblock meta_title %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/pikaday.css' %}" />
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/datepicker.min.css' %}" />
 {% endblock extra_css %}
 
 {% block subnavigation %}
@@ -26,7 +26,7 @@
 
 {% block content %}
 
-<form  action="{% url 'tool_list_by_dates' %}" method="post">
+<form  action="{% url 'tool_list_by_dates' %}" method="post" class="date-range">
 
   {% csrf_token %}
   {{ form.non_field_errors }}
@@ -98,5 +98,9 @@
 {% endblock content %}
 
 {% block extra_js %}
-  {% include "items/includes/pikaday_script.html" %}
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+          crossorigin="anonymous"></script>
+  <script src="{{ PORTAL_URL }}{% static 'js/datepicker.min.js' %}"></script>
+  <script src="{{ PORTAL_URL }}{% static 'js/main_wdb.js' %}"></script>
 {% endblock extra_js %}
