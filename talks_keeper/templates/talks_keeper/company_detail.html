@@ -1,0 +1,49 @@
+{% extends 'talks_keeper/_base.html' %}
+
+{% block meta_title %}{{ company }}{% endblock meta_title %}
+
+{% block header %}
+<div class="row header">
+  <div class="nine columns">
+    <div class="navigation">
+      <a href="{% url 'country_list' %}">Країни</a> |
+      <a href="{% url 'country_detail' company.country.id %}">
+       {{ company.country }}
+      </a>
+    </div>
+    <h5>{{ company }} - {{ company.full_name }}</h5></div>
+  <div class="three columns">
+    <a class="button u-full-width"
+      href="{% url 'talk_create' company.id %}">Додати розмову
+    </a>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+  {% for talk in talks %}
+  <div class="row {% if talk.is_our_talk %}our-talk{% else %}not-our-talk{% endif %}">
+    <div class="eight columns ">
+      {{ talk.talk_details|linebreaks }}
+    </div>
+    <div class="three columns ">
+      <span class="date">{{ talk.date|date:'d.m.Y / (l) / H:i' }}</span>
+      {{ talk.source_info|linebreaks }}
+    </div>
+    <div class="one column icons">
+      <a href="{% url 'talk_update' talk.id %}">
+        <i class="fa fa-pencil" aria-hidden="true"></i></a>
+      <a href="{% url 'talk_delete' talk.id %}">
+        <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    </div>
+  </div>
+  {% empty %}
+  <div class="row">
+    Жодна розмова ще не додана
+  </div>
+  {% endfor %}
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="https://use.fontawesome.com/62626c0a50.js"></script>
+{% endblock extra_js %}

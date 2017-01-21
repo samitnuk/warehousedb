@@ -32,6 +32,8 @@ urlpatterns = [
     url(r'^material/', include('items.urls.material')),
     url(r'^tool/', include('items.urls.tool')),
 
+    url(r'^tk/', include('talks_keeper.urls')),
+
     url(r'^login/', login, name='login'),
     url(r'^logout/', logout, name='logout'),
 

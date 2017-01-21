@@ -1,0 +1,26 @@
+{% extends 'talks_keeper/_base.html' %}
+
+{% block meta_title %}Країни{% endblock meta_title %}
+
+{% block header %}
+<div class="row header">
+  <div class="nine columns"><h4>Країни</h4></div>
+  <div class="three columns">
+    <a class="button u-full-width"
+      href="{% url 'country_create' %}">Додати країну
+    </a>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row">
+  <ul>
+    {% for country in countries %}
+    <li>
+      <a href="{% url 'country_detail' country.id %}">{{ country }}</a>
+    </li>
+    {% empty %}<li>Жодна країна ще не додана</li>{% endfor %}
+  </ul>
+</div>
+{% endblock content %}
