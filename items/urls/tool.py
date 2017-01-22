@@ -38,6 +38,10 @@ urlpatterns = [
         login_required(tool.ToolChangeCreate.as_view()),
         name='toolchange_create'),
 
+    url(r'^toolchange_update/(?P<pk>\d+)/',
+        login_required(tool.ToolChangeUpdate.as_view()),
+        name='toolchange_update'),
+
     url(r'^toolchange_delete/(?P<pk>\d+)/',
         login_required(tool.ToolChangeDelete.as_view()),
         name='toolchange_delete'),

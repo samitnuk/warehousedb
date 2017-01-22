@@ -105,6 +105,18 @@ class ToolChangeCreate(CreateView):
             pk=self.kwargs['tool_pk']).first()}
 
 
+class ToolChangeUpdate(UpdateView):
+    model = ToolChange
+    fields = ['additional_quantity', 'notes']
+    template_name = 'items/object_form.html'
+
+    def page_name(self):
+        toolchange = ToolChange.objects.filter(
+            pk=self.kwargs['pk']).first()
+        return 'Редагувати зміну кількості {}'.format(
+            toolchange.tool)
+
+
 class ToolChangeDelete(DeleteView):
     model = ToolChange
     success_url = reverse_lazy('tool_list')
