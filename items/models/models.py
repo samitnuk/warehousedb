@@ -335,9 +335,16 @@ class MaterialChange(BaseChange):
         verbose_name_plural = "Матеріали (зміна кількості)"
 
     def __str__(self):
-        return '{} / {} / {}'.format(self.itemchange.item,
-                                     self.changed_at.strftime('%Y-%m-%d'),
-                                     self.additional_quantity)
+        if self.itemchange:
+            return '{} / {} / {} / {}'.format(
+                self.material,
+                self.itemchange.item,
+                self.changed_at.strftime('%Y-%m-%d'),
+                self.additional_quantity)
+        return '{} / {} / {}'.format(
+            self.material,
+            self.changed_at.strftime('%Y-%m-%d'),
+            self.additional_quantity)
 
     def get_absolute_url(self):
         return reverse('materialchange_detail', kwargs={'pk': self.pk})
