@@ -38,6 +38,10 @@ urlpatterns = [
         login_required(material.MaterialChangeCreate.as_view()),
         name='materialchange_create'),
 
+    url(r'^materialchange_update/(?P<pk>\d+)/',
+        login_required(material.MaterialChangeUpdate.as_view()),
+        name='materialchange_update'),
+
     url(r'^materialchange_delete/(?P<pk>\d+)/',
         login_required(material.MaterialChangeDelete.as_view()),
         name='materialchange_delete'),

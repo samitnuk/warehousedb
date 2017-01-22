@@ -6,10 +6,12 @@
 
 {% block header %}
 <div class="row" id="header">
-  <div class="ten columns">
+  <div class="eight columns">
     <h5>{{ materialchange.material.title }}</h5>
   </div>
   {% if request.user.is_staff %}
+    {% url 'materialchange_update' materialchange.id as update_url %}
+    {% include "items/includes/button_link.html" with button_url=update_url button_value="Редагувати" only %}
     {% url 'materialchange_delete' materialchange.id as delete_url %}
     {% include "items/includes/button_link.html" with button_url=delete_url button_value="Видалити" only %}
   {% endif %}

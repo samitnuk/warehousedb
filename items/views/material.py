@@ -104,6 +104,18 @@ class MaterialChangeCreate(CreateView):
             pk=self.kwargs['material_pk']).first()}
 
 
+class MaterialChangeUpdate(UpdateView):
+    model = MaterialChange
+    fields = ['additional_quantity', 'notes']
+    template_name = 'items/object_form.html'
+
+    def page_name(self):
+        materialchange = MaterialChange.objects.filter(
+            pk=self.kwargs['pk']).first()
+        return 'Редагувати зміну кількості {}'.format(
+            materialchange.material)
+
+
 class MaterialChangeDelete(DeleteView):
     model = MaterialChange
     success_url = reverse_lazy('material_list')
