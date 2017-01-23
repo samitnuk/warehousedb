@@ -4,8 +4,12 @@
 
 {% block meta_title %}Матеріали{% endblock meta_title %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/print_wdb.css' %}" />
+{% endblock extra_css %}
+
 {% block subnavigation %}
-  <div class="row" id="navigation">
+  <div class="row no-print" id="navigation">
     <div class="ten columns">
       <ul class="nav-menu">
         <li role="presentation">
@@ -26,17 +30,17 @@
   <table class="u-full-width">
     <thead>
       <tr>
-        <th>-</th>
+        <th class="no-print">-</th>
         <th>Найменування</th>
         <th>Примітка</th>
-        <th>Кількість</th>
-        <th></th>
+        <th >Кількість</th>
+        <th class="no-print"></th>
       </tr>
     </thead>
     <tbody>
       {% for material in materials %}
       <tr>
-        <td>
+        <td class="no-print">
           <a href="{% url 'materialchange_create' material.id %}">&plusmn;</a>
         </td>
         <td>
@@ -45,10 +49,10 @@
         <td class="notes">{{ material.notes }}</td>
         {% if material.current_total < material.critical_qty %}
         <td class="alert">{{ material.current_total|floatformat }}</td>
-        <td><svg height="24" width="25"><use xlink:href="#warning" /></svg></td>
+        <td class="no-print"><svg height="24" width="25"><use xlink:href="#warning" /></svg></td>
         {% else %}
         <td>{% if material.current_total %}{{ material.current_total|floatformat }}{% endif %}</td>
-        <td></td>
+        <td class="no-print"></td>
         {% endif %}
       </tr>
       {% endfor %}

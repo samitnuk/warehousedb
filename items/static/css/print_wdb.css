@@ -9,7 +9,7 @@
         background-color: transparent !important;
         color: #000000 !important; }
 
-    .print-fixed-width {min-width: 60px;}
+    .print-fixed-width {min-width: 80px;}
 
     .no-print, .no-print * {display: none !important;}
 }
