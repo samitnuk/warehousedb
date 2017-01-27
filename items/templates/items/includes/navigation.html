@@ -1,5 +1,7 @@
+{% load items_filters %}
+
 <div class="row no-print" id="navigation">
-  <div class="u-full-width">
+  <div class="ten columns">
     <ul class="nav-menu">
       {% url 'item_list' as item_list_path %}
       <li role="presentation" {% if item_list_path in request.path %}class="nav-active"{% endif %}>
@@ -25,4 +27,11 @@
       </li>
     </ul>
   </div>
+  {% if request.user|in_group:"Talkers" %}
+  <div class="two columns">
+    <a class="button u-full-width"
+       href="{% url 'country_list' %}">Розмови
+    </a>
+  </div>
+  {% endif %}
 </div>
