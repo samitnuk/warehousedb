@@ -1,9 +1,18 @@
-@import 'https://fonts.googleapis.com/css?family=Scada';
+@font-face {
+  font-family: 'Fantasque Sans Mono';
+  src: url('../fonts/FantasqueSansMono-Regular.eot'); /* IE 9 Compatibility Mode */
+  src: url('../fonts/FantasqueSansMono-Regular.woff2') format('woff2'),
+       url('../fonts/FantasqueSansMono-Regular.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+       url('../fonts/FantasqueSansMono-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/FantasqueSansMono-Regular.svg#FantasqueSansMono-Regular') format('svg'); /* Chrome < 4, Legacy iOS */
+  font-weight: 400;
+  font-style: normal;
+}
 
 
 /* Global
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-body {font-family: 'Scada', 'Ubuntu Condensed', sans-serif;}
+body {font-family: 'Fantasque Sans Mono', 'Ubuntu Condensed', sans-serif;}
 
 a {text-decoration: none;}
 
@@ -46,6 +55,9 @@ input[type="submit"].button-danger:hover {
 svg {
     vertical-align: middle;
     float: right; }
+
+.text-align-right {
+    text-align: right; }
 
 
 /* Navigation
@@ -105,9 +117,9 @@ tr.is-paid:hover {background-color: #fdfd5d;}
 /* Larger than mobile */
 @media (min-width: 400px) {
     .container {
-        width: 100%; }}
+        width: 95%; }}
 
 /* Larger than phablet (also point when grid becomes active) */
 @media (min-width: 550px) {
     .container {
-        width: 100%; }}
+        width: 95%; }}
