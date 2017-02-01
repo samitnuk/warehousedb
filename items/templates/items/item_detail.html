@@ -5,7 +5,7 @@
 {% block meta_title %}Загальна інформація - {{ category.name }}{% endblock meta_title %}
 
 {% block header %}
-<div class="row" id="header">
+<div class="row" id="navigation">
   <div class="{% if request.user.is_staff %}eight{% else %}ten{% endif %} columns">
     <h5>{{ item.title }} /
       <a href="{% url 'item_list' item.category.id %}">{{ item.category.title }}</a>
@@ -53,7 +53,7 @@
 {% endif %}
 {% if item.notes %}
 <div class="row">
-  <div class="u-full-width"><p>{{ item.notes|linebreaks }}</p></div>
+  <div class="u-full-width"><p>[ {{ item.notes|linebreaksbr }} ]</p></div>
 </div>
 {% endif %}
 {% if item.picture %}

@@ -8,7 +8,7 @@
 <div class="row" id="header">
   <div class="ten columns">
     <h5>{{ product.title }} {{ product.part_number }}</h5>
-    <p class="clarifying">{{ product.notes }}</p>
+    <p class="clarifying">[ {{ product.notes }} ]</p>
   </div>
   {% if not product.related_to_any_order or request.user.is_staff %}
     {% url 'product_delete' product.id as delete_url %}
