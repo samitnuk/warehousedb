@@ -10,7 +10,8 @@ class Base(models.Model):
 
     """
 
-    title = models.CharField(max_length=256, verbose_name="Найменування")
+    title = models.CharField(
+        max_length=256, db_index=True, verbose_name="Найменування")
 
     notes = models.TextField(blank=True, verbose_name="Примітка")
 
