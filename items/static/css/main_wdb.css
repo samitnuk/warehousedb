@@ -76,7 +76,8 @@ ul.nav-menu li {
 
 li.nav-active a {
     color: #888;
-    border-bottom: 4px solid #e1e1e1; }
+    border-bottom: 4px solid #1286a8;
+    padding-bottom: 4px; }
 
 
 /* Header
