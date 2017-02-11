@@ -45,7 +45,7 @@ def get_categories_list(objects_, total_changes, field_name):
     categories_list = dict()
     for category in categories:
         category_objects = objects_.filter(category=category)
-        if objects_:
+        if category_objects:
             categories_list[category.title] = get_objects_list(
                 objects_=category_objects,
                 total_changes=total_changes,
