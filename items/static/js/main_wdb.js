@@ -63,6 +63,6 @@ $(document).ready( function() {
     if ($( "form" ).hasClass( "std-cable" )) { showChecker(); }
     if ($( "form" ).hasClass( "b-cable" )) { getBCableLength(); }
     if ($( "form" ).hasClass( "h-cable" )) { getHCableLength(); }
-    if ($( "form" ).hasClass( "create-product" )) { showCategoryFields(); }
+    if ($( "form" ).hasClass( "toggle-categories" )) { showCategoryFields(); }
     if ($( "form" ).hasClass( "date-range" )) { getDatePicker(); }
 });

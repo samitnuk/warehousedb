@@ -13,7 +13,7 @@
 {% endblock header %}
 
 {% block content %}
-<form  action="{% url 'product_create' %}" method="post" class="create-product">
+<form  action="{% url 'product_create' %}" method="post" class="toggle-categories">
 
   {% csrf_token %}
 
