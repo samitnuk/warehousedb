@@ -30,7 +30,8 @@
 
 {% block content %}
 
-<form  action="{% url 'item_list_by_dates' %}" method="post" class="date-range">
+<form  action="{% url 'item_list_by_dates' %}" method="post"
+       class="date-range toggle-categories">
 
   {% csrf_token %}
   {{ form.non_field_errors }}
@@ -56,11 +57,12 @@
 </form>
 
 {% if date_range %}
+{% for category, objects_list in categories_list %}
 <div class="row">
-  <table class="u-full-width">
+  <div class="u-full-width category">{{ category }}</div>
+  <table class="u-full-width hidden_at_start">
     <thead>
       <tr>
-        <th>-</th>
         <th>Найменування</th>
         {% for date in date_range %}
         <th>{{ date|date:'d . m' }}</th>
@@ -70,9 +72,6 @@
     <tbody>
       {% for item, item_changes in objects_list %}
       <tr>
-        <td>
-          <a href="{% url 'itemchange_create' item.id %}">&plusmn;</a>
-        </td>
         <td>
           <a href="{% url 'item_detail' item.id %}">
             {{ item.title }} {{ item.part_number }}
@@ -95,8 +94,8 @@
       {% endfor %}
     </tbody>
   </table>
-</div>
-
+</div><!-- yyyy -->
+{% endfor %}
 {% endif %}
 
 {% endblock content %}
