@@ -21,4 +21,4 @@ ___
 I included another app here [talk_keeper](https://github.com/samitnuk/talks_keeper).
 Maybe here this app more updated then in separate repo. Link to this app from any warehousedb page user will have if he in "Talkers" group.
 Because of this, group "Talkers" should be created before you will go to main page.
-Probably this is not very good decission, but but for now it doing it work.
+Probably this is not very good decission, but for now it doing it's work.
