@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+from .models import Category
+
 
 def get_choices(items):
     """
@@ -24,7 +26,7 @@ def get_date_range(range_start, range_stop):
     return date_range
 
 
-def get_objects_list(
+def get_categories_list(
         range_start,
         range_stop,
         object_model,
@@ -37,12 +39,16 @@ def get_objects_list(
     total_changes = objectchange_model.objects.filter(
         changed_at__gte=range_start,
         changed_at__lte=range_stop)
-    objects_ = object_model.objects.all()
-    objects_list = []
-    for object_ in objects_:
-        objects_list.append(
-            [object_, total_changes.filter(**{field_name: object_})])
-    return objects_list
+    categories = Category.objects.all()
+    categories_list = {}
+    for category in categories:
+        objects_ = object_model.objects.filter(category=category)
+        if objects_:
+            categories_list[category.title] = []
+            for object_ in objects_:
+                categories_list[category.title].append(
+                    [object_, total_changes.filter(**{field_name: object_})])
+    return sorted(categories_list.items())
 
 
 def get_context_for_list_by_dates(
@@ -60,9 +66,9 @@ def get_context_for_list_by_dates(
         'initial_range_start': datetime.strftime(range_start, "%Y-%m-%d"),
         'initial_range_stop': datetime.strftime(range_stop, "%Y-%m-%d"),
         'date_range': get_date_range(range_start, range_stop),
-        'objects_list': get_objects_list(range_start,
-                                         range_stop,
-                                         object_model,
-                                         objectchange_model,
-                                         field_name)}
+        'categories_list': get_categories_list(range_start,
+                                               range_stop,
+                                               object_model,
+                                               objectchange_model,
+                                               field_name)}
     return context
