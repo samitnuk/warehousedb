@@ -64,7 +64,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for material, material_changes in objects_list %}
+      {% for material, material_changes in data_list %}
       <tr>
         <td>
           <a href="{% url 'materialchange_create' material.id %}">&plusmn;</a>
