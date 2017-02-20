@@ -284,6 +284,24 @@ class AddHCableForm(AbstractCableForm):
             length=self.cleaned_data['length'])
 
 
+class AddH78CableForm(AbstractCableForm):
+
+    cable_type = forms.ChoiceField(label="Трос", choices=utils.H78_CABLES)
+
+    is_st_rods = forms.BooleanField(label="Чорні прутки(ок)", required=False)
+
+    field_order = ['cable_type', 'conduit', 'core', 'is_st_rods', 'length']
+
+    def create_product(self):
+        utils.create_h78_cable(
+            cable_type=self.cleaned_data['cable_type'],
+            conduit_id=self.cleaned_data['conduit'],
+            core_id=self.cleaned_data['core'],
+            is_st_rods=self.cleaned_data['is_st_rods'],
+            length=self.cleaned_data['length'],
+        )
+
+
 class AddUVUH4CableForm(AbstractCableForm):
 
     is_st_rod_e = forms.BooleanField(label="Чорний пруток Е", required=False)
