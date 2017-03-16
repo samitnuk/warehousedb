@@ -64,6 +64,9 @@ class Item(Base):
             return total['qty']
         return 0
 
+    def changes(self):
+        return self.i_quantity.all()
+
     # @property
     # def total_qty(self):
     #
@@ -253,6 +256,9 @@ class Material(Base):
             return total['additional_quantity__sum']
         return 0
 
+    def changes(self):
+        return self.m_quantity.all()
+
 
 class Tool(Base):
     """Tool Model
@@ -269,6 +275,9 @@ class Tool(Base):
         verbose_name_plural = "Інструменти"
         ordering = ['title']
 
+    def get_absolute_url(self):
+        return reverse('tool_detail', kwargs={'pk': self.pk})
+
     @property
     def current_total(self):
         total = self.t_quantity.aggregate(models.Sum('additional_quantity'))
@@ -276,8 +285,8 @@ class Tool(Base):
             return total['additional_quantity__sum']
         return 0
 
-    def get_absolute_url(self):
-        return reverse('tool_detail', kwargs={'pk': self.pk})
+    def changes(self):
+        return self.t_quantity.all()
 
 
 class ItemChange(BaseChange):
@@ -298,6 +307,7 @@ class ItemChange(BaseChange):
     class Meta:
         verbose_name = "Позиція на складі (зміна кількості)"
         verbose_name_plural = "Позиції на складі (зміна кількості)"
+        ordering = ['-changed_at']
 
     def __str__(self):
         a_q = self.additional_quantity
@@ -333,6 +343,7 @@ class MaterialChange(BaseChange):
     class Meta:
         verbose_name = "Матеріал (зміна кількості)"
         verbose_name_plural = "Матеріали (зміна кількості)"
+        ordering = ['-changed_at']
 
     def __str__(self):
         if self.itemchange:
@@ -362,6 +373,7 @@ class ToolChange(BaseChange):
     class Meta:
         verbose_name = "Інструмент (зміна кількості)"
         verbose_name_plural = "Інструменти (зміна кількості)"
+        ordering = ['-changed_at']
 
     def __str__(self):
         return '{} / {} / {} шт.'.format(
