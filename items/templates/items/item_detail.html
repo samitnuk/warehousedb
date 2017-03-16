@@ -63,4 +63,8 @@
   </div>
 </div>
 {% endif %}
+<hr>
+
+{% include "items/includes/show_changes.html" with changes=item.changes only %}
+
 {% endblock content %}

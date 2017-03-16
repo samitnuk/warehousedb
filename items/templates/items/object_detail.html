@@ -28,5 +28,9 @@
   <div class="ten columns"><h5>{{ object.notes|linebreaks }}</h5></div>
 </div>
 {% endif %}
+<hr>
+
+{% include "items/includes/show_changes.html" with changes=object.changes only %}
+
 
 {% endblock content %}

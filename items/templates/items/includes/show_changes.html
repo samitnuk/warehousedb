@@ -1,0 +1,27 @@
+{% if changes %}
+<div class="row">
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Дата зміни</th>
+        <th>К-сть</th>
+        <th>Примітка</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for change in changes %}
+      <tr>
+        <td>
+          <a href="{{ change.get_absolute_url }}">
+            {{ change.changed_at|date:'d.m.Y' }}
+          </a>
+        </td>
+        <td>{{ change.additional_quantity|floatformat }}</td>
+        <td>{{ change.notes }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<hr>
+{% endif %}

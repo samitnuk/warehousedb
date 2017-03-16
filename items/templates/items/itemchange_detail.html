@@ -7,7 +7,11 @@
 {% block header %}
 <div class="row" id="header">
   <div class="eight columns">
-    <h5>{{ item_change.item.title }} {{ item_change.item.part_number }}</h5>
+    <h5>
+      <a href="{% url 'item_detail' item_change.item.id %}">
+        {{ item_change.item.title }} {{ item_change.item.part_number }}
+      </a>
+    </h5>
   </div>
   {% if request.user.is_staff %}
     {% url 'itemchange_update' item_change.id as update_url %}
