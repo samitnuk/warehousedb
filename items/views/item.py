@@ -1,14 +1,13 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, UpdateView, DeleteView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
-from ..models import Item, ItemChange, Category
 from ..forms import DateRangeForm
-
 from ..helpers import get_context_for_list_by_dates
+from ..models import Category, Item, ItemChange
 
 
 class ItemList(ListView):

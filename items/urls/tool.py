@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 
 from ..views import tool
 
-
 urlpatterns = [
 
     url(r'^list/',

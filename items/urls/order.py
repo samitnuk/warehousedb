@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 
 from ..views import order
 
-
 urlpatterns = [
 
     url(r'^list/(?P<status>[\w]+)?/?',

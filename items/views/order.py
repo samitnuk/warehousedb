@@ -1,13 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
 from django.views.generic import DeleteView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 
-from ..models import Order
 from ..forms import AddOrderForm, AddSentNotesToOrderForm
+from ..models import Order
 
 
 class OrderList(ListView):

@@ -1,10 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Item, Category, Product, Order, Component
-
-from .helpers import get_choices
 from . import utils
+from .helpers import get_choices
+from .models import Category, Component, Item, Order, Product
 
 
 class LoginForm(forms.Form):

@@ -1,14 +1,13 @@
-from django.urls import reverse_lazy
-from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic.list import ListView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
-from django.views.generic import DeleteView
-from django.views.generic import TemplateView
+from django.views.generic.list import ListView
 
-from ..models import Product
 from ..forms import AddProductForm
+from ..models import Product
 from ..std_products import STD_PRODUCTS
 from ..utils import create_ptz_shifter_
 
