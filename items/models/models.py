@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.cache import cache
 from django.db import models
 from django.urls import reverse
 
@@ -142,19 +143,42 @@ class Product(Base):
 
     @property
     def components(self):
-        return self.component.all()
+        key = 'product_{}_components'.format(self.id)
+        cached_components = cache.get(key)
+        if cached_components:
+            return cached_components
+
+        components = self.component.all()
+        cache.set(key, components)
+        return components
 
     @property
     def weight(self):
+        key = 'product_{}_weight'.format(self.id)
+        cached_weight = cache.get(key)
+        if cached_weight:
+            return cached_weight
+
         weight = 0
         for component in self.components:
             weight += component.item.weight * component.quantity
+        cache.set(key, weight)
         return weight
 
     @property
     def weight_is_correct(self):
         # return True if for all components indicated item.weight
-        return all([component.item.weight for component in self.components])
+        key = 'product_{}_weight_is_correct'.format(self.id)
+        cached_value = cache.get(key)
+        if cached_value:
+            return True if cached_value == 1 else False
+
+        value = all([component.item.weight for component in self.components])
+        if value:
+            cache.set(key, 'True')
+        else:
+            cache.set(key, 'False')
+        return value
 
     @property
     def related_to_any_order(self):
