@@ -3,9 +3,10 @@ __pycache__/
 
 .idea/
 
+tests/
+
 local_settings.py
 
 load_data.json
 utils.py
-tests.py
 std_products.py
