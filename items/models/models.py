@@ -157,12 +157,12 @@ class Product(Base):
         key = 'product_{}_weight'.format(self.id)
         cached_weight = cache.get(key)
         if cached_weight:
-            return cached_weight
+            return float(cached_weight)
 
         weight = 0
         for component in self.components:
             weight += component.item.weight * component.quantity
-        cache.set(key, weight)
+        cache.set(key, str(weight))
         return weight
 
     @property
@@ -171,7 +171,7 @@ class Product(Base):
         key = 'product_{}_weight_is_correct'.format(self.id)
         cached_value = cache.get(key)
         if cached_value:
-            return True if cached_value == 1 else False
+            return True if cached_value == 'True' else False
 
         value = all([component.item.weight for component in self.components])
         if value:
