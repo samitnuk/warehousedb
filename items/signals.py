@@ -83,7 +83,7 @@ def after_materialchange_created_or_updated(instance, **kwargs):
 
 
 @receiver(post_save, sender=ToolChange)
-def after_materialchange_created_or_updated(instance, **kwargs):
+def after_toolchange_created_or_updated(instance, **kwargs):
     # Clean cache
     key = 'tool_{}_current_total'.format(instance.tool.id)
     cache.delete(key)
