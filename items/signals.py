@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from .models import (
@@ -7,7 +7,7 @@ from .models import (
 
 
 @receiver(post_save, sender=Order)
-def itemchange_auto_create(instance, **kwargs):
+def create_itemchanges(instance, **kwargs):
 
     order = instance
     if order.is_ready:
@@ -34,7 +34,7 @@ def itemchange_auto_create(instance, **kwargs):
 
 
 @receiver(post_save, sender=ItemChange)
-def after_itemchange_created_or_updated(instance, **kwargs):
+def create_materialchanges(instance, **kwargs):
 
     itemchange = instance
 
@@ -58,32 +58,34 @@ def after_itemchange_created_or_updated(instance, **kwargs):
             defaults={'itemchange': itemchange},
         )
 
-    # Clean cache
-    key = 'item_{}_current_total'.format(itemchange.item.id)
-    cache.delete(key)
 
-
+# Cache clean section ________________________________________________________
 @receiver(post_save, sender=Item)
-def after_item_created_or_updated(instance, **kwargs):
-
-    item = instance
-
-    components = Component.objects.filter(item=item)
-    for component in components:
-        product_id = component.product_id
+@receiver(pre_delete, sender=Item)
+def after_item_created_or_updated_or_deleted(instance, **kwargs):
+    components = Component.objects.filter(item=instance)
+    unique_ids = {component.product_id for component in components}
+    for product_id in unique_ids:
         cache.delete('product_{}_weight'.format(product_id))
         cache.delete('product_{}_weight_is_correct'.format(product_id))
 
 
+@receiver(post_save, sender=ItemChange)
+@receiver(pre_delete, sender=ItemChange)
+def itemchange_created_or_updated(instance, **kwargs):
+    key = 'item_{}_current_total'.format(instance.item.id)
+    cache.delete(key)
+
+
 @receiver(post_save, sender=MaterialChange)
+@receiver(pre_delete, sender=MaterialChange)
 def after_materialchange_created_or_updated(instance, **kwargs):
-    # Clean cache
     key = 'material_{}_current_total'.format(instance.material.id)
     cache.delete(key)
 
 
 @receiver(post_save, sender=ToolChange)
+@receiver(pre_delete, sender=ToolChange)
 def after_toolchange_created_or_updated(instance, **kwargs):
-    # Clean cache
     key = 'tool_{}_current_total'.format(instance.tool.id)
     cache.delete(key)
