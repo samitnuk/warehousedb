@@ -3,7 +3,8 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .models import Company, Country, Talk
+from .models import Company, Country, Label, Talk
+from .forms import TalkForm
 
 
 # -------------------------------------------------------------------
@@ -35,6 +36,7 @@ class CountryUpdate(UpdateView):
 class CountryDelete(DeleteView):
     model = Country
     success_url = reverse_lazy("country_list")
+    template_name = 'talks_keeper/object_confirm_delete.html'
 
 
 # -------------------------------------------------------------------
@@ -82,15 +84,15 @@ class CompanyUpdate(UpdateView):
 class CompanyDelete(DeleteView):
     model = Company
     succes_url = reverse_lazy("company_list")
+    template_name = 'talks_keeper/object_confirm_delete.html'
 
 
 # -------------------------------------------------------------------
 class TalkCreate(CreateView):
     model = Talk
-    fields = ['date', 'source_info', 'talk_details', 'is_our_talk']
+    form_class = TalkForm
 
     def post(self, request, *args, **kwargs):
-        # self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
 
@@ -106,6 +108,10 @@ class TalkCreate(CreateView):
         return {'object': Company.objects.filter(
             pk=self.kwargs['company_pk']).first()}
 
+    def form_valid(self, form):
+        form.save()
+        return super(TalkCreate, self).form_valid(form)
+
     def get_success_url(self):
         company_pk = self.kwargs['company_pk']
         return reverse_lazy("company_detail", kwargs={'pk': company_pk})
@@ -118,7 +124,7 @@ class TalkDetail(DetailView):
 
 class TalkUpdate(UpdateView):
     model = Talk
-    fields = ['date', 'source_info', 'talk_details', 'is_our_talk']
+    form_class = TalkForm
 
     def get_success_url(self):
         talk = Talk.objects.filter(pk=self.kwargs['pk']).first()
@@ -128,8 +134,36 @@ class TalkUpdate(UpdateView):
 
 class TalkDelete(DeleteView):
     model = Talk
+    template_name = 'talks_keeper/object_confirm_delete.html'
 
     def get_success_url(self):
         talk = Talk.objects.filter(pk=self.kwargs['pk']).first()
         company_pk = talk.company.id
         return reverse_lazy("company_detail", kwargs={'pk': company_pk})
+
+
+# -------------------------------------------------------------------
+class LabelList(ListView):
+    model = Label
+    context_object_name = "labels"
+
+
+class LabelCreate(CreateView):
+    model = Label
+    fields = ['name', 'color']
+
+
+class LabelDetail(DetailView):
+    model = Label
+    context_object_name = "label"
+
+
+class LabelUpdate(UpdateView):
+    model = Label
+    fields = ['name', 'color']
+
+
+class LabelDelete(DeleteView):
+    model = Label
+    success_url = reverse_lazy("label_list")
+    template_name = 'talks_keeper/object_confirm_delete.html'
