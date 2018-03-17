@@ -10,3 +10,7 @@ local_settings.py
 load_data.json
 utils.py
 std_products.py
+
+.pytest_cache
+
+.vagrant
