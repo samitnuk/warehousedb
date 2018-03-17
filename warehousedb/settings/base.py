@@ -1,10 +1,8 @@
-import os
+from pathlib import Path
 
 from . import local_settings as ls
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = ls.SECRET_KEY
 
@@ -63,12 +61,8 @@ WSGI_APPLICATION = 'warehousedb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': ls.DB_NAME,
-        'USER': ls.DB_USER,
-        'PASSWORD': ls.DB_PASSWORD,
-        'HOST': ls.DB_HOST,
-        'PORT': ls.DB_PORT
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR.parent / 'db.sqlite3'),
     }
 }
 
@@ -113,10 +107,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "_static"), ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [BASE_DIR / '_static', ]
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
+MEDIA_ROOT = BASE_DIR.parent / 'media'
 
 LOGIN_URL = '/login/'
