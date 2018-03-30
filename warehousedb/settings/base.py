@@ -1,14 +1,12 @@
 from pathlib import Path
 
-from . import local_settings as ls
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = ls.SECRET_KEY
+SECRET_KEY = 'SECRET_KEY'
 
-DEBUG = ls.DEBUG
+DEBUG = True
 
-ALLOWED_HOSTS = ls.ALLOWED_HOSTS
+ALLOWED_HOSTS = []
 
 
 # Application definition
